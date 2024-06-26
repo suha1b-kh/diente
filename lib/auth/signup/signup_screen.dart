@@ -20,7 +20,7 @@ class SignupScreen extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.popAndPushNamed(context, '/home_Screen');
             },
           ),
           actions: [
@@ -44,7 +44,7 @@ class SignupScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            customText(context, 'Sign in to your \nAccount',
+            customText(context, 'Create your \nAccount',
                 Theme.of(context).colorScheme.primary, 32.sp, FontWeight.bold),
             Gap(77.h),
             CustomTextField(

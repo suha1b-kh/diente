@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.popAndPushNamed(context, '/home_Screen');
             },
           ),
           actions: [
@@ -31,11 +31,11 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.only(right: 20),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.popAndPushNamed(context, '/login_screen');
+                  Navigator.popAndPushNamed(context, '/signup_screen');
                 },
                 child: customText(
                     context,
-                    'Login',
+                    'Create Account',
                     Theme.of(context).colorScheme.secondary,
                     14.sp,
                     FontWeight.normal),
