@@ -2,7 +2,8 @@ import 'package:diente/core/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget customButton(context, Color color, VoidCallback onPressed, String text) {
+Widget customButton(context, Color color, VoidCallback onPressed, String text,
+    double textSize) {
   return TextButton(
     onPressed: onPressed,
     child: Container(
@@ -19,7 +20,7 @@ Widget customButton(context, Color color, VoidCallback onPressed, String text) {
               context,
               text,
               Theme.of(context).colorScheme.inverseSurface,
-              16.sp,
+              textSize,
               FontWeight.w500),
         )),
   );

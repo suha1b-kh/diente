@@ -20,7 +20,7 @@ class SignupScreen extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.popAndPushNamed(context, '/home_Screen');
+              Navigator.pop(context);
             },
           ),
           actions: [
@@ -41,8 +41,7 @@ class SignupScreen extends StatelessWidget {
           ]),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
           children: [
             customText(context, 'Create your \nAccount',
                 Theme.of(context).colorScheme.primary, 32.sp, FontWeight.bold),
@@ -53,7 +52,7 @@ class SignupScreen extends StatelessWidget {
               controller: emailController,
               text: 'Enter your email',
             ),
-            SizedBox(height: 16.h),
+            Gap(16.h),
             CustomTextField(
               width: 343.w,
               height: 56.h,
@@ -61,7 +60,7 @@ class SignupScreen extends StatelessWidget {
               text: 'Enter your password',
               icon: Icons.visibility,
             ),
-            SizedBox(height: 16.h),
+            Gap(16.h),
             CustomTextField(
               width: 343.w,
               height: 56.h,
@@ -70,8 +69,9 @@ class SignupScreen extends StatelessWidget {
               icon: Icons.visibility,
             ),
             Gap(124.h),
-            customButton(context, Theme.of(context).colorScheme.secondary,
-                () {}, 'Continue'),
+            customButton(context, Theme.of(context).colorScheme.secondary, () {
+              Navigator.popAndPushNamed(context, '/fill_profile_screen');
+            }, 'Continue', 16.sp),
             Gap(24.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

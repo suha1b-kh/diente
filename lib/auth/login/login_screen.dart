@@ -43,7 +43,7 @@ class LoginScreen extends StatelessWidget {
             ),
           ]),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -67,7 +67,19 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 16.h),
             Gap(124.h),
             customButton(context, Theme.of(context).colorScheme.secondary,
-                () {}, 'Continue'),
+                () {}, 'Continue', 16.sp),
+            Gap(36.h),
+            GestureDetector(
+                onTap: () {
+                  Navigator.popAndPushNamed(
+                      context, '/create_new_password_screen');
+                },
+                child: customText(
+                    context,
+                    'Forgot Password?',
+                    Theme.of(context).colorScheme.secondary,
+                    14.sp,
+                    FontWeight.w500)),
             Gap(24.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -36,13 +36,13 @@ class HomeScreen extends StatelessWidget {
                   'Login',
                   Theme.of(context).colorScheme.secondary,
                   16.sp,
-                  FontWeight.w200,
+                  FontWeight.w500,
                 )),
             Gap(15.h),
             //signup button
             customButton(context, Theme.of(context).colorScheme.secondary, () {
               Navigator.popAndPushNamed(context, '/signup_screen');
-            }, 'Create Account'),
+            }, 'Create Account', 16.sp),
           ],
         ),
       ),

@@ -38,7 +38,10 @@ class CustomTextField extends StatelessWidget {
             fillColor: Theme.of(context).colorScheme.inverseSurface,
             contentPadding:
                 EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-            border: InputBorder.none,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide.none,
+            ),
             labelText: text,
             labelStyle: GoogleFonts.inter(
               color: Theme.of(context).colorScheme.inversePrimary,
