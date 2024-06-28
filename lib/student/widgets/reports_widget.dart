@@ -1,15 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: camel_case_types
 class reportsWidget extends StatelessWidget {
   String reportName;
   String caseInformation;
   reportsWidget({
-    Key? key,
+    super.key,
     required this.reportName,
     required this.caseInformation,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,39 +19,39 @@ class reportsWidget extends StatelessWidget {
         Row(
           children: [
             Container(
-              width: 170,
-              height: 170,
+              width: 170.w,
+              height: 170.w,
               decoration: ShapeDecoration(
                 color: const Color(0xFFF2F4F7),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(15.r),
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(top: 57),
+                padding:  EdgeInsets.only(top: 57.h),
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: Column(
                     children: [
                       Text(
                         reportName,
-                        style: const TextStyle(
-                          color: Color(0xFF1B2A57),
-                          fontSize: 16,
+                        style:  TextStyle(
+                          color: const Color(0xFF1B2A57),
+                          fontSize: 16.sp,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
-                          height: 0,
+                          height: 0.h,
                         ),
                       ),
                        Text(
                         caseInformation,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Color(0xFF7CA0CA),
-                          fontSize: 14,
+                        style:  TextStyle(
+                          color: const Color(0xFF7CA0CA),
+                          fontSize: 14.sp,
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w400,
-                          height: 0,
+                          height: 0.h,
                         ),
                       )
                     ],
