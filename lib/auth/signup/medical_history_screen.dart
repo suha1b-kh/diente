@@ -43,7 +43,7 @@ class MedicalHistoryScreen extends StatelessWidget {
                   Transform.scale(
                     scale: 1.3,
                     child: Checkbox(
-                      side: WidgetStateBorderSide.resolveWith(
+                      side: MaterialStateBorderSide.resolveWith(
                         (states) => BorderSide(
                             width: 1.0,
                             color: Theme.of(context).colorScheme.secondary),
@@ -70,7 +70,7 @@ class MedicalHistoryScreen extends StatelessWidget {
                   Transform.scale(
                     scale: 1.3,
                     child: Checkbox(
-                      side: WidgetStateBorderSide.resolveWith(
+                      side: MaterialStateBorderSide.resolveWith(
                         (states) => BorderSide(
                             width: 1.0,
                             color: Theme.of(context).colorScheme.secondary),
@@ -97,7 +97,7 @@ class MedicalHistoryScreen extends StatelessWidget {
                   Transform.scale(
                     scale: 1.3,
                     child: Checkbox(
-                      side: WidgetStateBorderSide.resolveWith(
+                      side: MaterialStateBorderSide.resolveWith(
                         (states) => BorderSide(
                             width: 1.0,
                             color: Theme.of(context).colorScheme.secondary),
@@ -124,7 +124,7 @@ class MedicalHistoryScreen extends StatelessWidget {
                   Transform.scale(
                     scale: 1.3,
                     child: Checkbox(
-                      side: WidgetStateBorderSide.resolveWith(
+                      side: MaterialStateBorderSide.resolveWith(
                         (states) => BorderSide(
                             width: 1.0,
                             color: Theme.of(context).colorScheme.secondary),
@@ -151,7 +151,7 @@ class MedicalHistoryScreen extends StatelessWidget {
                   Transform.scale(
                     scale: 1.3,
                     child: Checkbox(
-                      side: WidgetStateBorderSide.resolveWith(
+                      side: MaterialStateBorderSide.resolveWith(
                         (states) => BorderSide(
                             width: 1.0,
                             color: Theme.of(context).colorScheme.secondary),
@@ -178,7 +178,7 @@ class MedicalHistoryScreen extends StatelessWidget {
                   Transform.scale(
                     scale: 1.3,
                     child: Checkbox(
-                      side: WidgetStateBorderSide.resolveWith(
+                      side: MaterialStateBorderSide.resolveWith(
                         (states) => BorderSide(
                             width: 1.0,
                             color: Theme.of(context).colorScheme.secondary),
@@ -205,7 +205,7 @@ class MedicalHistoryScreen extends StatelessWidget {
                   Transform.scale(
                     scale: 1.3,
                     child: Checkbox(
-                      side: WidgetStateBorderSide.resolveWith(
+                      side: MaterialStateBorderSide.resolveWith(
                         (states) => BorderSide(
                             width: 1.0,
                             color: Theme.of(context).colorScheme.secondary),
