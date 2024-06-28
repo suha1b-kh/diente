@@ -24,7 +24,7 @@ class mainProfile extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(500.0.r)),
                   image: const DecorationImage(
                     //Todo fetch student image from firebase
-                    image: AssetImage('assets/images/profile.png'),
+                    image: AssetImage('assets/images/profile_photo.png'),
 
                   ),
                 ),
@@ -53,11 +53,20 @@ class mainProfile extends StatelessWidget {
               ),
             ),
              Gap(28.h),
-           const listReportsView()
-            
-          ],
+             
+             
+               const listReportsView(),
+             
+        ],
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton:  FloatingActionButton(onPressed: 
+           (){},
+           backgroundColor: Colors.blue,
+           child: const Icon(Icons.add),
+           
+           ),
     );
   }
 }
