@@ -16,19 +16,13 @@ class mainProfile extends StatelessWidget {
         child: Column(
           children: [
             Center(
-              child: Container(
-                margin:  EdgeInsets.only(top: 100.h, bottom: 10.h),
-                width: 145.w,
-                height: 145.h,
-                decoration:  BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(500.0.r)),
-                  image: const DecorationImage(
-                    //Todo fetch student image from firebase
-                    image: AssetImage('assets/images/profile_photo.png'),
-
-                  ),
-                ),
-              ),
+              child: SizedBox(
+          width: 145.w,
+          height: 145.h,
+          child: Image.asset(
+            'assets/images/profile_photo.png',
+          ),
+        ) ,
             ),
              Text(
               'Diente student',
@@ -40,7 +34,7 @@ class mainProfile extends StatelessWidget {
                 height: 0.h,
               ),
             ),
-            const Gap(57),
+             Gap(57.h),
              Text(
               'Diente student  Reports',
               textAlign: TextAlign.center,
@@ -49,7 +43,7 @@ class mainProfile extends StatelessWidget {
                 fontSize: 20.sp,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w600,
-                height: 0,
+                height: 0.h,
               ),
             ),
              Gap(28.h),
@@ -60,6 +54,7 @@ class mainProfile extends StatelessWidget {
         ],
         ),
       ),
+      //TODO add reports
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton:  FloatingActionButton(onPressed: 
            (){},

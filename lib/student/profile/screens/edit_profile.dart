@@ -5,15 +5,16 @@ import 'package:gap/gap.dart';
 import '../../../core/widgets/text_fields.dart';
 
 class EditProfile extends StatelessWidget {
-   EditProfile({super.key});
-final TextEditingController emailController = TextEditingController();
+   EditProfile({super.key,dispo});
+final TextEditingController phoneNumberController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 final TextEditingController newPasswordController = TextEditingController();
 final TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Scaffold
+     (body:  Column(
       children: [
         Container(
           margin: EdgeInsets.only(top: 100.h, bottom: 10.h),
@@ -42,16 +43,18 @@ final TextEditingController confirmPasswordController = TextEditingController();
         CustomTextField(
               width: 343.w,
               height: 56.h,
-              controller: emailController,
+              controller: phoneNumberController,
               text: 'Phone number',
             ),
+             Gap(15.h),
             CustomTextField(
               width: 343.w,
               height: 56.h,
               controller: passwordController,
-              text: ' password',
+              text: 'password',
               icon: Icons.visibility,
             ),
+             Gap(15.h),
               CustomTextField(
               width: 343.w,
               height: 56.h,
@@ -59,7 +62,7 @@ final TextEditingController confirmPasswordController = TextEditingController();
               text: 'new password',
               
             ),
-            const Gap(10),
+            Gap(15.h),
             CustomTextField(
               width: 343.w,
               height: 56.h,
@@ -69,6 +72,7 @@ final TextEditingController confirmPasswordController = TextEditingController();
 
             ), 
       ],
-    );
+    )
+    ,);
   }
 }

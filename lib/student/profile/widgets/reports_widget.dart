@@ -14,11 +14,10 @@ class reportsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
+    return 
         Row(
           children: [
-            Container(
+            Container(//widget 
               width: 170.w,
               height: 170.w,
               decoration: ShapeDecoration(
@@ -34,7 +33,7 @@ class reportsWidget extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        reportName,
+                        reportName,//Todo fetch student name from firebase
                         style:  TextStyle(
                           color: const Color(0xFF1B2A57),
                           fontSize: 16.sp,
@@ -44,7 +43,7 @@ class reportsWidget extends StatelessWidget {
                         ),
                       ),
                        Text(
-                        caseInformation,
+                        caseInformation,//Todo fetch case info from firebase
                         textAlign: TextAlign.center,
                         style:  TextStyle(
                           color: const Color(0xFF7CA0CA),
@@ -60,8 +59,8 @@ class reportsWidget extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ],
+        
+      
     );
   }
 }
