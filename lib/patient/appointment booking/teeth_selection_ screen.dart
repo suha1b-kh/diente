@@ -63,7 +63,6 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
                 //Text field to enter the tooth number
                 CustomTextField(
                   hint: "ادخل رقم",
-                  maxLength: 2,
                   textAlign: TextAlign.center,
                   obscureText: false,
                   inputType: TextInputType.number,

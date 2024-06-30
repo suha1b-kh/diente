@@ -73,7 +73,6 @@ class _EditProfileScreenState extends State<EditPatientProfileScreen> {
           CustomTextField(
               hint: "كلمة السر القديمة",
               textAlign: TextAlign.start,
-              maxLength: 10,
               inputType: TextInputType.text,
               obscureText: widget.obscureText,
               icon: IconButton(
@@ -87,7 +86,6 @@ class _EditProfileScreenState extends State<EditPatientProfileScreen> {
           CustomTextField(
               hint: "كلمة السر الجديدة",
               textAlign: TextAlign.start,
-              maxLength: 10,
               inputType: TextInputType.text,
               obscureText: widget.obscureText,
               icon: IconButton(
@@ -101,7 +99,6 @@ class _EditProfileScreenState extends State<EditPatientProfileScreen> {
           CustomTextField(
               hint: "تأكيد كلمة السر",
               textAlign: TextAlign.start,
-              maxLength: 10,
               inputType: TextInputType.text,
               obscureText: widget.obscureText,
               icon: IconButton(

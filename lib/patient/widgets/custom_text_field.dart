@@ -14,7 +14,6 @@ class CustomTextField extends StatelessWidget {
   CustomTextField({
     required this.hint,
     required this.textAlign,
-    required this.maxLength,
     required this.inputType,
     required this.obscureText,
     this.icon,
