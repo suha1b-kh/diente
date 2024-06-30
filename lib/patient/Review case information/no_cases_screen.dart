@@ -41,12 +41,12 @@ class _NoCasesScreenState extends State<NoCasesScreen> {
             width: 286.w,
             height: 135.h,
             child: Text(
-              'المعذرة!     لا يوجد موعد فعال',
+              'المعذرة!   لا يوجد موعد فعال',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
-                fontSize: 32.sp,
-                fontFamily: 'Poppins',
+                fontSize: 30.sp,
+                fontFamily: 'NotoSansArabic',
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -62,7 +62,7 @@ class _NoCasesScreenState extends State<NoCasesScreen> {
               style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
                 fontSize: 16.sp,
-                fontFamily: 'Poppins',
+                fontFamily: 'NotoSansArabic',
                 fontWeight: FontWeight.w500,
               ),
             ),

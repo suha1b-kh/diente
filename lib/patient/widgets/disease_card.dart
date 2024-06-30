@@ -36,18 +36,18 @@ class CustomCard extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Positioned(
-                top: 29.h,
+                top: 33.h,
                 child: Text(
                   title,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                     fontSize: 26.sp,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w700,
+                    fontFamily: 'NotoSansArabic',
+                    fontWeight: FontWeight.w500,
                   ),
                 )),
             Positioned(
-                top: 80.h,
+                top: 88.h,
                 child: SizedBox(
                   width: 188.w,
                   height: 88.h,
@@ -57,13 +57,13 @@ class CustomCard extends StatelessWidget {
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.inversePrimary,
                       fontSize: 17.sp,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
+                      fontFamily: 'NotoSansArabic',
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 )),
             Positioned(
-                top: 170.h,
+                top: 165.h,
                 child: CustomButton(
                   height: 37.h,
                   width: 225.w,

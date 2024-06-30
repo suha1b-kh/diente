@@ -72,8 +72,8 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                     fontSize: 32.sp,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
+                    fontFamily: 'NotoSansArabic',
+                    fontWeight: FontWeight.w700,
                   )),
             ),
           ),

@@ -49,8 +49,8 @@ class _DiseaseSelectionScreenState extends State<DiseaseSelectionScreen> {
               style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary,
                 fontSize: 24.sp,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w700,
+                fontFamily: 'NotoSansArabic',
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),

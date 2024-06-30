@@ -54,7 +54,7 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontSize: 20.sp,
-                      fontFamily: 'Poppins',
+                      fontFamily: 'NotoSansArabic',
                       fontWeight: FontWeight.w700,
                     ),
                   ),
