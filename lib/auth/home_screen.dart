@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
             //login button
             customButtonWithBorder(
                 context, Theme.of(context).colorScheme.secondary, () {
-              Navigator.popAndPushNamed(context, '/login_screen');
+              Navigator.pushNamed(context, '/login_screen');
             },
                 customText(
                   context,
@@ -41,7 +41,7 @@ class HomeScreen extends StatelessWidget {
             Gap(15.h),
             //signup button
             customButton(context, Theme.of(context).colorScheme.secondary, () {
-              Navigator.popAndPushNamed(context, '/signup_screen');
+              Navigator.pushNamed(context, '/signup_screen');
             }, 'Create Account', 16.sp),
           ],
         ),

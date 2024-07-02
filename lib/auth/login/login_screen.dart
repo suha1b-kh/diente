@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.popAndPushNamed(context, '/home_Screen');
+              Navigator.pop(context);
             },
           ),
           actions: [
@@ -31,7 +31,7 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.only(right: 20),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.popAndPushNamed(context, '/signup_screen');
+                  Navigator.pushNamed(context, '/signup_screen');
                 },
                 child: customText(
                     context,
@@ -71,8 +71,7 @@ class LoginScreen extends StatelessWidget {
             Gap(36.h),
             GestureDetector(
                 onTap: () {
-                  Navigator.popAndPushNamed(
-                      context, '/create_new_password_screen');
+                  Navigator.pushNamed(context, '/create_new_password_screen');
                 },
                 child: customText(
                     context,

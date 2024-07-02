@@ -28,7 +28,7 @@ class SignupScreen extends StatelessWidget {
               padding: const EdgeInsets.only(right: 20),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.popAndPushNamed(context, '/login_screen');
+                  Navigator.pushNamed(context, '/login_screen');
                 },
                 child: customText(
                     context,
@@ -70,7 +70,7 @@ class SignupScreen extends StatelessWidget {
             ),
             Gap(124.h),
             customButton(context, Theme.of(context).colorScheme.secondary, () {
-              Navigator.popAndPushNamed(context, '/fill_profile_screen');
+              Navigator.pushNamed(context, '/fill_profile_screen');
             }, 'Continue', 16.sp),
             Gap(24.h),
             Row(

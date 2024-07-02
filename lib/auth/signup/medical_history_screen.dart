@@ -227,7 +227,7 @@ class MedicalHistoryScreen extends StatelessWidget {
             ),
             Gap(50.h),
             customButton(context, Theme.of(context).colorScheme.secondary, () {
-              Navigator.popAndPushNamed(context, '/email_verification_screen');
+              Navigator.pushNamed(context, '/email_verification_screen');
             }, 'Submit', 16.sp)
           ],
         ),

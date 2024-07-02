@@ -50,7 +50,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
           ),
           Gap(350.h),
           customButton(context, Theme.of(context).colorScheme.secondary, () {
-            Navigator.popAndPushNamed(context, '/fill_profile_screen');
+            Navigator.pushNamed(context, '/fill_profile_screen');
           }, 'Continue', 16.sp),
         ],
       ),
