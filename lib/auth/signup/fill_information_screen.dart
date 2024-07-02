@@ -1,4 +1,3 @@
-import 'package:diente/auth/signup/email_verification_screen.dart';
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/drop_down_menu.dart';
 import 'package:diente/core/widgets/text.dart';
@@ -6,12 +5,36 @@ import 'package:diente/core/widgets/text_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:pinput/pinput.dart';
 
 class FillProfileScreen extends StatelessWidget {
   const FillProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    //pinput theme (email verification code input)
+    final defaultPinTheme = PinTheme(
+      width: 56.w,
+      height: 56.h,
+      textStyle: TextStyle(
+        fontSize: 20,
+        color: Theme.of(context).colorScheme.primary,
+      ),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.inverseSurface,
+        border: Border.all(color: Theme.of(context).colorScheme.inverseSurface),
+        borderRadius: BorderRadius.circular(8),
+      ),
+    );
+
+    final focusedPinTheme = defaultPinTheme.copyWith(
+      decoration: BoxDecoration(
+        border: Border.all(color: Theme.of(context).colorScheme.secondary),
+        borderRadius: BorderRadius.circular(8),
+      ),
+    );
+
+    //controllers
     TextEditingController fullnameController = TextEditingController();
     TextEditingController nationalIDController = TextEditingController();
     TextEditingController ageController = TextEditingController();
@@ -89,18 +112,67 @@ class FillProfileScreen extends StatelessWidget {
                 context,
                 Theme.of(context).colorScheme.secondary,
                 () {
-                  showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(25)),
-                      ),
-                      context: context,
-                      builder: (context) => EmailVerificationScreen(
-                            onTap: () {
-                              //TODO: handle code verify and navigate to home screen or error screen
-                              Navigator.popAndPushNamed(context, '/');
-                            },
-                          ));
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Center(
+                        child: AlertDialog(
+                          title: Center(
+                            child: customText(
+                                context,
+                                'Check your Email',
+                                Theme.of(context).colorScheme.primary,
+                                20.sp,
+                                FontWeight.w600),
+                          ),
+                          content: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                customText(
+                                    context,
+                                    'Code has been sent to\nDiente@gmail.com',
+                                    Theme.of(context).colorScheme.primary,
+                                    14.sp,
+                                    FontWeight.w400),
+                                Gap(47.h),
+                                //pin input text field
+                                Pinput(
+                                  length: 6,
+                                  defaultPinTheme: defaultPinTheme,
+                                  focusedPinTheme: focusedPinTheme,
+                                  pinAnimationType: PinAnimationType.fade,
+                                  onCompleted: (pin) {
+                                    print("Verification Code: $pin");
+                                    Navigator.pop(context);
+                                    //TODO: if pin correct show this dialog else show error
+                                    showConfirmDialog(context);
+                                  },
+                                ),
+                                Gap(25.h),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    customText(
+                                        context,
+                                        'Didn\'t received code?',
+                                        Theme.of(context).colorScheme.primary,
+                                        14.sp,
+                                        FontWeight.w400),
+                                    customText(
+                                        context,
+                                        ' Resend',
+                                        Theme.of(context).colorScheme.secondary,
+                                        14.sp,
+                                        FontWeight.w400),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
                 },
                 'Continue',
                 16.sp,
@@ -110,5 +182,38 @@ class FillProfileScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<dynamic> showConfirmDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Center(
+            child: AlertDialog(
+              title: Column(
+                children: [
+                  customText(
+                      context,
+                      'Congratulations',
+                      Theme.of(context).colorScheme.primary,
+                      20.sp,
+                      FontWeight.w600),
+                  Gap(10.h),
+                  customText(
+                      context,
+                      'Your Account is ready to use. you will\nbe directed to the Medical history\nform in a few seconds...',
+                      Theme.of(context).colorScheme.primary,
+                      14.sp,
+                      FontWeight.w400),
+                ],
+              ),
+              icon: Icon(
+                size: 100.sp,
+                Icons.shield_outlined,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          );
+        });
   }
 }

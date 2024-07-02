@@ -1,7 +1,6 @@
 import 'package:diente/auth/home_screen.dart';
 import 'package:diente/auth/login/login_screen.dart';
 import 'package:diente/auth/signup/create_new_password_screen.dart';
-import 'package:diente/auth/signup/email_verification_screen.dart';
 import 'package:diente/auth/signup/fill_information_screen.dart';
 import 'package:diente/auth/signup/medical_history_screen.dart';
 import 'package:diente/auth/signup/signup_screen.dart';
