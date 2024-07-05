@@ -37,7 +37,7 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: ListView(
         children: [
           //notification button
@@ -84,7 +84,7 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
           Center(
             child: SizedBox(
               width: 168.w,
-              height: 30.h,
+              height: 39.h,
               child: Text(
                 widget.caseStatus,
                 textAlign: TextAlign.center,
@@ -98,7 +98,7 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
             ),
           ),
           const SizedBox(
-            height: 177,
+            height: 168,
           ),
           //Review patient history button
           CustomButton(
@@ -106,7 +106,7 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
             height: 55.h,
             borderRadius: 50.r,
             color: Theme.of(context).colorScheme.secondary,
-            fontColor: Colors.white,
+            fontColor: Theme.of(context).colorScheme.surface,
             borderColor: Theme.of(context).colorScheme.secondary,
             text: "مراجعة السجل المرضي",
             onTap: () {},
@@ -120,7 +120,7 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
             height: 55.h,
             borderRadius: 50.r,
             color: Color(0xFFEF0107),
-            fontColor: Colors.white,
+            fontColor: Theme.of(context).colorScheme.surface,
             borderColor: Color(0xFFEF0107),
             text: "الغاء الموعد",
             onTap: () {},

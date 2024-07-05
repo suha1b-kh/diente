@@ -8,10 +8,11 @@ class CustomTextField extends StatelessWidget {
   TextInputType inputType = TextInputType.text;
   int maxLength = 0;
   String? input = "";
-  IconButton? icon = null;
+  IconButton? icon;
 
   //constructor
   CustomTextField({
+    super.key,
     required this.hint,
     required this.textAlign,
     required this.inputType,
@@ -38,10 +39,12 @@ class CustomTextField extends StatelessWidget {
           fillColor: Theme.of(context).colorScheme.inverseSurface,
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.r),
-              borderSide: BorderSide(color: Theme.of(context).colorScheme.inverseSurface)),
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.inverseSurface)),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.r),
-              borderSide: BorderSide(color: Theme.of(context).colorScheme.inverseSurface)),
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.inverseSurface)),
           errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15.r),
               borderSide: const BorderSide(color: Colors.red)),

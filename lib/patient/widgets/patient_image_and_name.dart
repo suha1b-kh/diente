@@ -6,6 +6,7 @@ class PatientImageAndName extends StatefulWidget {
   ImageProvider? patientImage;
 
   PatientImageAndName({
+    super.key,
     required this.patientName,
     required this.patientImage,
   });

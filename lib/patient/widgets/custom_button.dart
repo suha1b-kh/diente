@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomButton extends StatelessWidget {
   double height = 0.0;
   double width = 0.0;
-  double borderRadius;
+  double borderRadius = 0.0;
   Color color = const Color(0xFF7CA0CA);
   Color borderColor = const Color(0xFF7CA0CA);
   String text = "";
@@ -17,7 +15,8 @@ class CustomButton extends StatelessWidget {
 
   //constructor
   CustomButton(
-      {required this.width,
+      {super.key,
+      required this.width,
       required this.height,
       required this.color,
       required this.fontColor,

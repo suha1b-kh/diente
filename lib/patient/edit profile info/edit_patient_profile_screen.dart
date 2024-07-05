@@ -64,7 +64,7 @@ class _EditProfileScreenState extends State<EditPatientProfileScreen> {
                   color: Theme.of(context).colorScheme.secondary,
                   borderColor: Theme.of(context).colorScheme.secondary,
                   text: "تعديل السجل المرضي",
-                  fontColor: Colors.white,
+                  fontColor: Theme.of(context).colorScheme.surface,
                   onTap: () {})),
           SizedBox(
             height: 100.h,
@@ -120,7 +120,7 @@ class _EditProfileScreenState extends State<EditPatientProfileScreen> {
                   color: Theme.of(context).colorScheme.secondary,
                   borderColor: Theme.of(context).colorScheme.secondary,
                   text: "تحديث المعلومات",
-                  fontColor: Colors.white,
+                  fontColor: Theme.of(context).colorScheme.surface,
                   onTap: () {})),
         ],
       ),

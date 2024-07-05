@@ -7,7 +7,7 @@ import '../widgets/custom_button.dart';
 import '../widgets/custom_header.dart';
 
 class NoCasesScreen extends StatefulWidget {
-  String? patientName = "";
+  String patientName = "";
   ImageProvider? patientImage;
 
   //constructor
@@ -74,7 +74,7 @@ class _NoCasesScreenState extends State<NoCasesScreen> {
             height: 55.h,
             borderRadius: 50.r,
             color: Theme.of(context).colorScheme.secondary,
-            fontColor: Colors.white,
+            fontColor: Theme.of(context).colorScheme.surface,
             borderColor: Theme.of(context).colorScheme.secondary,
             text: "حجز موعد",
             onTap: () {

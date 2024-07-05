@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../models/disease.dart';
@@ -6,12 +5,12 @@ import '../widgets/custom_header.dart';
 import '../widgets/disease_card.dart';
 
 class DiseaseSelectionScreen extends StatefulWidget {
-  String? patientName = "";
+  String patientName = "";
   ImageProvider? patientImage;
 
   //constructor
   DiseaseSelectionScreen(
-      {required this.patientName, required this.patientImage});
+      {super.key, required this.patientName, required this.patientImage});
 
   @override
   State<DiseaseSelectionScreen> createState() => _DiseaseSelectionScreenState();
@@ -33,7 +32,7 @@ class _DiseaseSelectionScreenState extends State<DiseaseSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: ListView(children: [
           //Header
           CustomHeader(

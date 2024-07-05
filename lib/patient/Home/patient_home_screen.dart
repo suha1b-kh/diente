@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../appointment booking/disease_selection_screen.dart';
@@ -6,16 +5,17 @@ import '../widgets/custom_button.dart';
 import '../widgets/custom_header.dart';
 
 class PatientHomeScreen extends StatelessWidget {
-  String? patientName = "";
+  String patientName = "";
   ImageProvider? patientImage;
 
   //constructor
-  PatientHomeScreen({this.patientName, this.patientImage});
+  PatientHomeScreen(
+      {super.key, required this.patientName, required this.patientImage});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: ListView(
         children: [
           //Header
@@ -28,7 +28,10 @@ class PatientHomeScreen extends StatelessWidget {
           SizedBox(
               width: 214.28.w,
               height: 96.79.h,
-              child: Image(image: AssetImage("assets/images/logo2.png"))),
+              child: const Image(
+                image: AssetImage("assets/images/logo2.png"),
+                fit: BoxFit.contain,
+              )),
           SizedBox(
             height: 3.h,
           ),
@@ -53,7 +56,7 @@ class PatientHomeScreen extends StatelessWidget {
             height: 55.h,
             borderRadius: 50.r,
             color: Theme.of(context).colorScheme.secondary,
-            fontColor: Colors.white,
+            fontColor: Theme.of(context).colorScheme.surface,
             borderColor: Theme.of(context).colorScheme.secondary,
             text: "حجز موعد جديد",
             onTap: () {
@@ -67,7 +70,7 @@ class PatientHomeScreen extends StatelessWidget {
             width: 342.w,
             height: 55.h,
             borderRadius: 50.r,
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             fontColor: Theme.of(context).colorScheme.secondary,
             borderColor: Theme.of(context).colorScheme.secondary,
             text: "مراجعة معلومات الحالة",

@@ -1,4 +1,3 @@
-
 import 'package:diente/patient/Home/patient_home_screen.dart';
 import 'package:diente/patient/Review%20case%20information/case_info_screen.dart';
 import 'package:diente/patient/Review%20case%20information/no_cases_screen.dart';
@@ -7,9 +6,8 @@ import 'package:diente/patient/appointment%20booking/teeth_selection_%20screen.d
 import 'package:diente/patient/edit%20profile%20info/edit_patient_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'core/theme/darkmode.dart';
 import 'core/theme/lightmode.dart';
-
-
 
 void main() {
   runApp(const MainApp());
@@ -24,13 +22,16 @@ class MainApp extends StatelessWidget {
     return ScreenUtilInit(
         designSize: const Size(375, 812),
         child: MaterialApp(
-          home:PatientHomeScreen(
+          home: PatientHomeScreen(
             patientName: "Patient name",
             patientImage: const AssetImage("assets/images/patient.png"),
           ),
           routes: {
             //patient home screen
-            "patient_home_screen": (context) => PatientHomeScreen(),
+            "patient_home_screen": (context) => PatientHomeScreen(
+                  patientName: "Patient name",
+                  patientImage: const AssetImage("assets/images/patient.png"),
+                ),
             //case information screen
             "case_info_screen": (context) => CaseInformationScreen(
                 patientName: "Patient name",
@@ -54,6 +55,7 @@ class MainApp extends StatelessWidget {
                 patientImage: const AssetImage("assets/images/patient.png")),
           },
           theme: lightMode,
+          //theme: darkMode,
         ));
   }
 }
