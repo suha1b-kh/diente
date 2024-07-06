@@ -34,6 +34,11 @@ class CustomDropDownMenu extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
+          borderRadius: BorderRadius.circular(15),
+          dropdownColor: Theme.of(context).colorScheme.inverseSurface,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.inversePrimary,
+          ),
           hint: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

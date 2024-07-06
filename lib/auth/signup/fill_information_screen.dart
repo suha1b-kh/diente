@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/drop_down_menu.dart';
 import 'package:diente/core/widgets/text.dart';
@@ -38,7 +40,7 @@ class FillProfileScreen extends StatelessWidget {
     TextEditingController fullnameController = TextEditingController();
     TextEditingController nationalIDController = TextEditingController();
     TextEditingController ageController = TextEditingController();
-    TextEditingController genderController = TextEditingController();
+    String? genderSelect;
     TextEditingController phoneNumberController = TextEditingController();
 
     String? selectedGender;
@@ -62,9 +64,11 @@ class FillProfileScreen extends StatelessWidget {
               Gap(44.h),
               GestureDetector(
                 child: Image.asset(
-                    width: 122.w,
-                    height: 122.h,
-                    'assets/images/profile_photo.png'),
+                  width: 122.w,
+                  height: 122.h,
+                  //TODO: Fetch photo from firebase if there is no photo set default
+                  'assets/images/profile_photo.png',
+                ),
                 onTap: () {
                   //TODO: pick photo and store in firebase
                 },
@@ -97,8 +101,11 @@ class FillProfileScreen extends StatelessWidget {
                 text: 'Gender',
                 // icon: Icons.arrow_drop_down,
                 items: const ['Male', 'Female'],
+
                 selectedItem: selectedGender,
-                onChanged: (String? newValue) {},
+                onChanged: (String? newValue) {
+                  genderSelect = newValue;
+                },
               ),
               Gap(10.h),
               CustomTextField(
@@ -112,70 +119,80 @@ class FillProfileScreen extends StatelessWidget {
                 context,
                 Theme.of(context).colorScheme.secondary,
                 () {
+                  //TODO: send verification code
+                  //TODO: send data in this screen to firebase
+                  log('Send verification code to email');
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return Center(
-                        child: AlertDialog(
-                          title: Center(
-                            child: customText(
-                                context,
-                                'Check your Email',
-                                Theme.of(context).colorScheme.primary,
-                                20.sp,
-                                FontWeight.w600),
-                          ),
-                          content: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                customText(
-                                    context,
-                                    'Code has been sent to\nDiente@gmail.com',
-                                    Theme.of(context).colorScheme.primary,
-                                    14.sp,
-                                    FontWeight.w400),
-                                Gap(47.h),
-                                //pin input text field
-                                Pinput(
-                                  length: 6,
-                                  defaultPinTheme: defaultPinTheme,
-                                  focusedPinTheme: focusedPinTheme,
-                                  pinAnimationType: PinAnimationType.fade,
-                                  onCompleted: (pin) {
-                                    print("Verification Code: $pin");
-                                    Navigator.pop(context);
-                                    //TODO: if pin correct show this dialog else show error
-                                    showConfirmDialog(context);
-                                  },
-                                ),
-                                Gap(25.h),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    customText(
-                                        context,
-                                        'Didn\'t received code?',
-                                        Theme.of(context).colorScheme.primary,
-                                        14.sp,
-                                        FontWeight.w400),
-                                    customText(
-                                        context,
-                                        ' Resend',
-                                        Theme.of(context).colorScheme.secondary,
-                                        14.sp,
-                                        FontWeight.w400),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
+                      return showEnterPinDialog(
+                          context, defaultPinTheme, focusedPinTheme);
                     },
                   );
                 },
                 'Continue',
                 16.sp,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Center showEnterPinDialog(BuildContext context, PinTheme defaultPinTheme,
+      PinTheme focusedPinTheme) {
+    return Center(
+      child: AlertDialog(
+        title: Center(
+          child: customText(context, 'Check your Email',
+              Theme.of(context).colorScheme.primary, 20.sp, FontWeight.w600),
+        ),
+        content: SingleChildScrollView(
+          child: Column(
+            children: [
+              customText(
+                  context,
+                  //TODO: handle email
+                  'Code has been sent to\nDiente@gmail.com',
+                  Theme.of(context).colorScheme.primary,
+                  14.sp,
+                  FontWeight.w400),
+              Gap(47.h),
+              //pin input text field
+              Pinput(
+                length: 6,
+                defaultPinTheme: defaultPinTheme,
+                focusedPinTheme: focusedPinTheme,
+                pinAnimationType: PinAnimationType.fade,
+                onCompleted: (pin) {
+                  print("Verification Code: $pin");
+                  Navigator.pop(context);
+                  //TODO: if pin correct show this dialog else show error
+                  if (pin == '123456') {
+                    showConfirmDialog(context);
+                  } else {
+                    showFailDialog(context);
+                  }
+                },
+              ),
+              Gap(25.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  customText(
+                      context,
+                      'Didn\'t received code?',
+                      Theme.of(context).colorScheme.primary,
+                      14.sp,
+                      FontWeight.w400),
+                  customText(
+                      context,
+                      ' Resend',
+                      Theme.of(context).colorScheme.secondary,
+                      14.sp,
+                      FontWeight.w400),
+                ],
               ),
             ],
           ),
@@ -202,6 +219,39 @@ class FillProfileScreen extends StatelessWidget {
                   customText(
                       context,
                       'Your Account is ready to use. you will\nbe directed to the Medical history\nform in a few seconds...',
+                      Theme.of(context).colorScheme.primary,
+                      14.sp,
+                      FontWeight.w400),
+                ],
+              ),
+              icon: Icon(
+                size: 100.sp,
+                Icons.shield_outlined,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          );
+        });
+  }
+
+  Future<dynamic> showFailDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Center(
+            child: AlertDialog(
+              title: Column(
+                children: [
+                  customText(
+                      context,
+                      'Error',
+                      Theme.of(context).colorScheme.primary,
+                      20.sp,
+                      FontWeight.w600),
+                  Gap(10.h),
+                  customText(
+                      context,
+                      'Not correct pin',
                       Theme.of(context).colorScheme.primary,
                       14.sp,
                       FontWeight.w400),

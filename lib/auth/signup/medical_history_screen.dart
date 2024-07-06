@@ -9,7 +9,7 @@ class MedicalHistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool diabetes = true,
+    bool? diabetes = true,
         highBloodPressure = false,
         heartDisease = false,
         respiratoryDiseases = false,
@@ -49,7 +49,10 @@ class MedicalHistoryScreen extends StatelessWidget {
                             color: Theme.of(context).colorScheme.secondary),
                       ),
                       value: diabetes,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        diabetes = value;
+                        //TODO: send data to firebase
+                      },
                       activeColor: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
@@ -76,7 +79,10 @@ class MedicalHistoryScreen extends StatelessWidget {
                             color: Theme.of(context).colorScheme.secondary),
                       ),
                       value: highBloodPressure,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        highBloodPressure = value;
+                        //TODO: send data to firebase
+                      },
                       activeColor: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
@@ -103,7 +109,10 @@ class MedicalHistoryScreen extends StatelessWidget {
                             color: Theme.of(context).colorScheme.secondary),
                       ),
                       value: heartDisease,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        heartDisease = value;
+                        //TODO: send data to firebase
+                      },
                       activeColor: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
@@ -130,7 +139,10 @@ class MedicalHistoryScreen extends StatelessWidget {
                             color: Theme.of(context).colorScheme.secondary),
                       ),
                       value: respiratoryDiseases,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        respiratoryDiseases = value;
+                        //TODO: send data to firebase
+                      },
                       activeColor: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
@@ -157,7 +169,10 @@ class MedicalHistoryScreen extends StatelessWidget {
                             color: Theme.of(context).colorScheme.secondary),
                       ),
                       value: kidneyDisease,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        kidneyDisease = value;
+                        //TODO: send data to firebase
+                      },
                       activeColor: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
@@ -184,7 +199,10 @@ class MedicalHistoryScreen extends StatelessWidget {
                             color: Theme.of(context).colorScheme.secondary),
                       ),
                       value: bleedingDisorders,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        bleedingDisorders = value;
+                        //TODO: send data to firebase
+                      },
                       activeColor: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
@@ -211,7 +229,10 @@ class MedicalHistoryScreen extends StatelessWidget {
                             color: Theme.of(context).colorScheme.secondary),
                       ),
                       value: doNotSuffer,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        doNotSuffer = value;
+                        //TODO: send data to firebase
+                      },
                       activeColor: Theme.of(context).colorScheme.secondary,
                     ),
                   ),

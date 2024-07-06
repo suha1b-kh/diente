@@ -16,29 +16,24 @@ class SignupScreen extends StatelessWidget {
         TextEditingController();
 
     return Scaffold(
-      appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
+      appBar: AppBar(automaticallyImplyLeading: false, actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 20),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/login_screen');
             },
+            child: customText(
+                context,
+                'Login',
+                Theme.of(context).colorScheme.secondary,
+                14.sp,
+                FontWeight.normal),
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/login_screen');
-                },
-                child: customText(
-                    context,
-                    'Login',
-                    Theme.of(context).colorScheme.secondary,
-                    14.sp,
-                    FontWeight.normal),
-              ),
-            ),
-          ]),
+        ),
+      ]),
+
+      //body
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: ListView(

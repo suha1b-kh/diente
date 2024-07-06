@@ -1,14 +1,20 @@
 import 'package:diente/auth/home_screen.dart';
-import 'package:diente/auth/login/login_screen.dart';
+import 'package:diente/auth/login/ui/login_screen.dart';
 import 'package:diente/auth/signup/create_new_password_screen.dart';
 import 'package:diente/auth/signup/fill_information_screen.dart';
 import 'package:diente/auth/signup/medical_history_screen.dart';
 import 'package:diente/auth/signup/signup_screen.dart';
 import 'package:diente/core/theme/lightmode.dart';
+import 'package:diente/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MainApp());
 }
 

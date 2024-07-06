@@ -17,7 +17,6 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Gap(90.h),
-            //logo
             SizedBox(
               width: 279.72.w,
               height: 126.35.h,
@@ -26,6 +25,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Gap(230.h),
+
             //login button
             customButtonWithBorder(
                 context, Theme.of(context).colorScheme.secondary, () {
@@ -39,6 +39,7 @@ class HomeScreen extends StatelessWidget {
                   FontWeight.w500,
                 )),
             Gap(15.h),
+
             //signup button
             customButton(context, Theme.of(context).colorScheme.secondary, () {
               Navigator.pushNamed(context, '/signup_screen');
