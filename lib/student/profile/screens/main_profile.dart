@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:panara_dialogs/panara_dialogs.dart';
 
 import '../widgets/list_reports.dart';
 
@@ -57,11 +58,23 @@ class mainProfile extends StatelessWidget {
       //TODO add reports
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton:  FloatingActionButton(onPressed: 
-           (){},
+           (){
+            PanaraInfoDialog.showAnimatedGrow(
+                  context,
+                  title: "Hello",
+                  message: "This is the Panara Info Dialog Normal.",
+                  buttonText: "Okay",
+                  onTapDismiss: () {
+                    Navigator.pop(context);
+                  },
+                  panaraDialogType: PanaraDialogType.normal,
+                );
+           },
            backgroundColor: Colors.blue,
            child: const Icon(Icons.add),
            
            ),
     );
   }
+
 }

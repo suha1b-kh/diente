@@ -30,30 +30,34 @@ class reportsWidget extends StatelessWidget {
                 padding:  EdgeInsets.only(top: 57.h),
                 child: Align(
                   alignment: Alignment.topCenter,
-                  child: Column(
-                    children: [
-                      Text(
-                        reportName,//Todo fetch student name from firebase
-                        style:  TextStyle(
-                          color: const Color(0xFF1B2A57),
-                          fontSize: 16.sp,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                          height: 0.h,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Column(
+                      children: [
+                        Text(
+                          reportName,//Todo fetch student name from firebase
+                          
+                          style:  TextStyle(
+                            color: const Color(0xFF1B2A57),
+                            fontSize: 16.sp,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                            height: 0.h,
+                          ),
                         ),
-                      ),
-                       Text(
-                        caseInformation,//Todo fetch case info from firebase
-                        textAlign: TextAlign.center,
-                        style:  TextStyle(
-                          color: const Color(0xFF7CA0CA),
-                          fontSize: 14.sp,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                          height: 0.h,
-                        ),
-                      )
-                    ],
+                         Text(
+                          caseInformation,//Todo fetch case info from firebase
+                         
+                          style:  TextStyle(
+                            color: const Color(0xFF7CA0CA),
+                            fontSize: 14.sp,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w400,
+                            height: 0.h,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
