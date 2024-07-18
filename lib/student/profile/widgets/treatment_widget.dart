@@ -41,7 +41,7 @@ class TreatmentWidget extends StatelessWidget {
                   ),
                 ),
                   Padding(
-                  padding: EdgeInsets.only(left: 230.dm),
+                  padding: EdgeInsets.only(left: 180.dm),
                   child: const Icon(Icons.arrow_forward_ios),
                 ),
               ],

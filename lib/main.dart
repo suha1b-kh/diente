@@ -26,7 +26,7 @@ class MainApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       child: MaterialApp(
-        home:   const mainProfile() ,//const HomeScreen(),
+        home:   const ControlScreen() ,//const HomeScreen(),
         //app routes to navigate
         routes: {
           //home screen
