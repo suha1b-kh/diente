@@ -1,3 +1,4 @@
+import 'package:diente/auth/signup/email_verification_screen.dart';
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/text.dart';
 import 'package:flutter/material.dart';
@@ -227,7 +228,21 @@ class MedicalHistoryScreen extends StatelessWidget {
             ),
             Gap(50.h),
             customButton(context, Theme.of(context).colorScheme.secondary, () {
-              Navigator.popAndPushNamed(context, '/email_verification_screen');
+              showModalBottomSheet(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(25)),
+                  ),
+                  context: context,
+                  builder: (context) => EmailVerificationScreen(
+                        onTap: () {
+                          //TODO: handle code verify and navigate to home screen or error screen
+                          Navigator.popAndPushNamed(
+                            context,
+                            'patient_home_screen',
+                          );
+                        },
+                      ));
             }, 'Submit', 16.sp)
           ],
         ),

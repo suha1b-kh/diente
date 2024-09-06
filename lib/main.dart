@@ -1,4 +1,9 @@
-
+import 'package:diente/auth/home_screen.dart';
+import 'package:diente/auth/login/login_screen.dart';
+import 'package:diente/auth/signup/create_new_password_screen.dart';
+import 'package:diente/auth/signup/fill_information_screen.dart';
+import 'package:diente/auth/signup/medical_history_screen.dart';
+import 'package:diente/auth/signup/signup_screen.dart';
 import 'package:diente/patient/Home/patient_home_screen.dart';
 import 'package:diente/patient/Review%20case%20information/case_info_screen.dart';
 import 'package:diente/patient/Review%20case%20information/no_cases_screen.dart';
@@ -8,8 +13,6 @@ import 'package:diente/patient/edit%20profile%20info/edit_patient_profile_screen
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/theme/lightmode.dart';
-
-
 
 void main() {
   runApp(const MainApp());
@@ -24,13 +27,30 @@ class MainApp extends StatelessWidget {
     return ScreenUtilInit(
         designSize: const Size(375, 812),
         child: MaterialApp(
-          home:PatientHomeScreen(
-            patientName: "Patient name",
-            patientImage: const AssetImage("assets/images/patient.png"),
-          ),
+          home: const HomeScreen(),
           routes: {
+            //home screen
+            "/home_screen": (context) => const HomeScreen(),
+            //login screen
+            "/login_screen": (context) => LoginScreen(),
+            //signup screen
+            "/signup_screen": (context) => const SignupScreen(),
+            //fill profile info screen
+            "/fill_profile_screen": (context) => const FillProfileScreen(),
+            //fill medical history screen
+            "/fill_medical_history_screen": (context) =>
+                const MedicalHistoryScreen(),
+            //fill medical history screen
+            "/create_new_password_screen": (context) =>
+                const CreateNewPasswordScreen(),
+
+            //Patient UI
+
             //patient home screen
-            "patient_home_screen": (context) => PatientHomeScreen(),
+            "patient_home_screen": (context) => PatientHomeScreen(
+                  patientName: "Patient name",
+                  patientImage: const AssetImage("assets/images/patient.png"),
+                ),
             //case information screen
             "case_info_screen": (context) => CaseInformationScreen(
                 patientName: "Patient name",

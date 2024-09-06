@@ -1,4 +1,5 @@
 import 'package:diente/auth/signup/email_verification_screen.dart';
+import 'package:diente/auth/signup/medical_history_screen.dart';
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/drop_down_menu.dart';
 import 'package:diente/core/widgets/text.dart';
@@ -89,18 +90,8 @@ class FillProfileScreen extends StatelessWidget {
                 context,
                 Theme.of(context).colorScheme.secondary,
                 () {
-                  showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(25)),
-                      ),
-                      context: context,
-                      builder: (context) => EmailVerificationScreen(
-                            onTap: () {
-                              //TODO: handle code verify and navigate to home screen or error screen
-                              Navigator.popAndPushNamed(context, '/');
-                            },
-                          ));
+                  Navigator.popAndPushNamed(
+                      context, '/fill_medical_history_screen');
                 },
                 'Continue',
                 16.sp,
