@@ -1,4 +1,4 @@
-import 'package:diente/auth/signup/email_verification_screen.dart';
+import 'package:diente/auth/presentation/email_verification_screen.dart';
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/text.dart';
 import 'package:flutter/material.dart';

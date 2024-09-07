@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.popAndPushNamed(context, '/home_Screen');
+              Navigator.pop(context);
             },
           ),
           actions: [

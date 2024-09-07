@@ -1,12 +1,10 @@
-import 'package:diente/auth/signup/email_verification_screen.dart';
-import 'package:diente/auth/signup/medical_history_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/drop_down_menu.dart';
 import 'package:diente/core/widgets/text.dart';
 import 'package:diente/core/widgets/text_fields.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 
 class FillProfileScreen extends StatelessWidget {
   const FillProfileScreen({super.key});
@@ -19,7 +17,8 @@ class FillProfileScreen extends StatelessWidget {
     TextEditingController genderController = TextEditingController();
     TextEditingController phoneNumberController = TextEditingController();
 
-    String? selectedGender;
+    List<Map<String, bool>> medicalHistory = [];
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -28,8 +27,13 @@ class FillProfileScreen extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: customText(context, 'Fill Profile',
-            Theme.of(context).colorScheme.primary, 14.sp, FontWeight.bold),
+        title: customText(
+          context,
+          'Fill Profile',
+          Theme.of(context).colorScheme.primary,
+          14.sp,
+          FontWeight.bold,
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -40,9 +44,10 @@ class FillProfileScreen extends StatelessWidget {
               Gap(44.h),
               GestureDetector(
                 child: Image.asset(
-                    width: 122.w,
-                    height: 122.h,
-                    'assets/images/profile_photo.png'),
+                  'assets/images/profile_photo.png',
+                  width: 122.w,
+                  height: 122.h,
+                ),
                 onTap: () {
                   //TODO: pick photo and store in firebase
                 },
@@ -73,10 +78,11 @@ class FillProfileScreen extends StatelessWidget {
                 width: 343.w,
                 height: 56.h,
                 text: 'Gender',
-                // icon: Icons.arrow_drop_down,
                 items: const ['Male', 'Female'],
-                selectedItem: selectedGender,
-                onChanged: (String? newValue) {},
+                selectedItem: null,
+                onChanged: (String? newValue) {
+                  genderController.text = newValue ?? '';
+                },
               ),
               Gap(10.h),
               CustomTextField(
@@ -90,8 +96,16 @@ class FillProfileScreen extends StatelessWidget {
                 context,
                 Theme.of(context).colorScheme.secondary,
                 () {
-                  Navigator.popAndPushNamed(
-                      context, '/fill_medical_history_screen');
+                  // BlocProvider.of<ProfileBloc>(context).add(
+                  //   SubmitProfile(
+                  //     fullName: fullnameController.text,
+                  //     nationalId: nationalIDController.text,
+                  //     age: ageController.text,
+                  //     gender: genderController.text,
+                  //     phoneNumber: phoneNumberController.text,
+                  //     medicalHistory: medicalHistory,
+                  //   ),
+                  // );
                 },
                 'Continue',
                 16.sp,

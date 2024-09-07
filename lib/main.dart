@@ -1,20 +1,26 @@
-import 'package:diente/auth/home_screen.dart';
-import 'package:diente/auth/login/login_screen.dart';
-import 'package:diente/auth/signup/create_new_password_screen.dart';
-import 'package:diente/auth/signup/fill_information_screen.dart';
-import 'package:diente/auth/signup/medical_history_screen.dart';
-import 'package:diente/auth/signup/signup_screen.dart';
-import 'package:diente/patient/Home/patient_home_screen.dart';
+import 'package:diente/auth/presentation/home_screen.dart';
+import 'package:diente/auth/presentation/login_screen.dart';
+import 'package:diente/auth/presentation/create_new_password_screen.dart';
+import 'package:diente/auth/presentation/fill_information_screen.dart';
+import 'package:diente/auth/presentation/medical_history_screen.dart';
+import 'package:diente/auth/presentation/signup_screen.dart';
+import 'package:diente/firebase_options.dart';
+import 'package:diente/patient/home/patient_home_screen.dart';
 import 'package:diente/patient/Review%20case%20information/case_info_screen.dart';
 import 'package:diente/patient/Review%20case%20information/no_cases_screen.dart';
 import 'package:diente/patient/appointment%20booking/disease_selection_screen.dart';
 import 'package:diente/patient/appointment%20booking/teeth_selection_%20screen.dart';
 import 'package:diente/patient/edit%20profile%20info/edit_patient_profile_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/theme/lightmode.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MainApp());
 }
 
