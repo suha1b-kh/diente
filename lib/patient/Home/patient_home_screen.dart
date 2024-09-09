@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../appointment booking/disease_selection_screen.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_header.dart';
 
@@ -10,7 +8,7 @@ class PatientHomeScreen extends StatelessWidget {
   ImageProvider? patientImage;
 
   //constructor
-  PatientHomeScreen({this.patientName, this.patientImage});
+  PatientHomeScreen({super.key, this.patientName, this.patientImage});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class PatientHomeScreen extends StatelessWidget {
           SizedBox(
               width: 214.28.w,
               height: 96.79.h,
-              child: Image(image: AssetImage("assets/images/logo2.png"))),
+              child: const Image(image: AssetImage("assets/images/logo2.png"))),
           SizedBox(
             height: 3.h,
           ),

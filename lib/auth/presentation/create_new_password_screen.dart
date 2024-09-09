@@ -19,7 +19,8 @@ class CreateNewPasswordScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.pushNamed(context, '/login_screen');
+            //TODO: Implement back button
           },
         ),
         title: customText(context, 'Create new password',

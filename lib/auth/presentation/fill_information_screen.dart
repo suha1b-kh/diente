@@ -1,3 +1,5 @@
+import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -5,26 +7,41 @@ import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/drop_down_menu.dart';
 import 'package:diente/core/widgets/text.dart';
 import 'package:diente/core/widgets/text_fields.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 
-class FillProfileScreen extends StatelessWidget {
+class FillProfileScreen extends StatefulWidget {
   const FillProfileScreen({super.key});
 
   @override
+  _FillProfileScreenState createState() => _FillProfileScreenState();
+}
+
+class _FillProfileScreenState extends State<FillProfileScreen> {
+  // Controllers for the text fields
+  TextEditingController fullnameController = TextEditingController();
+  TextEditingController nationalIDController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController genderController =
+      TextEditingController(text: 'gender');
+  TextEditingController phoneNumberController = TextEditingController();
+
+  // List for the user's medical history
+  List<Map<String, bool>> medicalHistory = [];
+
+  // Variables for image picking
+  File? _imageFile;
+  File? croppedImage;
+  final ImagePicker _picker = ImagePicker();
+
+  @override
   Widget build(BuildContext context) {
-    TextEditingController fullnameController = TextEditingController();
-    TextEditingController nationalIDController = TextEditingController();
-    TextEditingController ageController = TextEditingController();
-    TextEditingController genderController = TextEditingController();
-    TextEditingController phoneNumberController = TextEditingController();
-
-    List<Map<String, bool>> medicalHistory = [];
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushNamed(context, '/home_screen');
           },
         ),
         title: customText(
@@ -43,14 +60,20 @@ class FillProfileScreen extends StatelessWidget {
             children: [
               Gap(44.h),
               GestureDetector(
-                child: Image.asset(
-                  'assets/images/profile_photo.png',
-                  width: 122.w,
-                  height: 122.h,
-                ),
-                onTap: () {
-                  //TODO: pick photo and store in firebase
+                onTap: () async {
+                  await _pickImage();
                 },
+                child: _imageFile == null
+                    ? Image.asset(
+                        'assets/images/profile_photo.png', // Default image
+                        width: 122.w,
+                        height: 122.h,
+                        // fit: BoxFit.cover,
+                      )
+                    : CircleAvatar(
+                        radius: 61.w,
+                        backgroundImage: FileImage(_imageFile!),
+                      ),
               ),
               Gap(26.h),
               CustomTextField(
@@ -77,11 +100,14 @@ class FillProfileScreen extends StatelessWidget {
               CustomDropDownMenu(
                 width: 343.w,
                 height: 56.h,
-                text: 'Gender',
+                text: genderController.text,
                 items: const ['Male', 'Female'],
                 selectedItem: null,
                 onChanged: (String? newValue) {
-                  genderController.text = newValue ?? '';
+                  setState(() {
+                    genderController.text = newValue ?? '';
+                  });
+                  //TODO: Refactor using bloc
                 },
               ),
               Gap(10.h),
@@ -96,16 +122,12 @@ class FillProfileScreen extends StatelessWidget {
                 context,
                 Theme.of(context).colorScheme.secondary,
                 () {
-                  // BlocProvider.of<ProfileBloc>(context).add(
-                  //   SubmitProfile(
-                  //     fullName: fullnameController.text,
-                  //     nationalId: nationalIDController.text,
-                  //     age: ageController.text,
-                  //     gender: genderController.text,
-                  //     phoneNumber: phoneNumberController.text,
-                  //     medicalHistory: medicalHistory,
-                  //   ),
-                  // );
+                  //TODO: pass data to firestore
+                  log('Full name: ${fullnameController.text}');
+                  log('National ID: ${nationalIDController.text}');
+                  log('Age: ${ageController.text}');
+                  log('Gender: ${genderController.text}');
+                  log('Phone number: ${phoneNumberController.text}');
                 },
                 'Continue',
                 16.sp,
@@ -115,5 +137,34 @@ class FillProfileScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _pickImage() async {
+    try {
+      final XFile? pickedFile = await _picker.pickImage(
+        source: ImageSource.gallery, // Pick from gallery
+      );
+
+      // If a file is picked, update the state to display it
+      if (pickedFile != null) {
+        //TODO: refactor using bloc
+        setState(() {
+          _imageFile = File(pickedFile.path);
+        });
+      }
+    } catch (e) {
+      print("Image selection error: $e");
+    }
+  }
+
+  Future _cropImage(File? image) async {
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: image!.path,
+      uiSettings: [
+        AndroidUiSettings(toolbarColor: Colors.red),
+      ],
+    );
+    File? croppedImage = File(croppedFile!.path);
+    return croppedImage;
   }
 }

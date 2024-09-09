@@ -1,13 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomHeader extends StatelessWidget {
   String? patientName = "";
   ImageProvider? patientImage;
 
-  CustomHeader({this.patientName, this.patientImage});
+  CustomHeader({super.key, this.patientName, this.patientImage});
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +23,10 @@ class CustomHeader extends StatelessWidget {
                 child: Row(
                   children: [
                     //patient image
-                    Container(
-                      width: 35.w,
-                      height: 35.h,
-                      decoration: ShapeDecoration(
-                        image: DecorationImage(
-                          image: patientImage!,
-                          fit: BoxFit.fill,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32.50.r),
-                        ),
-                      ),
+                    CircleAvatar(
+                      radius: 20.r,
+                      backgroundImage: patientImage ??
+                          const AssetImage('assets/images/patient.png'),
                     ),
                     SizedBox(
                       width: 8.w,

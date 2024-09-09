@@ -2,6 +2,7 @@ import 'package:diente/core/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomDropDownMenu extends StatelessWidget {
   const CustomDropDownMenu({
@@ -34,6 +35,13 @@ class CustomDropDownMenu extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
+          dropdownColor: Theme.of(context).colorScheme.inverseSurface,
+          borderRadius: BorderRadius.circular(15.r),
+          style: GoogleFonts.poppins(
+            color: Theme.of(context).colorScheme.secondary,
+            fontSize: 16.w,
+            fontWeight: FontWeight.w400,
+          ),
           hint: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

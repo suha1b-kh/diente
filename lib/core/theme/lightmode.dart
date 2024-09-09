@@ -13,7 +13,8 @@ ThemeData lightMode = ThemeData(
       inverseSurface: Color(0xFFF2F4F7),
     ),
     textTheme: ThemeData.light().textTheme.apply(
-          bodyColor: const Color.fromARGB(255, 255, 255, 255),
+          // bodyColor: const Color.fromARGB(255, 255, 255, 255),
+          bodyColor: const Color(0xFF7CA0CA),
           displayColor: const Color(0xFF7CA0CA),
           decorationColor: const Color(0xFF1B2A57),
         ));

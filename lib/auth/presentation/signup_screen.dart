@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:diente/auth/presentation/bloc/bloc/signup_bloc.dart';
 import 'package:diente/auth/presentation/bloc/bloc/signup_event.dart';
 import 'package:diente/auth/presentation/bloc/bloc/signup_state.dart';
+
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/text.dart';
 import 'package:diente/core/widgets/text_fields.dart';
@@ -36,36 +37,36 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SignupBloc>(
-      create: (context) => SignupBloc(), //bloc creation
-      child: Scaffold(
-        appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 20),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.popAndPushNamed(context, '/login_screen');
-                  },
-                  child: customText(
-                      context,
-                      'Login',
-                      Theme.of(context).colorScheme.secondary,
-                      14.sp,
-                      FontWeight.normal),
-                ),
+    return Scaffold(
+      appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pushNamed(context, '/home_screen');
+            },
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.popAndPushNamed(context, '/login_screen');
+                },
+                child: customText(
+                    context,
+                    'Login',
+                    Theme.of(context).colorScheme.secondary,
+                    14.sp,
+                    FontWeight.normal),
               ),
-            ]),
+            ),
+          ]),
 
-        /********** body **********/
+      /********** body **********/
 
-        body: Padding(
+      body: BlocProvider<SignupBloc>(
+        create: (context) => SignupBloc(), //bloc creation
+        child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Form(
             key: formKey,
@@ -111,16 +112,18 @@ class _SignupScreenState extends State<SignupScreen> {
                       passwordVisible ? Icons.visibility : Icons.visibility_off,
                   hide: passwordVisible,
                   iconPressed: () {
+                    //TODO:refactor
                     setState(() {
                       passwordVisible = !passwordVisible;
                     });
                   },
                   validator: validateField,
                 ),
-                Gap(124.h),
-                BlocConsumer<SignupBloc, SignUpState>(
+                Gap(90.h),
+
+                BlocConsumer<SignupBloc, SignupState>(
                   listener: (context, state) {
-                    if (state is SignUpSuccess) {
+                    if (state is SignupSuccess) {
                       try {
                         log('Signup successful, navigating to the next screen');
                         Navigator.popAndPushNamed(
@@ -129,7 +132,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         log('Navigation error: $e',
                             error: e, stackTrace: stackTrace);
                       }
-                    } else if (state is SignUpFailure) {
+                    } else if (state is SignupFailure) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text(state.error),
                         backgroundColor: Colors.red,
@@ -137,25 +140,36 @@ class _SignupScreenState extends State<SignupScreen> {
                     }
                   },
                   builder: (context, state) {
-                    return customButton(
-                        context, Theme.of(context).colorScheme.secondary, () {
-                      if (passwordController.text ==
-                              confirmPasswordController.text &&
-                          !formKey.currentState!.validate()) {
-                        BlocProvider.of<SignupBloc>(context).add(
-                          SubmitSignUp(
-                            email: emailController.text,
-                            password: passwordController.text,
-                          ),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text('Passwords do not match'),
-                          backgroundColor: Colors.red,
-                        ));
-                      }
-                    }, 'Continue', 16.sp);
+                    if (state is SignupLoading) {
+                      return Center(
+                        child: Image.asset('assets/images/loading.gif'),
+                      );
+                    } else {
+                      return customButton(
+                        context,
+                        Theme.of(context).colorScheme.secondary,
+                        () {
+                          if (passwordController.text ==
+                                  confirmPasswordController.text &&
+                              !formKey.currentState!.validate()) {
+                            BlocProvider.of<SignupBloc>(context).add(
+                              SubmitSignup(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text('Passwords do not match'),
+                              backgroundColor: Colors.red,
+                            ));
+                          }
+                        },
+                        'Continue',
+                        16.sp,
+                      );
+                    }
                   },
                 ),
                 Gap(24.h),

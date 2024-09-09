@@ -6,17 +6,17 @@ abstract class SignUpEvent {
   List<Object> get props => [];
 }
 
-class SubmitSignUp extends SignUpEvent {
+class SubmitSignup extends SignUpEvent {
   final String email;
   final String password;
 
-  SubmitSignUp({required this.email, required this.password});
+  SubmitSignup({required this.email, required this.password});
 
   @override
   List<Object> get props => [email, password];
 }
 
-abstract class ProfileEvent {}
+// abstract class ProfileEvent {}
 
 // class SubmitProfile extends ProfileEvent {
 //   final String fullName;

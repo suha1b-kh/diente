@@ -1,45 +1,31 @@
 import 'package:diente/auth/data/models/user.dart';
 
-abstract class SignUpState {
-  const SignUpState();
+abstract class SignupState {
+  const SignupState();
   List<Object> get props => [];
 }
 
-class SignUpInitial extends SignUpState {}
+class SignupInitial extends SignupState {}
 
-class SignUpLoading extends SignUpState {
+class SignupLoading extends SignupState {
   final bool isLoading;
 
-  SignUpLoading({required this.isLoading});
+  SignupLoading({required this.isLoading});
 }
 
-class SignUpSuccess extends SignUpState {
+class SignupSuccess extends SignupState {
   final UserModel user;
 
-  SignUpSuccess({required this.user});
+  SignupSuccess({required this.user});
   @override
   List<Object> get props => [user];
 }
 
-class SignUpFailure extends SignUpState {
+class SignupFailure extends SignupState {
   final String error;
 
-  SignUpFailure(this.error);
+  SignupFailure(this.error);
 
   @override
   List<Object> get props => [error];
 }
-
-// abstract class ProfileState {}
-
-// class ProfileInitial extends ProfileState {}
-
-// class ProfileLoading extends ProfileState {}
-
-// class ProfileSuccess extends ProfileState {}
-
-// class ProfileFailure extends ProfileState {
-//   final String error;
-
-//   ProfileFailure(this.error);
-// }
