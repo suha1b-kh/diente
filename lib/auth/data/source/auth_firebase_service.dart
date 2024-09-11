@@ -132,7 +132,7 @@ class AuthFirebaseService {
           errorMessage = "Login failed. Please try again.";
           break;
       }
-      throw Exception(error.code);
+      throw Exception(errorMessage);
     }
     return null;
   }

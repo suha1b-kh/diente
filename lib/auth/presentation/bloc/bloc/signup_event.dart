@@ -1,5 +1,3 @@
-import 'package:diente/auth/data/models/user.dart';
-
 abstract class SignUpEvent {
   const SignUpEvent();
 

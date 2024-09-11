@@ -1,3 +1,4 @@
+// ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,10 +14,10 @@ class CaseInformationScreen extends StatefulWidget {
 
   Color getColor(String status) {
     //TODO: return color based on case status
-    if (status == "Active")
-      return Color(0xFF11C72E);
-    else if (status == "Waiting")
-      return Color(0xFFFBBC05);
+    if (status == "Active") {
+      return const Color(0xFF11C72E);
+    } else if (status == "Waiting")
+      return const Color(0xFFFBBC05);
     else if (status == "Finished")
       return Colors.blue;
     else
@@ -25,7 +26,8 @@ class CaseInformationScreen extends StatefulWidget {
 
   //constructor
   CaseInformationScreen(
-      {required this.patientName,
+      {super.key,
+      required this.patientName,
       required this.patientImage,
       required this.caseStatus});
 
@@ -119,9 +121,9 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
             width: 342.w,
             height: 55.h,
             borderRadius: 50.r,
-            color: Color(0xFFEF0107),
+            color: const Color(0xFFEF0107),
             fontColor: Colors.white,
-            borderColor: Color(0xFFEF0107),
+            borderColor: const Color(0xFFEF0107),
             text: "الغاء الموعد",
             onTap: () {},
           ),

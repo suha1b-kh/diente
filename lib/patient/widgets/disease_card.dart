@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +12,10 @@ class CustomCard extends StatelessWidget {
   VoidCallback onTap;
 
   CustomCard(
-      {required this.title, required this.description, required this.onTap});
+      {super.key,
+      required this.title,
+      required this.description,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,4 @@
+// ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +12,8 @@ class TeethSelectionScreen extends StatefulWidget {
   ImageProvider? patientImage;
 
   //constructor
-  TeethSelectionScreen({required this.patientName, required this.patientImage});
+  TeethSelectionScreen(
+      {super.key, required this.patientName, required this.patientImage});
 
   @override
   State<TeethSelectionScreen> createState() => _ToothSelectionScreenState();
@@ -81,7 +83,7 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
                   fontColor: Colors.white,
                   onTap: () {
                     //TODO: navigate to case information screen
-                        Navigator.pushNamed(context, 'case_info_screen');
+                    Navigator.pushNamed(context, 'case_info_screen');
                   },
                 )),
               ],

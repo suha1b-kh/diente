@@ -1,8 +1,8 @@
+// ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../appointment booking/disease_selection_screen.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_header.dart';
 
@@ -11,7 +11,8 @@ class NoCasesScreen extends StatefulWidget {
   ImageProvider? patientImage;
 
   //constructor
-  NoCasesScreen({required this.patientName, required this.patientImage});
+  NoCasesScreen(
+      {super.key, required this.patientName, required this.patientImage});
 
   @override
   State<NoCasesScreen> createState() => _NoCasesScreenState();
@@ -33,8 +34,8 @@ class _NoCasesScreenState extends State<NoCasesScreen> {
           SizedBox(
               width: 203.w,
               height: 203.h,
-              child:
-                  const Image(image: AssetImage("assets/images/no_cases_image.png"))),
+              child: const Image(
+                  image: AssetImage("assets/images/no_cases_image.png"))),
           SizedBox(height: 20.h),
           //no cases message
           SizedBox(

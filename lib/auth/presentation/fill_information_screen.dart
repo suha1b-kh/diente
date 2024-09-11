@@ -7,13 +7,14 @@ import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/drop_down_menu.dart';
 import 'package:diente/core/widgets/text.dart';
 import 'package:diente/core/widgets/text_fields.dart';
-import 'package:image_cropper/image_cropper.dart';
+// import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FillProfileScreen extends StatefulWidget {
   const FillProfileScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _FillProfileScreenState createState() => _FillProfileScreenState();
 }
 
@@ -153,18 +154,18 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
         });
       }
     } catch (e) {
-      print("Image selection error: $e");
+      log("Image selection error: $e");
     }
   }
 
-  Future _cropImage(File? image) async {
-    CroppedFile? croppedFile = await ImageCropper().cropImage(
-      sourcePath: image!.path,
-      uiSettings: [
-        AndroidUiSettings(toolbarColor: Colors.red),
-      ],
-    );
-    File? croppedImage = File(croppedFile!.path);
-    return croppedImage;
-  }
+  // Future _cropImage(File? image) async {
+  //   CroppedFile? croppedFile = await ImageCropper().cropImage(
+  //     sourcePath: image!.path,
+  //     uiSettings: [
+  //       AndroidUiSettings(toolbarColor: Colors.red),
+  //     ],
+  //   );
+  //   File? croppedImage = File(croppedFile!.path);
+  //   return croppedImage;
+  // }
 }

@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -77,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 // Navigator.popAndPushNamed(context, 'patient_home_screen');
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return PatientHomeScreen(
-                    patientName: 'state.user.fullName',
+                    patientName: FirebaseAuth.instance.currentUser!.email!,
                   );
                 }));
               } catch (e, stackTrace) {

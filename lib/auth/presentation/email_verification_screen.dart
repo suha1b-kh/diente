@@ -1,15 +1,12 @@
-import 'dart:async';
-import 'dart:developer';
+// ignore_for_file: use_build_context_synchronously
 
-import 'package:diente/auth/data/source/auth_firebase_service.dart';
+import 'dart:async';
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:pinput/pinput.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
   const EmailVerificationScreen({super.key});
@@ -26,9 +23,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   Timer? timer;
   @override
   void initState() {
-// TODO: implement initState
     super.initState();
     FirebaseAuth.instance.currentUser?.sendEmailVerification();
+    // FirebaseAuth.instance
+    //     .sendPasswordResetEmail(email: '7d68786bc276@drmail.in');
     timer =
         Timer.periodic(const Duration(seconds: 3), (_) => checkEmailVerified());
   }
@@ -51,7 +49,6 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
   @override
   void dispose() {
-// TODO: implement dispose
     timer?.cancel();
     super.dispose();
   }

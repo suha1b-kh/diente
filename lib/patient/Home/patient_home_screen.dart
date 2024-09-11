@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_header.dart';
 
+// ignore: must_be_immutable
 class PatientHomeScreen extends StatelessWidget {
   String? patientName = "";
   ImageProvider? patientImage;
@@ -88,6 +89,7 @@ class PatientHomeScreen extends StatelessWidget {
               if (FirebaseAuth.instance.currentUser != null) {
                 await FirebaseAuth.instance.signOut();
               }
+              // ignore: use_build_context_synchronously
               Navigator.popAndPushNamed(context, '/login_screen');
             },
           ),
