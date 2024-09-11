@@ -234,15 +234,7 @@ class MedicalHistoryScreen extends StatelessWidget {
                         BorderRadius.vertical(top: Radius.circular(25)),
                   ),
                   context: context,
-                  builder: (context) => EmailVerificationScreen(
-                        onTap: () {
-                          //TODO: handle code verify and navigate to home screen or error screen
-                          Navigator.popAndPushNamed(
-                            context,
-                            'patient_home_screen',
-                          );
-                        },
-                      ));
+                  builder: (context) => const EmailVerificationScreen());
             }, 'Submit', 16.sp)
           ],
         ),

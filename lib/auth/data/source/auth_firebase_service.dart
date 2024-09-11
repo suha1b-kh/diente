@@ -136,4 +136,6 @@ class AuthFirebaseService {
     }
     return null;
   }
+
+  // Future sendEmailVerification() {}
 }

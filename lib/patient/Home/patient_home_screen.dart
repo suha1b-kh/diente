@@ -1,3 +1,5 @@
+import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/custom_button.dart';
@@ -71,6 +73,22 @@ class PatientHomeScreen extends StatelessWidget {
             text: "مراجعة معلومات الحالة",
             onTap: () {
               Navigator.pushNamed(context, 'no_cases_screen');
+            },
+          ),
+          CustomButton(
+            width: 342.w,
+            height: 55.h,
+            borderRadius: 50.r,
+            color: Colors.red,
+            fontColor: Colors.white,
+            borderColor: Colors.red,
+            text: "تسجيل الخروج",
+            onTap: () async {
+              log(FirebaseAuth.instance.currentUser!.email.toString());
+              if (FirebaseAuth.instance.currentUser != null) {
+                await FirebaseAuth.instance.signOut();
+              }
+              Navigator.popAndPushNamed(context, '/login_screen');
             },
           ),
         ],

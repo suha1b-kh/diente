@@ -4,9 +4,11 @@ import 'package:diente/auth/presentation/bloc/login_bloc/bloc/login_bloc.dart';
 import 'package:diente/auth/presentation/bloc/login_bloc/bloc/login_event.dart';
 import 'package:diente/auth/presentation/bloc/login_bloc/bloc/login_state.dart';
 import 'package:diente/core/widgets/buttons.dart';
+import 'package:diente/core/widgets/google.dart';
 import 'package:diente/core/widgets/text.dart';
 import 'package:diente/core/widgets/text_fields.dart';
 import 'package:diente/patient/home/patient_home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,6 +28,16 @@ class _LoginScreenState extends State<LoginScreen> {
   bool passwordVisible = true, isLoading = false;
 
   GlobalKey<FormState> formKey = GlobalKey();
+
+  @override
+  void initState() {
+    if (FirebaseAuth.instance.currentUser != null) {
+      log("Email: ${FirebaseAuth.instance.currentUser!.email}");
+    } else {
+      log('No user logged in');
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
           listener: (context, state) {
             if (state is LoginSuccess) {
               try {
-                log('Signup successful, navigating to the next screen');
+                log('Login successful, navigating to the next screen');
                 // Navigator.popAndPushNamed(context, 'patient_home_screen');
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return PatientHomeScreen(
@@ -168,51 +180,7 @@ class bodyWidget extends StatelessWidget {
             ),
           ),
           Gap(24.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 100.w,
-                height: 1,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              customText(
-                context,
-                '  Or continue with  ',
-                Theme.of(context).colorScheme.primary,
-                14.sp,
-                FontWeight.normal,
-              ),
-              Container(
-                width: 100.w,
-                height: 1,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-            ],
-          ),
-          Gap(24.h),
-          Center(
-            child: Container(
-              width: 77.w,
-              height: 52.h,
-              decoration: ShapeDecoration(
-                shape: RoundedRectangleBorder(
-                  side: const BorderSide(
-                    width: 1,
-                    color: Color(0xFFD9D9D9),
-                  ),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-              child: Center(
-                child: Image.asset(
-                  width: 50.w,
-                  height: 50.h,
-                  'assets/images/google.png',
-                ),
-              ),
-            ),
-          ),
+          google(context),
         ],
       ),
     );

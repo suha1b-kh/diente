@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/auth/presentation/email_verification_screen.dart';
 import 'package:diente/auth/presentation/home_screen.dart';
 import 'package:diente/auth/presentation/login_screen.dart';
 import 'package:diente/auth/presentation/create_new_password_screen.dart';
@@ -11,6 +15,7 @@ import 'package:diente/patient/Review%20case%20information/no_cases_screen.dart'
 import 'package:diente/patient/appointment%20booking/disease_selection_screen.dart';
 import 'package:diente/patient/appointment%20booking/teeth_selection_%20screen.dart';
 import 'package:diente/patient/edit%20profile%20info/edit_patient_profile_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,21 +29,35 @@ Future<void> main() async {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  // User? user;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   user = FirebaseAuth.instance.currentUser;
+  //   log(user.toString());
+  // }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //log(user!.emailVerified.toString());
     return ScreenUtilInit(
         designSize: const Size(375, 812),
         child: MaterialApp(
-          home: const HomeScreen(),
+          home: const LoginScreen(),
           routes: {
             //home screen
             "/home_screen": (context) => const HomeScreen(),
             //login screen
-            "/login_screen": (context) => LoginScreen(),
+            "/login_screen": (context) => const LoginScreen(),
             //signup screen
             "/signup_screen": (context) => const SignupScreen(),
             //fill profile info screen
@@ -49,6 +68,9 @@ class MainApp extends StatelessWidget {
             //fill medical history screen
             "/create_new_password_screen": (context) =>
                 const CreateNewPasswordScreen(),
+            //email verification screen
+            "/email_verification_screen": (context) =>
+                const EmailVerificationScreen(),
 
             //Patient UI
 
