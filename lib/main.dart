@@ -12,6 +12,7 @@ import 'package:diente/patient/Review%20case%20information/no_cases_screen.dart'
 import 'package:diente/patient/appointment%20booking/disease_selection_screen.dart';
 import 'package:diente/patient/appointment%20booking/teeth_selection_%20screen.dart';
 import 'package:diente/patient/edit%20profile%20info/edit_patient_profile_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,6 +41,17 @@ class _MainAppState extends State<MainApp> {
   //   user = FirebaseAuth.instance.currentUser;
   //   log(user.toString());
   // }
+  Widget initialScreen() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      return const LoginScreen();
+    }
+    if (!user.emailVerified) {
+      return const EmailVerificationScreen();
+    } else {
+      return PatientHomeScreen();
+    }
+  }
 
   // This widget is the root of your application.
   @override
@@ -48,7 +60,7 @@ class _MainAppState extends State<MainApp> {
     return ScreenUtilInit(
         designSize: const Size(375, 812),
         child: MaterialApp(
-          home: const LoginScreen(),
+          home: initialScreen(),
           routes: {
             //home screen
             "/home_screen": (context) => const HomeScreen(),

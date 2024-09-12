@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:diente/auth/presentation/bloc/login_bloc/bloc/login_bloc.dart';
 import 'package:diente/auth/presentation/bloc/login_bloc/bloc/login_event.dart';
 import 'package:diente/auth/presentation/bloc/login_bloc/bloc/login_state.dart';
+import 'package:diente/auth/presentation/email_verification_screen.dart';
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/google.dart';
 import 'package:diente/core/widgets/text.dart';
@@ -71,16 +72,22 @@ class _LoginScreenState extends State<LoginScreen> {
         child: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state is LoginSuccess) {
-              try {
-                log('Login successful, navigating to the next screen');
-                // Navigator.popAndPushNamed(context, 'patient_home_screen');
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return PatientHomeScreen(
-                    patientName: FirebaseAuth.instance.currentUser!.email!,
-                  );
-                }));
-              } catch (e, stackTrace) {
-                log('Navigation error: $e', error: e, stackTrace: stackTrace);
+              if (FirebaseAuth.instance.currentUser!.emailVerified == true) {
+                try {
+                  log('Login successful, navigating to the next screen');
+                  // Navigator.popAndPushNamed(context, 'patient_home_screen');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return PatientHomeScreen(
+                      patientName: FirebaseAuth.instance.currentUser!.email!,
+                    );
+                  }));
+                } catch (e, stackTrace) {
+                  log('Navigation error: $e', error: e, stackTrace: stackTrace);
+                }
+              } else if (FirebaseAuth.instance.currentUser!.emailVerified ==
+                  false) {
+                Navigator.popAndPushNamed(
+                    context, '/email_verification_screen');
               }
             } else if (state is LoginFailure) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(

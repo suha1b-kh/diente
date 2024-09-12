@@ -9,14 +9,14 @@ Widget google(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          width: 100.w,
+          width: 90.w,
           height: 1,
           color: Theme.of(context).colorScheme.secondary,
         ),
         customText(context, '  Or continue with  ',
             Theme.of(context).colorScheme.primary, 14.sp, FontWeight.normal),
         Container(
-          width: 100.w,
+          width: 90.w,
           height: 1,
           color: Theme.of(context).colorScheme.secondary,
         ),

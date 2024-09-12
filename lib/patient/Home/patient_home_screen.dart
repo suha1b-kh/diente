@@ -7,6 +7,7 @@ import '../widgets/custom_header.dart';
 
 // ignore: must_be_immutable
 class PatientHomeScreen extends StatelessWidget {
+  final user = FirebaseAuth.instance.currentUser!.email!.split('@')[0];
   String? patientName = "";
   ImageProvider? patientImage;
 
@@ -20,7 +21,7 @@ class PatientHomeScreen extends StatelessWidget {
       body: ListView(
         children: [
           //Header
-          CustomHeader(patientName: patientName, patientImage: patientImage),
+          CustomHeader(patientName: user, patientImage: patientImage),
           SizedBox(
             height: 101.h,
             width: 375.w,

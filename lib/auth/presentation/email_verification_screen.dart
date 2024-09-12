@@ -90,8 +90,20 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
               customButton(
                 context,
                 Theme.of(context).colorScheme.secondary,
-                () {},
+                () {
+                  FirebaseAuth.instance.currentUser?.sendEmailVerification();
+                },
                 'Resend',
+                16,
+              ),
+              Gap(20.h),
+              customButton(
+                context,
+                Theme.of(context).colorScheme.secondary,
+                () {
+                  Navigator.popAndPushNamed(context, '/login_screen');
+                },
+                'Back to login',
                 16,
               )
             ],

@@ -29,14 +29,27 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
             Theme.of(context).colorScheme.primary, 14.sp, FontWeight.bold),
         centerTitle: true,
       ),
-      body: Center(
-        child: Column(
+      body: Padding(
+        padding: EdgeInsets.all(20.h),
+        child: ListView(
           children: [
             Gap(93.h),
-            customText(context, 'CLick on the button',
-                Theme.of(context).colorScheme.primary, 16.sp, FontWeight.w500),
-            customText(context, 'to send password reset email',
-                Theme.of(context).colorScheme.primary, 16.sp, FontWeight.w500),
+            Center(
+              child: customText(
+                  context,
+                  'CLick on the button',
+                  Theme.of(context).colorScheme.primary,
+                  16.sp,
+                  FontWeight.w500),
+            ),
+            Center(
+              child: customText(
+                  context,
+                  'to send password reset email',
+                  Theme.of(context).colorScheme.primary,
+                  16.sp,
+                  FontWeight.w500),
+            ),
             Gap(50.h),
             CustomTextField(
               controller: emailController,
@@ -48,6 +61,8 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
             customButton(context, Theme.of(context).colorScheme.secondary,
                 () async {
               try {
+                // When user click on button, send password reset email to email that in the textField
+                //if it is in firestore autllh
                 await FirebaseAuth.instance
                     .sendPasswordResetEmail(email: emailController.text);
                 log(emailController.text);
