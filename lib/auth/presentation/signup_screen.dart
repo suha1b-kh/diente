@@ -41,7 +41,9 @@ class _SignupScreenState extends State<SignupScreen> {
     return Scaffold(
       appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+            ),
             onPressed: () {
               Navigator.pushNamed(context, '/home_screen');
             },

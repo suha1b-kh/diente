@@ -39,7 +39,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     });
 
     if (isEmailVerified) {
-      Navigator.popAndPushNamed(context, 'patient_home_screen');
+      Navigator.popAndPushNamed(context, '/fill_profile_screen');
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Email Successfully Verified")));
 

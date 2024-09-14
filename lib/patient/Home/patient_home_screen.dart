@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:diente/auth/data/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,11 +9,12 @@ import '../widgets/custom_header.dart';
 // ignore: must_be_immutable
 class PatientHomeScreen extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser!.email!.split('@')[0];
-  String? patientName = "";
-  ImageProvider? patientImage;
+  // String? patientName = "";
+  // ImageProvider? patientImage;
+  final UserModel? userModel;
 
-  //constructor
-  PatientHomeScreen({super.key, this.patientName, this.patientImage});
+  // Constructor
+  PatientHomeScreen({super.key, this.userModel});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,8 @@ class PatientHomeScreen extends StatelessWidget {
       body: ListView(
         children: [
           //Header
-          CustomHeader(patientName: user, patientImage: patientImage),
+          CustomHeader(
+              patientName: '${userModel?.firstName} ${userModel?.secondName}'),
           SizedBox(
             height: 101.h,
             width: 375.w,

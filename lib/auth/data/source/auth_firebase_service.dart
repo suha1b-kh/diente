@@ -28,19 +28,14 @@ class AuthFirebaseService {
 
       if (user != null) {
         return UserModel(
-          id: user.uid,
-          active: '',
           age: '',
-          caseType: '',
           email: email,
-          fullName: '',
+          firstName: '',
+          secondName: '',
           gender: '',
           medicalHistory: [],
-          nationalId: '',
-          password: password,
           phoneNum: '',
           profilePic: '',
-          teeth: '',
         );
       }
     } on FirebaseAuthException catch (error) {
@@ -82,19 +77,14 @@ class AuthFirebaseService {
       final User? user = userCredential.user;
       if (user != null) {
         return UserModel(
-          id: user.uid,
-          active: '',
           age: '',
-          caseType: '',
           email: email,
-          fullName: '',
+          firstName: '',
+          secondName: '',
           gender: '',
           medicalHistory: [],
-          nationalId: '',
-          password: password,
           phoneNum: '',
           profilePic: '',
-          teeth: '',
         );
       }
     } on FirebaseAuthException catch (error) {

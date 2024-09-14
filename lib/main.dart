@@ -48,6 +48,8 @@ class _MainAppState extends State<MainApp> {
     }
     if (!user.emailVerified) {
       return const EmailVerificationScreen();
+    } else if (user.displayName == null) {
+      return const FillProfileScreen();
     } else {
       return PatientHomeScreen();
     }
@@ -83,10 +85,10 @@ class _MainAppState extends State<MainApp> {
             //Patient UI
 
             //patient home screen
-            "patient_home_screen": (context) => PatientHomeScreen(
-                  patientName: "Patient name",
-                  patientImage: const AssetImage("assets/images/patient.png"),
-                ),
+            // "patient_home_screen": (context) => PatientHomeScreen(
+            //       patientName: "Patient name",
+            //       patientImage: const AssetImage("assets/images/patient.png"),
+            //     ),
             //case information screen
             "case_info_screen": (context) => CaseInformationScreen(
                 patientName: "Patient name",

@@ -1,5 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/patient/home/patient_home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -19,9 +22,11 @@ class FillProfileScreen extends StatefulWidget {
 }
 
 class _FillProfileScreenState extends State<FillProfileScreen> {
+  final userAuth = FirebaseAuth.instance.currentUser;
+
   // Controllers for the text fields
-  TextEditingController fullnameController = TextEditingController();
-  TextEditingController nationalIDController = TextEditingController();
+  TextEditingController firstnameController = TextEditingController();
+  TextEditingController secondnameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController genderController =
       TextEditingController(text: 'gender');
@@ -40,7 +45,9 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+          ),
           onPressed: () {
             Navigator.pushNamed(context, '/home_screen');
           },
@@ -77,18 +84,22 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                       ),
               ),
               Gap(26.h),
-              CustomTextField(
-                controller: fullnameController,
-                text: 'Full name',
-                width: 343.w,
-                height: 56.h,
-              ),
-              Gap(10.h),
-              CustomTextField(
-                controller: nationalIDController,
-                text: 'National ID',
-                width: 343.w,
-                height: 56.h,
+              Row(
+                children: [
+                  CustomTextField(
+                    controller: firstnameController,
+                    text: 'First name',
+                    width: 330 / 2.w,
+                    height: 56.h,
+                  ),
+                  Gap(10.w),
+                  CustomTextField(
+                    controller: secondnameController,
+                    text: 'Second name',
+                    width: 330 / 2.w,
+                    height: 56.h,
+                  ),
+                ],
               ),
               Gap(10.h),
               CustomTextField(
@@ -123,12 +134,26 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                 context,
                 Theme.of(context).colorScheme.secondary,
                 () {
-                  //TODO: pass data to firestore
-                  log('Full name: ${fullnameController.text}');
-                  log('National ID: ${nationalIDController.text}');
+                  log('first name: ${firstnameController.text}');
+                  log('second name: ${secondnameController.text}');
                   log('Age: ${ageController.text}');
                   log('Gender: ${genderController.text}');
                   log('Phone number: ${phoneNumberController.text}');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    UserModel user = UserModel(
+                      age: ageController.text,
+                      email: userAuth!.email.toString(),
+                      firstName: firstnameController.text,
+                      secondName: secondnameController.text,
+                      profilePic: '',
+                      gender: genderController.text,
+                      medicalHistory: [],
+                      phoneNum: phoneNumberController.text,
+                    );
+                    return PatientHomeScreen(
+                      userModel: user,
+                    );
+                  }));
                 },
                 'Continue',
                 16.sp,
