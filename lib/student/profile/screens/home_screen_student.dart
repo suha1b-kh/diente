@@ -1,3 +1,4 @@
+import 'package:diente/student/profile/widgets/list_for_student_and_treatment.dart';
 import 'package:diente/student/profile/widgets/list_patient_widgets.dart';
 import 'package:diente/student/profile/widgets/list_reports.dart';
 import 'package:diente/student/profile/widgets/patient_widget.dart';
@@ -22,7 +23,7 @@ class HomeStudentScreen extends StatelessWidget {
               Gap(29.h),
               const SearchStudentBar(),
               Gap(34.h),
-              const ListPatientWidgets()
+              const ListWidgets(widgetType: WidgetType.patient ,)
             ],
           ),
           

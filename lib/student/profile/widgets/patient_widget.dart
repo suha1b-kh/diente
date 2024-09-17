@@ -14,7 +14,7 @@ String patientName;
     return Row(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 18),
+          padding:  EdgeInsets.symmetric(vertical: 15.h,horizontal: 18.h),
           child: Container(
             width: 335.w,
             height: 120.h,
@@ -36,7 +36,7 @@ String patientName;
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 20, right: 71),
+                      padding:  EdgeInsets.only(top: 20.h, right: 71.h),
                       child: Text(
                         patientName,
                         style: TextStyle(
@@ -61,7 +61,7 @@ String patientName;
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 150.0),
+                  padding:  EdgeInsets.only(left: 80.h),
                   child: Container(
                     
                     width: 10.w,

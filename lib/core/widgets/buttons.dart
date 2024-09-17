@@ -48,3 +48,26 @@ Widget customButtonWithBorder(
         )),
   );
 }
+Widget customDialogButton(context, Color color, VoidCallback onPressed, String text,
+    double textSize) {
+  return TextButton(
+    onPressed: onPressed,
+    child: Container(
+        width: 263.w,
+        height: 55.h,
+        decoration: ShapeDecoration(
+          color: color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.r),
+          ),
+        ),
+        child: Center(
+          child: customText(
+              context,
+              text,
+              Theme.of(context).colorScheme.inverseSurface,
+              textSize,
+              FontWeight.w500),
+        )),
+  );
+}

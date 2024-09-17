@@ -61,7 +61,7 @@ class StudentProfileWidget extends StatelessWidget {
                 ),
                
                    Padding(
-                  padding: EdgeInsets.only(left: 130.dm),
+                  padding: EdgeInsets.only(left: 100.h),
                   child: const Icon(Icons.arrow_forward_ios),
                 ),
               ],

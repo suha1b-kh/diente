@@ -1,3 +1,4 @@
+import 'package:diente/student/profile/widgets/list_for_student_and_treatment.dart';
 import 'package:diente/student/profile/widgets/list_treatment_widgets.dart';
 import 'package:diente/student/profile/widgets/student_appbar.dart';
 import 'package:diente/student/profile/widgets/treatment_widget.dart';
@@ -27,7 +28,7 @@ class MyTreatment extends StatelessWidget {
                 ),
               ),
             ),
-            const ListTreatmentWidgets()
+            const ListWidgets(widgetType: WidgetType.treatment)
           ],
         ),
       ),
