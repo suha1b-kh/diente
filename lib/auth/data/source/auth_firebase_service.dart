@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diente/auth/data/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -127,5 +129,39 @@ class AuthFirebaseService {
     return null;
   }
 
-  // Future sendEmailVerification() {}
+  Future<void> createUser(UserModel user) async {
+    try {
+      await firestore.collection('patients').doc(user.email).set(user.toMap());
+      log('user created');
+    } on FirebaseException catch (e) {
+      log('error $e');
+    }
+  }
+
+  Future<UserModel> fetchUser() async {
+    try {
+      final User? user = auth.currentUser;
+
+      if (user == null) {
+        throw Exception("No user is currently logged in.");
+      }
+
+      // Reference to the user document in the `users` collection
+      DocumentSnapshot userDoc =
+          await firestore.collection('patients').doc(user.email).get();
+
+      // Check if the document exists
+      if (userDoc.exists) {
+        // Return the user data as a Map
+        log('user fetched');
+        return UserModel.fromMap(userDoc.data() as Map<String, dynamic>);
+      } else {
+        // Handle case where the document does not exist
+        throw Exception("User document not found.");
+      }
+    } catch (e) {
+      print("Error fetching user data: $e");
+      rethrow;
+    }
+  }
 }

@@ -1,8 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/auth/data/source/auth_firebase_service.dart';
 import 'package:diente/patient/home/patient_home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -39,6 +41,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
   File? _imageFile;
   File? croppedImage;
   final ImagePicker _picker = ImagePicker();
+  String imagePath = '';
 
   @override
   Widget build(BuildContext context) {
@@ -134,22 +137,18 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                 context,
                 Theme.of(context).colorScheme.secondary,
                 () {
-                  log('first name: ${firstnameController.text}');
-                  log('second name: ${secondnameController.text}');
-                  log('Age: ${ageController.text}');
-                  log('Gender: ${genderController.text}');
-                  log('Phone number: ${phoneNumberController.text}');
+                  UserModel user = UserModel(
+                    age: ageController.text,
+                    email: userAuth!.email.toString(),
+                    firstName: firstnameController.text,
+                    secondName: secondnameController.text,
+                    profilePic: imagePath,
+                    gender: genderController.text,
+                    medicalHistory: [],
+                    phoneNum: phoneNumberController.text,
+                  );
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    UserModel user = UserModel(
-                      age: ageController.text,
-                      email: userAuth!.email.toString(),
-                      firstName: firstnameController.text,
-                      secondName: secondnameController.text,
-                      profilePic: '',
-                      gender: genderController.text,
-                      medicalHistory: [],
-                      phoneNum: phoneNumberController.text,
-                    );
+                    AuthFirebaseService().createUser(user);
                     return PatientHomeScreen(
                       userModel: user,
                     );
@@ -173,6 +172,18 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
 
       // If a file is picked, update the state to display it
       if (pickedFile != null) {
+        final storageRef = FirebaseStorage.instance.ref();
+        final imageRef = storageRef.child(pickedFile.name);
+        try {
+          if (_imageFile != null) {
+            await imageRef.putFile(_imageFile!);
+          }
+          log('Uploaded image successfully');
+          imagePath = await imageRef.getDownloadURL();
+        } on FirebaseException catch (e) {
+          log("errorFailed to upload image: $e");
+        }
+        log('File picked: ${pickedFile.path}');
         //TODO: refactor using bloc
         setState(() {
           _imageFile = File(pickedFile.path);

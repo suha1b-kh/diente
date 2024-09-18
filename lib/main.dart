@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/auth/data/source/auth_firebase_service.dart';
 import 'package:diente/auth/presentation/email_verification_screen.dart';
 import 'package:diente/auth/presentation/home_screen.dart';
 import 'package:diente/auth/presentation/login_screen.dart';
@@ -51,7 +55,8 @@ class _MainAppState extends State<MainApp> {
     } else if (user.displayName == null) {
       return const FillProfileScreen();
     } else {
-      return PatientHomeScreen();
+      log('user.displayName.toString()');
+      return const HomeScreen();
     }
   }
 

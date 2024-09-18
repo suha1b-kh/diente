@@ -18,6 +18,7 @@ class PatientHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(userModel!.profilePic.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(

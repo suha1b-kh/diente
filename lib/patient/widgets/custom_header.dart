@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:diente/patient/edit%20profile%20info/edit_patient_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -47,7 +48,12 @@ class CustomHeader extends StatelessWidget {
                 ),
                 onTap: () {
                   //TODO: navigate to edit profile screen
-                  Navigator.pushNamed(context, 'edit_profile_screen');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return EditPatientProfileScreen(
+                      patientName: patientName!,
+                      patientImage: patientImage,
+                    );
+                  }));
                 }),
           ),
 

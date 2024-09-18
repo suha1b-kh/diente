@@ -19,24 +19,6 @@ class UserModel {
     required this.profilePic,
   });
 
-  // Convert UserModel to User entity
-  // UserEntities toEntity() {
-  //   return UserEntities(
-  //     active: active,
-  //     age: age,
-  //     caseType: caseType,
-  //     email: email,
-  //     fullName: fullName,
-  //     gender: gender,
-  //     medicalHistory: medicalHistory,
-  //     nationalId: nationalId,
-  //     password: password,
-  //     phoneNum: phoneNum,
-  //     profilePic: profilePic,
-  //     teeth: teeth,
-  //   );
-  // }
-
   // Create UserModel from a map (e.g., Firebase data)
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
