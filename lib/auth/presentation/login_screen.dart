@@ -85,7 +85,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   // Navigator.popAndPushNamed(context, 'patient_home_screen');
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) {
-                    return const FillProfileScreen();
+                    return PatientHomeScreen(
+                      userModel: state.user,
+                    );
                   }), (Route<dynamic> route) => false);
                 } catch (e, stackTrace) {
                   log('Navigation error: $e', error: e, stackTrace: stackTrace);
@@ -194,8 +196,9 @@ class _bodyWidgetState extends State<bodyWidget> {
               () {
                 BlocProvider.of<LoginBloc>(context).add(
                   SubmitLogin(
-                    email: widget.emailController.text,
-                    password: widget.passwordController.text,
+                    //TODO: reset
+                    email: '99b6ca9fe490@drmail.in',
+                    password: '123456',
                   ),
                 );
               },

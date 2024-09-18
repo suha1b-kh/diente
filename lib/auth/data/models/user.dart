@@ -4,7 +4,7 @@ class UserModel {
   final String firstName;
   final String secondName;
   final String gender;
-  final List<Map<String, bool>> medicalHistory;
+  final List<dynamic> medicalHistory;
   final String phoneNum;
   final String profilePic;
 
@@ -38,7 +38,8 @@ class UserModel {
     return {
       'age': age,
       'email': email,
-      'fullName': firstName,
+      'firstName': firstName,
+      'secondName': secondName,
       'gender': gender,
       'medicalHistory': medicalHistory,
       'phoneNum': phoneNum,

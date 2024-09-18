@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/auth/data/source/auth_firebase_service.dart';
 
@@ -20,7 +22,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         // Try to sign up the user
         final UserModel? user =
             await authService.login(event.email, event.password);
-
         if (user != null) {
           // If Login is successful, emit success state
           emit(LoginSuccess(user: user));

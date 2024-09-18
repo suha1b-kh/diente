@@ -51,7 +51,8 @@ class CustomHeader extends StatelessWidget {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return EditPatientProfileScreen(
                       patientName: patientName!,
-                      patientImage: patientImage,
+                      patientImage: patientImage ??
+                          const AssetImage('assets/images/patient.png'),
                     );
                   }));
                 }),

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diente/auth/data/models/medical_history_model.dart';
 import 'package:diente/auth/data/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -78,16 +79,8 @@ class AuthFirebaseService {
       );
       final User? user = userCredential.user;
       if (user != null) {
-        return UserModel(
-          age: '',
-          email: email,
-          firstName: '',
-          secondName: '',
-          gender: '',
-          medicalHistory: [],
-          phoneNum: '',
-          profilePic: '',
-        );
+        UserModel userData = await AuthFirebaseService().fetchUser();
+        return userData;
       }
     } on FirebaseAuthException catch (error) {
       String errorMessage;
@@ -153,8 +146,12 @@ class AuthFirebaseService {
       // Check if the document exists
       if (userDoc.exists) {
         // Return the user data as a Map
-        log('user fetched');
-        return UserModel.fromMap(userDoc.data() as Map<String, dynamic>);
+        log('user feetched');
+
+        UserModel userData =
+            UserModel.fromMap(userDoc.data() as Map<String, dynamic>);
+        log(userData.toString());
+        return userData;
       } else {
         // Handle case where the document does not exist
         throw Exception("User document not found.");
@@ -164,4 +161,6 @@ class AuthFirebaseService {
       rethrow;
     }
   }
+
+  Future<void> fillMedicalHistory(MedicalHistoryModel medModel) async {}
 }
