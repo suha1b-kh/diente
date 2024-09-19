@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:panara_dialogs/panara_dialogs.dart';
+
 
 import '../widgets/list_reports.dart';
 
@@ -26,7 +26,7 @@ class _mainProfileState extends State<MainProfile> {
 
   Future<void> _pickImage() async {
     try {
-      final XFile? pickedFile = await _picker.pickImage(
+      final File? pickedFile = await _picker.pickImage(
         source: ImageSource.gallery, // Pick from gallery
       );
 

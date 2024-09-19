@@ -1,5 +1,4 @@
 import 'package:diente/student/profile/widgets/list_for_student_and_treatment.dart';
-import 'package:diente/student/profile/widgets/list_students_profile_widgets.dart';
 import 'package:diente/student/profile/widgets/search_bar.dart';
 import 'package:diente/student/profile/widgets/student_appbar.dart';
 import 'package:flutter/material.dart';

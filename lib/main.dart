@@ -1,18 +1,14 @@
 import 'package:diente/auth/home_screen.dart';
 import 'package:diente/auth/login/login_screen.dart';
 import 'package:diente/auth/signup/create_new_password_screen.dart';
-import 'package:diente/auth/signup/email_verification_screen.dart';
 import 'package:diente/auth/signup/fill_information_screen.dart';
 import 'package:diente/auth/signup/medical_history_screen.dart';
 import 'package:diente/auth/signup/signup_screen.dart';
 import 'package:diente/core/theme/lightmode.dart';
 import 'package:diente/student/profile/screens/control_screen.dart';
-import 'package:diente/student/profile/screens/home_screen_student.dart';
-import 'package:diente/student/profile/screens/main_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'student/profile/screens/edit_profile.dart';
 
 void main() {
   runApp(const MainApp());
