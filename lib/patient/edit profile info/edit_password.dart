@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:developer';
 
@@ -69,52 +71,62 @@ class _EditPasswordState extends State<EditPassword> {
             context,
             Theme.of(context).colorScheme.secondary,
             () async {
-              bool changed = false;
-              FirebaseAuth auth = FirebaseAuth.instance;
-              try {
-                if (await auth.signInWithEmailAndPassword(
-                        email: auth.currentUser!.email!,
-                        password: passwordController.text) ==
-                    true) {
-                  if (newpasswordController.text ==
-                      newSpasswordController.text) {
-                    auth.currentUser!
-                        .updatePassword(newpasswordController.text);
-                    changed = true;
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        backgroundColor: Colors.red,
-                        content: Text('كلمة المرور الجديدة غير متطابقة'),
-                      ),
-                    );
-                  }
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      backgroundColor: Colors.red,
-                      content: Text('كلمة المرور الحالية غير صحيحة'),
-                    ),
-                  );
-                }
-              } on Exception catch (e) {
-                log(e.toString());
-              }
-              if (changed) {
+              if (newSpasswordController.text != newpasswordController.text) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    content: const Text('تم تغيير كلمة المرور بنجاح'),
+                  const SnackBar(
+                    content: Text(
+                      'كلمة المرور غير متطابقة',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    backgroundColor: Colors.red,
                   ),
                 );
+              } else {
+                String email = FirebaseAuth.instance.currentUser!.email!;
+                final user = FirebaseAuth.instance.currentUser;
+                final cred = EmailAuthProvider.credential(
+                    email: email, password: passwordController.text);
+
+                user!.reauthenticateWithCredential(cred).then((value) {
+                  user.updatePassword(newpasswordController.text).then((_) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text(
+                          'تم تحديث كلمة المرور بنجاح',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                      ),
+                    );
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()),
+                    );
+                  }).catchError((error) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'حدث خطأ أثناء تحديث كلمة المرور. حاول مرة اخرى.',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  });
+                }).catchError((err) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'كلمة المرور الحالية غير صحيحة',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                });
               }
-              // Timer(const Duration(seconds: 5), () {
-              //   Navigator.pushAndRemoveUntil(
-              //     context,
-              //     MaterialPageRoute(builder: (context) => const LoginScreen()),
-              //     (route) => false,
-              //   );
-              // });
             },
             'ارسال',
             24.sp,
