@@ -1,23 +1,33 @@
-import 'package:diente/auth/presentation/email_verification_screen.dart';
+import 'dart:developer';
+
+import 'package:diente/auth/data/models/medical_history_model.dart';
+import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/auth/data/source/auth_firebase_service.dart';
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/text.dart';
+import 'package:diente/patient/Home/patient_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class MedicalHistoryScreen extends StatelessWidget {
-  const MedicalHistoryScreen({super.key});
+class MedicalHistoryScreen extends StatefulWidget {
+  final UserModel user;
+  const MedicalHistoryScreen({super.key, required this.user});
 
   @override
-  Widget build(BuildContext context) {
-    bool diabetes = true,
-        highBloodPressure = false,
-        heartDisease = false,
-        respiratoryDiseases = false,
-        kidneyDisease = false,
-        bleedingDisorders = false,
-        doNotSuffer = false;
+  State<MedicalHistoryScreen> createState() => _MedicalHistoryScreenState();
+}
 
+class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
+  bool diabetes = true,
+      highBloodPressure = false,
+      heartDisease = false,
+      respiratoryDiseases = false,
+      kidneyDisease = false,
+      bleedingDisorders = false,
+      doNotSuffer = false;
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -38,206 +48,110 @@ class MedicalHistoryScreen extends StatelessWidget {
                 20.sp,
                 FontWeight.bold),
             Gap(60.h),
-            Center(
-              child: Row(
-                children: [
-                  Transform.scale(
-                    scale: 1.3,
-                    child: Checkbox(
-                      side: WidgetStateBorderSide.resolveWith(
-                        (states) => BorderSide(
-                            width: 1.0,
-                            color: Theme.of(context).colorScheme.secondary),
-                      ),
-                      value: diabetes,
-                      onChanged: (value) {},
-                      activeColor: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                  Gap(13.w),
-                  customText(
-                      context,
-                      'diabetes',
-                      Theme.of(context).colorScheme.secondary,
-                      16.sp,
-                      FontWeight.w500),
-                ],
-              ),
-            ),
+            _buildCheckboxRow(context, 'diabetes', diabetes, (value) {
+              setState(() {
+                diabetes = value!;
+              });
+            }),
             Gap(29.h),
-            Center(
-              child: Row(
-                children: [
-                  Transform.scale(
-                    scale: 1.3,
-                    child: Checkbox(
-                      side: WidgetStateBorderSide.resolveWith(
-                        (states) => BorderSide(
-                            width: 1.0,
-                            color: Theme.of(context).colorScheme.secondary),
-                      ),
-                      value: highBloodPressure,
-                      onChanged: (value) {},
-                      activeColor: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                  Gap(13.w),
-                  customText(
-                      context,
-                      'high blood pressure',
-                      Theme.of(context).colorScheme.secondary,
-                      16.sp,
-                      FontWeight.w500),
-                ],
-              ),
-            ),
+            _buildCheckboxRow(context, 'high blood pressure', highBloodPressure,
+                (value) {
+              setState(() {
+                highBloodPressure = value!;
+              });
+            }),
             Gap(29.h),
-            Center(
-              child: Row(
-                children: [
-                  Transform.scale(
-                    scale: 1.3,
-                    child: Checkbox(
-                      side: WidgetStateBorderSide.resolveWith(
-                        (states) => BorderSide(
-                            width: 1.0,
-                            color: Theme.of(context).colorScheme.secondary),
-                      ),
-                      value: heartDisease,
-                      onChanged: (value) {},
-                      activeColor: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                  Gap(13.w),
-                  customText(
-                      context,
-                      'heart disease',
-                      Theme.of(context).colorScheme.secondary,
-                      16.sp,
-                      FontWeight.w500),
-                ],
-              ),
-            ),
+            _buildCheckboxRow(context, 'heart disease', heartDisease, (value) {
+              setState(() {
+                heartDisease = value!;
+              });
+            }),
             Gap(29.h),
-            Center(
-              child: Row(
-                children: [
-                  Transform.scale(
-                    scale: 1.3,
-                    child: Checkbox(
-                      side: WidgetStateBorderSide.resolveWith(
-                        (states) => BorderSide(
-                            width: 1.0,
-                            color: Theme.of(context).colorScheme.secondary),
-                      ),
-                      value: respiratoryDiseases,
-                      onChanged: (value) {},
-                      activeColor: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                  Gap(13.w),
-                  customText(
-                      context,
-                      'respiratory diseases',
-                      Theme.of(context).colorScheme.secondary,
-                      16.sp,
-                      FontWeight.w500),
-                ],
-              ),
-            ),
+            _buildCheckboxRow(
+                context, 'respiratory diseases', respiratoryDiseases, (value) {
+              setState(() {
+                respiratoryDiseases = value!;
+              });
+            }),
             Gap(29.h),
-            Center(
-              child: Row(
-                children: [
-                  Transform.scale(
-                    scale: 1.3,
-                    child: Checkbox(
-                      side: WidgetStateBorderSide.resolveWith(
-                        (states) => BorderSide(
-                            width: 1.0,
-                            color: Theme.of(context).colorScheme.secondary),
-                      ),
-                      value: kidneyDisease,
-                      onChanged: (value) {},
-                      activeColor: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                  Gap(13.w),
-                  customText(
-                      context,
-                      'Kidney Disease',
-                      Theme.of(context).colorScheme.secondary,
-                      16.sp,
-                      FontWeight.w500),
-                ],
-              ),
-            ),
+            _buildCheckboxRow(context, 'kidney disease', kidneyDisease,
+                (value) {
+              setState(() {
+                kidneyDisease = value!;
+              });
+            }),
             Gap(29.h),
-            Center(
-              child: Row(
-                children: [
-                  Transform.scale(
-                    scale: 1.3,
-                    child: Checkbox(
-                      side: WidgetStateBorderSide.resolveWith(
-                        (states) => BorderSide(
-                            width: 1.0,
-                            color: Theme.of(context).colorScheme.secondary),
-                      ),
-                      value: bleedingDisorders,
-                      onChanged: (value) {},
-                      activeColor: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                  Gap(13.w),
-                  customText(
-                      context,
-                      'Bleeding disorders',
-                      Theme.of(context).colorScheme.secondary,
-                      16.sp,
-                      FontWeight.w500),
-                ],
-              ),
-            ),
+            _buildCheckboxRow(context, 'bleeding disorders', bleedingDisorders,
+                (value) {
+              setState(() {
+                bleedingDisorders = value!;
+              });
+            }),
             Gap(29.h),
-            Center(
-              child: Row(
-                children: [
-                  Transform.scale(
-                    scale: 1.3,
-                    child: Checkbox(
-                      side: WidgetStateBorderSide.resolveWith(
-                        (states) => BorderSide(
-                            width: 1.0,
-                            color: Theme.of(context).colorScheme.secondary),
-                      ),
-                      value: doNotSuffer,
-                      onChanged: (value) {},
-                      activeColor: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                  Gap(13.w),
-                  customText(
-                      context,
-                      'I do not suffer from any\nchronic disease',
-                      Theme.of(context).colorScheme.secondary,
-                      16.sp,
-                      FontWeight.w500),
-                ],
-              ),
-            ),
+            _buildCheckboxRow(
+                context,
+                'I do not suffer from any\nchronic disease',
+                doNotSuffer, (value) {
+              setState(() {
+                doNotSuffer = value!;
+              });
+            }),
             Gap(50.h),
             customButton(context, Theme.of(context).colorScheme.secondary, () {
-              showModalBottomSheet(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(25)),
+              MedicalHistoryModel medModel = MedicalHistoryModel(
+                diabetes: diabetes,
+                highBloodPressure: highBloodPressure,
+                heartDisease: heartDisease,
+                respiratoryDiseases: respiratoryDiseases,
+                kidneyDisease: kidneyDisease,
+                bleedingDisorders: bleedingDisorders,
+                doNotSuffer: doNotSuffer,
+              );
+              AuthFirebaseService().fillMedicalHistory(medModel);
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PatientHomeScreen(
+                    userModel: widget.user,
                   ),
-                  context: context,
-                  builder: (context) => const EmailVerificationScreen());
+                ),
+                (route) => false,
+              );
             }, 'Submit', 16.sp)
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildCheckboxRow(BuildContext context, String text, bool value,
+      Function(bool?) onChanged) {
+    return Center(
+      child: Row(
+        children: [
+          Transform.scale(
+            scale: 1.3,
+            child: Checkbox(
+              side: WidgetStateBorderSide.resolveWith(
+                (states) => BorderSide(
+                  width: 1.0,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+              value: value,
+              onChanged: onChanged,
+              activeColor: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+          Gap(13.w),
+          customText(
+            context,
+            text,
+            Theme.of(context).colorScheme.secondary,
+            16.sp,
+            FontWeight.w500,
+          ),
+        ],
       ),
     );
   }

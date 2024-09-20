@@ -196,9 +196,8 @@ class _bodyWidgetState extends State<bodyWidget> {
               () {
                 BlocProvider.of<LoginBloc>(context).add(
                   SubmitLogin(
-                    //TODO: reset
-                    email: '99b6ca9fe490@drmail.in',
-                    password: '123456',
+                    email: widget.emailController.text,
+                    password: widget.passwordController.text,
                   ),
                 );
               },

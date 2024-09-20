@@ -1,7 +1,10 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:diente/patient/edit%20profile%20info/edit_email.dart';
+import 'package:diente/patient/edit%20profile%20info/edit_password.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/patient_image_and_name.dart';
@@ -54,9 +57,7 @@ class _EditProfileScreenState extends State<EditPatientProfileScreen> {
           PatientImageAndName(
               patientName: widget.patientName,
               patientImage: widget.patientImage),
-          SizedBox(
-            height: 23.h,
-          ),
+          Gap(100.h),
           //edit history button
           Center(
               child: CustomButton(
@@ -67,49 +68,28 @@ class _EditProfileScreenState extends State<EditPatientProfileScreen> {
                   borderColor: Theme.of(context).colorScheme.secondary,
                   text: "تعديل السجل المرضي",
                   fontColor: Colors.white,
-                  onTap: () {})),
+                  onTap: () {
+                    //TODO: navigate to the edit history screen
+                  })),
           SizedBox(
-            height: 100.h,
+            height: 40.h,
           ),
           //Text field to enter the old password
-          CustomTextField(
-              hint: "كلمة السر القديمة",
-              textAlign: TextAlign.start,
-              inputType: TextInputType.text,
-              obscureText: widget.obscureText,
-              icon: IconButton(
-                icon: widget.obscureText
-                    ? const Icon(Icons.visibility_outlined)
-                    : const Icon(Icons.visibility_off_outlined),
-                color: Theme.of(context).colorScheme.inversePrimary,
-                onPressed: () {},
-              )),
-          //Text field to enter the new password
-          CustomTextField(
-              hint: "كلمة السر الجديدة",
-              textAlign: TextAlign.start,
-              inputType: TextInputType.text,
-              obscureText: widget.obscureText,
-              icon: IconButton(
-                icon: widget.obscureText
-                    ? const Icon(Icons.visibility_outlined)
-                    : const Icon(Icons.visibility_off_outlined),
-                color: Theme.of(context).colorScheme.inversePrimary,
-                onPressed: () {},
-              )),
-          //Text field to confirm password
-          CustomTextField(
-              hint: "تأكيد كلمة السر",
-              textAlign: TextAlign.start,
-              inputType: TextInputType.text,
-              obscureText: widget.obscureText,
-              icon: IconButton(
-                icon: widget.obscureText
-                    ? const Icon(Icons.visibility_outlined)
-                    : const Icon(Icons.visibility_off_outlined),
-                color: Theme.of(context).colorScheme.inversePrimary,
-                onPressed: () {},
-              )),
+          Center(
+              child: CustomButton(
+                  height: 37.h,
+                  width: 230.w,
+                  borderRadius: 50.r,
+                  color: Theme.of(context).colorScheme.secondary,
+                  borderColor: Theme.of(context).colorScheme.secondary,
+                  text: "تعديل كلمة المرور",
+                  fontColor: Colors.white,
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return EditPassword();
+                    }));
+                  })),
           SizedBox(
             height: 40.h,
           ),
@@ -121,9 +101,14 @@ class _EditProfileScreenState extends State<EditPatientProfileScreen> {
                   borderRadius: 50.r,
                   color: Theme.of(context).colorScheme.secondary,
                   borderColor: Theme.of(context).colorScheme.secondary,
-                  text: "تحديث المعلومات",
+                  text: 'تعديل البريد الإلكتروني',
                   fontColor: Colors.white,
-                  onTap: () {})),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const EditEmail();
+                    }));
+                  })),
         ],
       ),
     );

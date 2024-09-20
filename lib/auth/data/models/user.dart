@@ -4,7 +4,7 @@ class UserModel {
   final String firstName;
   final String secondName;
   final String gender;
-  final List<dynamic> medicalHistory;
+  final Map<String, dynamic> medicalHistory;
   final String phoneNum;
   final String profilePic;
 

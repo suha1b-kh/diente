@@ -13,8 +13,9 @@ class CustomDropDownMenu extends StatelessWidget {
     required this.items,
     required this.selectedItem,
     required this.onChanged,
+    this.validator,
   });
-
+  final String? Function(String?)? validator;
   final double width, height;
   final String text;
   final IconData? icon;
@@ -32,43 +33,51 @@ class CustomDropDownMenu extends StatelessWidget {
         borderRadius: BorderRadius.circular(15.r),
       ),
       padding: EdgeInsets.symmetric(horizontal: 16.w),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          dropdownColor: Theme.of(context).colorScheme.inverseSurface,
-          borderRadius: BorderRadius.circular(15.r),
-          style: GoogleFonts.poppins(
-            color: Theme.of(context).colorScheme.secondary,
-            fontSize: 16.w,
-            fontWeight: FontWeight.w400,
+      child: DropdownButtonFormField<String>(
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 5.w),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.r),
+            borderSide: BorderSide.none,
           ),
-          hint: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              customText(
-                  context,
-                  text,
-                  Theme.of(context).colorScheme.inversePrimary,
-                  14.sp,
-                  FontWeight.w400),
-              if (icon != null)
-                Icon(
-                  icon,
-                  size: 24.h,
-                  color: Colors.grey[600],
-                ),
-            ],
-          ),
-          icon: const Icon(Icons.arrow_drop_down_outlined),
-          isExpanded: true,
-          value: selectedItem,
-          items: items.map((String item) {
-            return DropdownMenuItem<String>(
-              value: item,
-              child: Text(item),
-            );
-          }).toList(),
-          onChanged: onChanged,
+          filled: true,
+          fillColor: Theme.of(context).colorScheme.inverseSurface,
         ),
+        dropdownColor: Theme.of(context).colorScheme.inverseSurface,
+        borderRadius: BorderRadius.circular(15.r),
+        style: GoogleFonts.poppins(
+          color: Theme.of(context).colorScheme.secondary,
+          fontSize: 16.w,
+          fontWeight: FontWeight.w400,
+        ),
+        hint: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            customText(
+                context,
+                text,
+                Theme.of(context).colorScheme.inversePrimary,
+                14.sp,
+                FontWeight.w400),
+            if (icon != null)
+              Icon(
+                icon,
+                size: 24.h,
+                color: Colors.grey[600],
+              ),
+          ],
+        ),
+        icon: const Icon(Icons.arrow_drop_down_outlined),
+        isExpanded: true,
+        value: selectedItem,
+        items: items.map((String item) {
+          return DropdownMenuItem<String>(
+            value: item,
+            child: Text(item),
+          );
+        }).toList(),
+        onChanged: onChanged,
+        validator: validator,
       ),
     );
   }

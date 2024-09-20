@@ -13,15 +13,17 @@ class CustomTextField extends StatelessWidget {
     this.iconPressed,
     this.validator,
     this.hide,
+    this.keyboardType,
   });
 
   final double width, height;
+  final TextInputType? keyboardType;
   final TextEditingController controller;
   final String text;
   final IconData? icon;
   final bool? hide;
   final VoidCallback? iconPressed;
-  final String Function(String?)? validator;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class CustomTextField extends StatelessWidget {
       ),
       child: Center(
         child: TextFormField(
+          keyboardType: keyboardType,
           validator: validator,
           obscureText: hide ?? false,
           cursorColor: Theme.of(context).colorScheme.inversePrimary,
@@ -42,6 +45,7 @@ class CustomTextField extends StatelessWidget {
               color: Theme.of(context).colorScheme.inversePrimary,
               fontSize: 14.sp),
           decoration: InputDecoration(
+            errorStyle: TextStyle(fontSize: 12.sp),
             filled: true,
             fillColor: Theme.of(context).colorScheme.inverseSurface,
             contentPadding:

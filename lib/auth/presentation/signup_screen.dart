@@ -29,11 +29,11 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
   //validate function
-  String validateField(String? value) {
+  String? validateField(String? value) {
     if (value == null || value.isEmpty) {
       return 'This field cannot be empty';
     }
-    return '';
+    return null;
   }
 
   @override
@@ -153,15 +153,18 @@ class _SignupScreenState extends State<SignupScreen> {
                       context,
                       Theme.of(context).colorScheme.secondary,
                       () {
+                        passwordController.text = '123456';
+                        confirmPasswordController.text = '123456';
                         if (passwordController.text ==
-                                confirmPasswordController.text &&
-                            !formKey.currentState!.validate()) {
-                          BlocProvider.of<SignupBloc>(context).add(
-                            SubmitSignup(
-                              email: emailController.text,
-                              password: passwordController.text,
-                            ),
-                          );
+                            confirmPasswordController.text) {
+                          if (formKey.currentState!.validate()) {
+                            BlocProvider.of<SignupBloc>(context).add(
+                              SubmitSignup(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              ),
+                            );
+                          }
                         } else {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(

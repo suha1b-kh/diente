@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/patient/appointment%20booking/disease_selection_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -64,7 +65,12 @@ class PatientHomeScreen extends StatelessWidget {
             text: "حجز موعد جديد",
             onTap: () {
               //TODO: navigate to disease selection screen
-              Navigator.pushNamed(context, 'disease_selection_screen');
+              // Navigator.push(context, MaterialPageRoute(builder: (context){
+              //   return DiseaseSelectionScreen(
+              //     patientName: '${userModel?.firstName} ${userModel?.secondName}',
+              //     patientImage: Image,
+              //   );
+              // }));
             },
           ),
 

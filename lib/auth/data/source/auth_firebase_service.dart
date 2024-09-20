@@ -36,7 +36,7 @@ class AuthFirebaseService {
           firstName: '',
           secondName: '',
           gender: '',
-          medicalHistory: [],
+          medicalHistory: <String, dynamic>{},
           phoneNum: '',
           profilePic: '',
         );
@@ -124,7 +124,10 @@ class AuthFirebaseService {
 
   Future<void> createUser(UserModel user) async {
     try {
-      await firestore.collection('patients').doc(user.email).set(user.toMap());
+      await firestore
+          .collection('patients')
+          .doc(auth.currentUser!.uid)
+          .set(user.toMap());
       log('user created');
     } on FirebaseException catch (e) {
       log('error $e');
@@ -140,18 +143,33 @@ class AuthFirebaseService {
       }
 
       // Reference to the user document in the `users` collection
-      DocumentSnapshot userDoc =
-          await firestore.collection('patients').doc(user.email).get();
+      DocumentSnapshot userDoc = await firestore
+          .collection('patients')
+          .doc(auth.currentUser!.uid)
+          .get();
 
       // Check if the document exists
       if (userDoc.exists) {
         // Return the user data as a Map
         log('user feetched');
-
-        UserModel userData =
-            UserModel.fromMap(userDoc.data() as Map<String, dynamic>);
-        log(userData.toString());
-        return userData;
+        UserModel? userData;
+        try {
+          userData = UserModel.fromMap(userDoc.data() as Map<String, dynamic>);
+        } on Exception catch (e) {
+          log('error $e');
+        }
+        log(userData.toString() ?? 'null');
+        return userData ??
+            UserModel(
+              age: '',
+              email: '',
+              firstName: '',
+              secondName: '',
+              gender: '',
+              medicalHistory: {},
+              phoneNum: '',
+              profilePic: '',
+            );
       } else {
         // Handle case where the document does not exist
         throw Exception("User document not found.");
@@ -162,5 +180,14 @@ class AuthFirebaseService {
     }
   }
 
-  Future<void> fillMedicalHistory(MedicalHistoryModel medModel) async {}
+  Future<void> fillMedicalHistory(MedicalHistoryModel medModel) async {
+    try {
+      await firestore.collection('patients').doc(auth.currentUser!.uid).set({
+        'medicalHistory': medModel.toMap(),
+      }, SetOptions(merge: true));
+      log('medical history added');
+    } on FirebaseException catch (e) {
+      log('error $e');
+    }
+  }
 }

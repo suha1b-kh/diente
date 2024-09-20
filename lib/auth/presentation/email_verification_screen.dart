@@ -25,8 +25,6 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   void initState() {
     super.initState();
     FirebaseAuth.instance.currentUser?.sendEmailVerification();
-    // FirebaseAuth.instance
-    //     .sendPasswordResetEmail(email: '7d68786bc276@drmail.in');
     timer =
         Timer.periodic(const Duration(seconds: 3), (_) => checkEmailVerified());
   }
@@ -79,7 +77,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
               ),
               customText(
                 context,
-                'link to your email',
+                'link to ${FirebaseAuth.instance.currentUser?.email}',
                 Theme.of(context).colorScheme.secondary,
                 16.sp,
                 FontWeight.normal,

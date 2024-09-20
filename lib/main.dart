@@ -78,8 +78,8 @@ class _MainAppState extends State<MainApp> {
             //fill profile info screen
             "/fill_profile_screen": (context) => const FillProfileScreen(),
             //fill medical history screen
-            "/fill_medical_history_screen": (context) =>
-                const MedicalHistoryScreen(),
+            // "/fill_medical_history_screen": (context) =>
+            //     const MedicalHistoryScreen(),
             //fill medical history screen
             "/create_new_password_screen": (context) =>
                 const CreateNewPasswordScreen(),

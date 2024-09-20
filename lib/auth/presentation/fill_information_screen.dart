@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:math';
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/auth/data/source/auth_firebase_service.dart';
+import 'package:diente/auth/presentation/medical_history_screen.dart';
 import 'package:diente/patient/home/patient_home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -12,6 +14,7 @@ import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/drop_down_menu.dart';
 import 'package:diente/core/widgets/text.dart';
 import 'package:diente/core/widgets/text_fields.dart';
+import 'package:image_cropper/image_cropper.dart';
 // import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -37,11 +40,18 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
   // List for the user's medical history
   List<Map<String, bool>> medicalHistory = [];
 
+  //validate
+  GlobalKey<FormState> formKey = GlobalKey(); //to validate form
+
+  String? validateField(String? value) {
+    if (value == null || value.isEmpty || value == 'gender') {
+      return 'This field cannot be empty';
+    }
+    return null;
+  }
+
   // Variables for image picking
   File? _imageFile;
-  File? croppedImage;
-  final ImagePicker _picker = ImagePicker();
-  String imagePath = '';
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +82,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
               Gap(44.h),
               GestureDetector(
                 onTap: () async {
-                  await _pickImage();
+                  await _pickImage(ImageSource.gallery);
                 },
                 child: _imageFile == null
                     ? Image.asset(
@@ -83,76 +93,96 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                       )
                     : CircleAvatar(
                         radius: 61.w,
-                        backgroundImage: FileImage(_imageFile!),
+                        backgroundImage: FileImage(
+                          _imageFile!,
+                        ),
                       ),
               ),
               Gap(26.h),
-              Row(
-                children: [
-                  CustomTextField(
-                    controller: firstnameController,
-                    text: 'First name',
-                    width: 330 / 2.w,
-                    height: 56.h,
-                  ),
-                  Gap(10.w),
-                  CustomTextField(
-                    controller: secondnameController,
-                    text: 'Second name',
-                    width: 330 / 2.w,
-                    height: 56.h,
-                  ),
-                ],
-              ),
-              Gap(10.h),
-              CustomTextField(
-                controller: ageController,
-                text: 'Age',
-                width: 343.w,
-                height: 56.h,
-              ),
-              Gap(10.h),
-              CustomDropDownMenu(
-                width: 343.w,
-                height: 56.h,
-                text: genderController.text,
-                items: const ['Male', 'Female'],
-                selectedItem: null,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    genderController.text = newValue ?? '';
-                  });
-                  //TODO: Refactor using bloc
-                },
-              ),
-              Gap(10.h),
-              CustomTextField(
-                controller: phoneNumberController,
-                text: 'Phone number',
-                width: 343.w,
-                height: 56.h,
+              Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        CustomTextField(
+                          validator: validateField,
+                          controller: firstnameController,
+                          text: 'First name',
+                          width: (330 / 2).w,
+                          height: 56.h,
+                        ),
+                        Gap(10.w),
+                        CustomTextField(
+                          validator: validateField,
+                          controller: secondnameController,
+                          text: 'Second name',
+                          width: (330 / 2).w,
+                          height: 56.h,
+                        ),
+                      ],
+                    ),
+                    Gap(10.h),
+                    CustomTextField(
+                      validator: validateField,
+                      keyboardType: TextInputType.number,
+                      controller: ageController,
+                      text: 'Age',
+                      width: 343.w,
+                      height: 56.h,
+                    ),
+                    Gap(10.h),
+                    CustomDropDownMenu(
+                      validator: validateField,
+                      width: 343.w,
+                      height: 56.h,
+                      text: genderController.text,
+                      items: const ['Male', 'Female'],
+                      selectedItem: null,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          genderController.text = newValue ?? '';
+                        });
+                        //TODO: Refactor using bloc
+                      },
+                    ),
+                    Gap(10.h),
+                    CustomTextField(
+                      validator: validateField,
+                      keyboardType: TextInputType.phone,
+                      controller: phoneNumberController,
+                      text: 'Phone number',
+                      width: 343.w,
+                      height: 56.h,
+                    ),
+                  ],
+                ),
               ),
               Gap(94.h),
               customButton(
                 context,
                 Theme.of(context).colorScheme.secondary,
                 () {
-                  UserModel user = UserModel(
-                    age: ageController.text,
-                    email: userAuth!.email.toString(),
-                    firstName: firstnameController.text,
-                    secondName: secondnameController.text,
-                    profilePic: imagePath,
-                    gender: genderController.text,
-                    medicalHistory: [],
-                    phoneNum: phoneNumberController.text,
-                  );
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    AuthFirebaseService().createUser(user);
-                    return PatientHomeScreen(
-                      userModel: user,
+                  if (formKey.currentState!.validate()) {
+                    UserModel user = UserModel(
+                      age: ageController.text,
+                      email: userAuth!.email.toString(),
+                      firstName: firstnameController.text,
+                      secondName: secondnameController.text,
+                      profilePic: "",
+                      gender: genderController.text,
+                      medicalHistory: <String, dynamic>{},
+                      phoneNum: phoneNumberController.text,
                     );
-                  }));
+
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      AuthFirebaseService().createUser(user);
+                      return MedicalHistoryScreen(
+                        user: user,
+                      );
+                    }));
+                  }
                 },
                 'Continue',
                 16.sp,
@@ -164,44 +194,32 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
     );
   }
 
-  Future<void> _pickImage() async {
-    try {
-      final XFile? pickedFile = await _picker.pickImage(
-        source: ImageSource.gallery, // Pick from gallery
-      );
+  Future<File?> _cropImage({required File imageFile}) async {
+    CroppedFile? croppedImage = await ImageCropper().cropImage(
+      sourcePath: imageFile.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ],
+    );
 
-      // If a file is picked, update the state to display it
-      if (pickedFile != null) {
-        final storageRef = FirebaseStorage.instance.ref();
-        final imageRef = storageRef.child(pickedFile.name);
-        try {
-          if (_imageFile != null) {
-            await imageRef.putFile(_imageFile!);
-          }
-          log('Uploaded image successfully');
-          imagePath = await imageRef.getDownloadURL();
-        } on FirebaseException catch (e) {
-          log("errorFailed to upload image: $e");
-        }
-        log('File picked: ${pickedFile.path}');
-        //TODO: refactor using bloc
-        setState(() {
-          _imageFile = File(pickedFile.path);
-        });
-      }
-    } catch (e) {
-      log("Image selection error: $e");
+    if (croppedImage == null) {
+      return null;
+    } else {
+      return File(croppedImage.path);
     }
   }
 
-  // Future _cropImage(File? image) async {
-  //   CroppedFile? croppedFile = await ImageCropper().cropImage(
-  //     sourcePath: image!.path,
-  //     uiSettings: [
-  //       AndroidUiSettings(toolbarColor: Colors.red),
-  //     ],
-  //   );
-  //   File? croppedImage = File(croppedFile!.path);
-  //   return croppedImage;
-  // }
+  Future _pickImage(ImageSource source) async {
+    final image = await ImagePicker().pickImage(source: source);
+    if (image == null) return;
+    File? imageFile = File(image.path);
+    imageFile = await _cropImage(imageFile: imageFile);
+    setState(() {
+      _imageFile = imageFile;
+    });
+  }
 }
