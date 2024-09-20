@@ -1,5 +1,8 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/auth/data/source/auth_firebase_service.dart';
+import 'package:diente/auth/presentation/medical_history_screen.dart';
 import 'package:diente/patient/edit%20profile%20info/edit_email.dart';
 import 'package:diente/patient/edit%20profile%20info/edit_password.dart';
 import 'package:flutter/material.dart';
@@ -68,8 +71,14 @@ class _EditProfileScreenState extends State<EditPatientProfileScreen> {
                   borderColor: Theme.of(context).colorScheme.secondary,
                   text: "تعديل السجل المرضي",
                   fontColor: Colors.white,
-                  onTap: () {
-                    //TODO: navigate to the edit history screen
+                  onTap: () async {
+                    UserModel user = await AuthFirebaseService().fetchUser();
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return MedicalHistoryScreen(
+                        user: user,
+                      );
+                    }));
                   })),
           SizedBox(
             height: 40.h,
@@ -87,7 +96,7 @@ class _EditProfileScreenState extends State<EditPatientProfileScreen> {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return EditPassword();
+                      return const EditPassword();
                     }));
                   })),
           SizedBox(

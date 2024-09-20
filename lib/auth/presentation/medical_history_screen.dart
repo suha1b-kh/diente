@@ -19,13 +19,29 @@ class MedicalHistoryScreen extends StatefulWidget {
 }
 
 class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
-  bool diabetes = true,
+  bool diabetes = false,
       highBloodPressure = false,
       heartDisease = false,
       respiratoryDiseases = false,
       kidneyDisease = false,
       bleedingDisorders = false,
       doNotSuffer = false;
+
+  @override
+  void initState() {
+    super.initState();
+    diabetes = widget.user.medicalHistory['diabetes'] ?? false;
+    highBloodPressure =
+        widget.user.medicalHistory['highBloodPressure'] ?? false;
+    heartDisease = widget.user.medicalHistory['heartDisease'] ?? false;
+    respiratoryDiseases =
+        widget.user.medicalHistory['respiratoryDiseases'] ?? false;
+    kidneyDisease = widget.user.medicalHistory['kidneyDisease'] ?? false;
+    bleedingDisorders =
+        widget.user.medicalHistory['bleedingDisorders'] ?? false;
+    doNotSuffer = widget.user.medicalHistory['doNotSuffer'] ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

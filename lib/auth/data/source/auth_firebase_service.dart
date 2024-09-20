@@ -134,7 +134,7 @@ class AuthFirebaseService {
     }
   }
 
-  Future<UserModel> fetchUser() async {
+  Future fetchUser() async {
     try {
       final User? user = auth.currentUser;
 
