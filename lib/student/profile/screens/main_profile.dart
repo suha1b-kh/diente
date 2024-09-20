@@ -26,7 +26,7 @@ class _mainProfileState extends State<MainProfile> {
 
   Future<void> _pickImage() async {
     try {
-      final File? pickedFile = await _picker.pickImage(
+      final XFile? pickedFile = await _picker.pickImage(
         source: ImageSource.gallery, // Pick from gallery
       );
 

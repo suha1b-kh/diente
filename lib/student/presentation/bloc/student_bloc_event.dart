@@ -2,4 +2,6 @@
 import 'package:flutter/material.dart';
 
 @immutable
-sealed class StudentBlocEvent {}
+sealed class StudentBlocEvent {
+  
+}
