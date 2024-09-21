@@ -6,7 +6,7 @@ import 'package:diente/auth/presentation/fill_information_screen.dart';
 import 'package:diente/auth/presentation/medical_history_screen.dart';
 import 'package:diente/auth/presentation/signup_screen.dart';
 import 'package:diente/firebase_options.dart';
-import 'package:diente/patient/home/patient_home_screen.dart';
+import 'package:diente/patient/presentation/Home/patient_home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

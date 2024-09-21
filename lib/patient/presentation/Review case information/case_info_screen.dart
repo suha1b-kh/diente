@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../auth/data/models/user.dart';
 import '../../data/database services/requests_database_services.dart';
-import '../../home/patient_home_screen.dart';
+import '../Home/patient_home_screen.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/patient_image_and_name.dart';
 import 'no_cases_screen.dart';

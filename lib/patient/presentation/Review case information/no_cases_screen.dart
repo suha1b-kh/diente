@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../auth/data/models/user.dart';
 import '../../case_details.dart';
-import '../../home/patient_home_screen.dart';
+import '../Home/patient_home_screen.dart';
 import '../appointment booking/disease_selection_screen.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_header.dart';

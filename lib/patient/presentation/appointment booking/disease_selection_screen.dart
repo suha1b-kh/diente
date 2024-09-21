@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../auth/data/models/user.dart';
 import '../../case_details.dart';
 import '../../data/models/disease.dart';
-import '../../home/patient_home_screen.dart';
+import '../Home/patient_home_screen.dart';
 import '../widgets/custom_header.dart';
 import '../widgets/disease_card.dart';
 

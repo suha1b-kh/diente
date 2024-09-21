@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:diente/auth/data/models/user.dart';
-import 'package:diente/patient/home/patient_home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +11,8 @@ import 'package:diente/core/widgets/text.dart';
 import 'package:diente/core/widgets/text_fields.dart';
 // import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../patient/presentation/Home/patient_home_screen.dart';
 
 class FillProfileScreen extends StatefulWidget {
   const FillProfileScreen({super.key});
