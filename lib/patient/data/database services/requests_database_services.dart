@@ -24,7 +24,7 @@ class RequestDatabaseServices {
     //try
     await FirebaseFirestore.instance
         .collection('requests')
-        .doc(uid) // Assuming patientName is used as the document ID
+        .doc(uid) 
         .delete()
         .then(
           (doc) => print("Document deleted"),
