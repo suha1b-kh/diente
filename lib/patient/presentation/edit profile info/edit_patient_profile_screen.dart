@@ -1,10 +1,10 @@
 // ignore_for_file: must_be_immutable
-
+import 'package:diente/patient/presentation/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/custom_button.dart';
-import '../widgets/custom_text_field.dart';
 import '../widgets/patient_image_and_name.dart';
+
 
 class EditPatientProfileScreen extends StatefulWidget {
   String patientName = "";

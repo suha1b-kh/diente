@@ -1,18 +1,17 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:diente/patient/Home/patient_home_screen.dart';
-import 'package:diente/patient/models/request.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:diente/patient/presentation/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../auth/data/models/user.dart';
+import '../../../auth/data/models/user.dart';
+import '../../case_details.dart';
+import '../../data/database services/requests_database_services.dart';
+import '../../data/models/request.dart';
+import '../../home/patient_home_screen.dart';
 import '../Review case information/case_info_screen.dart';
-import '../case_details.dart';
-import '../data/database services/requests_database_services.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_header.dart';
-import '../widgets/custom_text_field.dart';
+
 
 class TeethSelectionScreen extends StatefulWidget {
   /*String patientName = "";

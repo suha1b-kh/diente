@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:diente/patient/models/request.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../models/request.dart';
 
 class RequestDatabaseServices {
   final CollectionReference requestsCollection =
