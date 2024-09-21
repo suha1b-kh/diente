@@ -7,11 +7,6 @@ import 'package:diente/auth/presentation/medical_history_screen.dart';
 import 'package:diente/auth/presentation/signup_screen.dart';
 import 'package:diente/firebase_options.dart';
 import 'package:diente/patient/home/patient_home_screen.dart';
-import 'package:diente/patient/Review%20case%20information/case_info_screen.dart';
-import 'package:diente/patient/Review%20case%20information/no_cases_screen.dart';
-import 'package:diente/patient/appointment%20booking/disease_selection_screen.dart';
-import 'package:diente/patient/appointment%20booking/teeth_selection_%20screen.dart';
-import 'package:diente/patient/edit%20profile%20info/edit_patient_profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +85,7 @@ class _MainAppState extends State<MainApp> {
             //       patientImage: const AssetImage("assets/images/patient.png"),
             //     ),
             //case information screen
-            "case_info_screen": (context) => CaseInformationScreen(
+           /* "case_info_screen": (context) => CaseInformationScreen(
                 patientName: "Patient name",
                 patientImage: const AssetImage("assets/images/patient.png"),
                 caseStatus: "Waiting"),
@@ -109,7 +104,7 @@ class _MainAppState extends State<MainApp> {
             //edit patient profile screen
             "edit_profile_screen": (context) => EditPatientProfileScreen(
                 patientName: "Patient name",
-                patientImage: const AssetImage("assets/images/patient.png")),
+                patientImage: const AssetImage("assets/images/patient.png")),*/
           },
           theme: lightMode,
         ));

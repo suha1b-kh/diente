@@ -8,7 +8,7 @@ import '../widgets/patient_image_and_name.dart';
 
 class EditPatientProfileScreen extends StatefulWidget {
   String patientName = "";
-  ImageProvider? patientImage;
+  ImageProvider patientImage;
   bool obscureText = true;
 
   //constructor

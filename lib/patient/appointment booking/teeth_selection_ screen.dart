@@ -1,19 +1,29 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:diente/patient/Home/patient_home_screen.dart';
+import 'package:diente/patient/models/request.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../auth/data/models/user.dart';
+import '../Review case information/case_info_screen.dart';
+import '../case_details.dart';
+import '../data/database services/requests_database_services.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_header.dart';
 import '../widgets/custom_text_field.dart';
 
 class TeethSelectionScreen extends StatefulWidget {
-  String? patientName = "";
-  ImageProvider? patientImage;
+  /*String patientName = "";
+  ImageProvider patientImage;*/
+  UserModel userModel;
+  CaseDetails caseDetails;
+
+  final controller = TextEditingController();
 
   //constructor
-  TeethSelectionScreen(
-      {super.key, required this.patientName, required this.patientImage});
+  TeethSelectionScreen({required this.userModel, required this.caseDetails});
 
   @override
   State<TeethSelectionScreen> createState() => _ToothSelectionScreenState();
@@ -32,8 +42,10 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
               children: [
                 //header
                 CustomHeader(
-                    patientName: widget.patientName,
-                    patientImage: widget.patientImage),
+                    patientName:
+                        '${widget.userModel.firstName} ${widget.userModel.secondName}',
+                    patientImage:
+                        const AssetImage('assets/images/patient.png')),
                 //tooth image
                 SizedBox(
                   width: 317.w,
@@ -68,6 +80,7 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
                   textAlign: TextAlign.center,
                   obscureText: false,
                   inputType: TextInputType.number,
+                  controller: widget.controller,
                 ),
                 SizedBox(height: 30.h),
 
@@ -81,9 +94,23 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
                   borderColor: Theme.of(context).colorScheme.secondary,
                   text: "تم",
                   fontColor: Colors.white,
-                  onTap: () {
-                    //TODO: navigate to case information screen
-                    Navigator.pushNamed(context, 'case_info_screen');
+                  onTap: () async {
+                   PatientHomeScreen.caseDetails?.toothNumber = widget.controller.text;
+                    final uid = widget.userModel.email;
+                    Request req = Request(isAccepted: false, caseDescription: {
+                      'Name':PatientHomeScreen.caseDetails?.diseaseName,
+                      'toothNumber': PatientHomeScreen.caseDetails?.toothNumber
+                    });
+                    await RequestDatabaseServices(uid: uid).addRequest(req);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CaseInformationScreen(
+                                userModel: widget.userModel,
+                                caseDetails: PatientHomeScreen.caseDetails!,
+                                caseStatus: "Waiting",
+                              )),
+                    );
                   },
                 )),
               ],

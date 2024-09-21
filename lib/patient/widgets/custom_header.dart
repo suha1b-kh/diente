@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomHeader extends StatelessWidget {
-  String? patientName = "";
-  ImageProvider? patientImage;
+  String patientName = "";
+  ImageProvider patientImage;
 
-  CustomHeader({super.key, this.patientName, this.patientImage});
+  CustomHeader({super.key, required this.patientName,  required this.patientImage});
 
   @override
   Widget build(BuildContext context) {

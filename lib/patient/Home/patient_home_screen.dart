@@ -1,20 +1,49 @@
 import 'dart:developer';
 import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/patient/Review%20case%20information/case_info_screen.dart';
+import 'package:diente/patient/Review%20case%20information/no_cases_screen.dart';
+import 'package:diente/patient/data/database%20services/requests_database_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../appointment booking/disease_selection_screen.dart';
+import '../case_details.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_header.dart';
 
 // ignore: must_be_immutable
-class PatientHomeScreen extends StatelessWidget {
-  final user = FirebaseAuth.instance.currentUser!.email!.split('@')[0];
-  // String? patientName = "";
-  // ImageProvider? patientImage;
+class PatientHomeScreen extends StatefulWidget {
   final UserModel? userModel;
+  static CaseDetails? caseDetails = CaseDetails();
 
   // Constructor
   PatientHomeScreen({super.key, this.userModel});
+
+  @override
+  State<PatientHomeScreen> createState() => _PatientHomeScreenState();
+}
+
+class _PatientHomeScreenState extends State<PatientHomeScreen> {
+  final user = FirebaseAuth.instance.currentUser!.email!.split('@')[0];
+  late final uid;
+  late bool isExist;
+
+  /*String patientName ;
+   ImageProvider patientImage; */
+  @override
+  void initState() {
+    super.initState();
+    uid = widget.userModel?.email;
+    checkExistence();
+    getData();
+  }
+
+  Future<void> checkExistence() async {
+    isExist = await RequestDatabaseServices(uid: uid!).checkExist(uid);
+  }
+  Future<void> getData()async{
+     PatientHomeScreen.caseDetails?.diseaseName= await RequestDatabaseServices(uid: uid).getData();
+}
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +53,10 @@ class PatientHomeScreen extends StatelessWidget {
         children: [
           //Header
           CustomHeader(
-              patientName: '${userModel?.firstName} ${userModel?.secondName}'),
+            patientName:
+                '${widget.userModel?.firstName} ${widget.userModel?.secondName}',
+            patientImage: const AssetImage("assets/images/patient.png"),
+          ),
           SizedBox(
             height: 101.h,
             width: 375.w,
@@ -61,9 +93,20 @@ class PatientHomeScreen extends StatelessWidget {
             fontColor: Colors.white,
             borderColor: Theme.of(context).colorScheme.secondary,
             text: "حجز موعد جديد",
-            onTap: () {
-              //TODO: navigate to disease selection screen
-              Navigator.pushNamed(context, 'disease_selection_screen');
+            onTap: () async {
+              if (!isExist) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DiseaseSelectionScreen(
+                          //edited
+                          userModel: widget.userModel!,
+                          caseDetails: PatientHomeScreen.caseDetails!)),
+                );
+              } else {
+                log("already has a case");
+                _dialogBuilder(context);
+              }
             },
           ),
 
@@ -76,8 +119,25 @@ class PatientHomeScreen extends StatelessWidget {
             fontColor: Theme.of(context).colorScheme.secondary,
             borderColor: Theme.of(context).colorScheme.secondary,
             text: "مراجعة معلومات الحالة",
-            onTap: () {
-              Navigator.pushNamed(context, 'no_cases_screen');
+            onTap: () async {
+              if (isExist) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CaseInformationScreen(
+                            caseDetails: PatientHomeScreen.caseDetails!,
+                            userModel: widget.userModel!,
+                            caseStatus: "Waiting", //need to be edited
+                          )),
+                );
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          NoCasesScreen(userModel: widget.userModel!)),
+                );
+              }
             },
           ),
           CustomButton(
@@ -99,6 +159,29 @@ class PatientHomeScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Text(
+                'تنبيه!',
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              )),
+          content: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Text(
+                "لقد قمت بحجز موعد مسبقاً,  لا يمكن حجز اكثر من موعد في آنٍ واحد",
+                style: TextStyle(fontSize: 17.sp),
+              )),
+          actions: <Widget>[],
+        );
+      },
     );
   }
 }

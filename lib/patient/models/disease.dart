@@ -1,7 +1,6 @@
-class Disease{
-  String name="";
-  String description="";
+class Disease {
+  String name = "";
+  String description = "";
 
-  Disease({required this.name,required this.description});
-
+  Disease({required this.name, required this.description});
 }

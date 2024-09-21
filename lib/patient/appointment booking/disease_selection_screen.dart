@@ -1,18 +1,24 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:diente/patient/Home/patient_home_screen.dart';
+import 'package:diente/patient/appointment%20booking/teeth_selection_%20screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../auth/data/models/user.dart';
+import '../case_details.dart';
 import '../models/disease.dart';
 import '../widgets/custom_header.dart';
 import '../widgets/disease_card.dart';
 
 class DiseaseSelectionScreen extends StatefulWidget {
-  String? patientName = "";
-  ImageProvider? patientImage;
+  /*String patientName = "";
+  ImageProvider patientImage;*/
+  UserModel userModel;
+  CaseDetails caseDetails;
 
   //constructor
-  DiseaseSelectionScreen(
-      {super.key, required this.patientName, required this.patientImage});
+  DiseaseSelectionScreen({required this.userModel, required this.caseDetails});
 
   @override
   State<DiseaseSelectionScreen> createState() => _DiseaseSelectionScreenState();
@@ -38,8 +44,9 @@ class _DiseaseSelectionScreenState extends State<DiseaseSelectionScreen> {
         body: ListView(children: [
           //Header
           CustomHeader(
-              patientName: widget.patientName,
-              patientImage: widget.patientImage),
+              patientName:
+                  '${widget.userModel.firstName} ${widget.userModel.secondName}',
+              patientImage: const AssetImage('assets/images/patient.png')),
           //Hint
           SizedBox(
             width: 326.w,
@@ -63,8 +70,14 @@ class _DiseaseSelectionScreenState extends State<DiseaseSelectionScreen> {
               title: diseases[index].name,
               description: diseases[index].description,
               onTap: () {
-                //TODO: navigate to Tooth Selection Screen
-                Navigator.pushNamed(context, 'teeth_selection_screen');
+              PatientHomeScreen.caseDetails?.diseaseName=diseases[index].name;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TeethSelectionScreen(
+                          userModel: widget.userModel,
+                          caseDetails: PatientHomeScreen.caseDetails!)),
+                );
               },
             );
           }),

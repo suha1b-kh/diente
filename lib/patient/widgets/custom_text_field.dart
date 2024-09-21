@@ -10,17 +10,19 @@ class CustomTextField extends StatelessWidget {
   TextInputType inputType = TextInputType.text;
   int maxLength = 0;
   String? input = "";
-  IconButton? icon;
+  IconButton? icon = null;
+  final controller ;
 
   //constructor
   CustomTextField({
-    super.key,
     required this.hint,
     required this.textAlign,
     required this.inputType,
     required this.obscureText,
     this.icon,
+    this.controller
   });
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class CustomTextField extends StatelessWidget {
       height: 56.r,
       margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       child: TextFormField(
+        controller: controller,
         obscureText: obscureText,
         keyboardType: inputType,
         textAlign: textAlign,

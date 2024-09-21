@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PatientImageAndName extends StatefulWidget {
   String patientName = "";
-  ImageProvider? patientImage;
+  ImageProvider patientImage;
 
   PatientImageAndName({
     super.key,
@@ -31,7 +31,7 @@ class _PatientImageAndNameState extends State<PatientImageAndName> {
             shape: OvalBorder(),
           ),
           child: Image(
-            image: widget.patientImage!,
+            image: widget.patientImage,
             fit: BoxFit.contain,
           ),
         ),
