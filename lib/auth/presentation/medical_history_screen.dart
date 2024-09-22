@@ -5,10 +5,11 @@ import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/auth/data/source/auth_firebase_service.dart';
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/text.dart';
-import 'package:diente/patient/Home/patient_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
+import '../../patient/home/patient_home_screen.dart';
 
 class MedicalHistoryScreen extends StatefulWidget {
   final UserModel user;

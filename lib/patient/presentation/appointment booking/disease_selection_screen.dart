@@ -1,18 +1,23 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:diente/auth/data/models/user.dart';
-import 'package:diente/patient/appointment%20booking/teeth_selection_%20screen.dart';
+import 'package:diente/patient/presentation/appointment%20booking/teeth_selection_%20screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../models/disease.dart';
+import '../../data/models/case_details.dart';
+import '../../data/models/disease.dart';
+import '../Home/patient_home_screen.dart';
 import '../widgets/custom_header.dart';
 import '../widgets/disease_card.dart';
 
 class DiseaseSelectionScreen extends StatefulWidget {
-  final UserModel user;
+  CaseDetails caseDetails;
+  UserModel user;
+
 
   //constructor
-  const DiseaseSelectionScreen({super.key, required this.user});
+  DiseaseSelectionScreen({super.key, required this.user, required this.caseDetails});
+
 
   @override
   State<DiseaseSelectionScreen> createState() => _DiseaseSelectionScreenState();
@@ -64,10 +69,14 @@ class _DiseaseSelectionScreenState extends State<DiseaseSelectionScreen> {
               title: diseases[index].name,
               description: diseases[index].description,
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => TeethSelectionScreen(
+                PatientHomeScreen.caseDetails?.diseaseName=diseases[index].name;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TeethSelectionScreen(
                           user: widget.user,
-                        )));
+                          caseDetails: PatientHomeScreen.caseDetails!)),
+                );
               },
             );
           }),

@@ -1,10 +1,11 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:diente/auth/data/models/user.dart';
-import 'package:diente/patient/appointment%20booking/disease_selection_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import '../../data/models/case_details.dart';
+import '../Home/patient_home_screen.dart';
+import '../appointment booking/disease_selection_screen.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_header.dart';
 
@@ -21,7 +22,18 @@ class NoCasesScreen extends StatefulWidget {
 class _NoCasesScreenState extends State<NoCasesScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: () async {
+      // Navigate back to the home page when the back button is pressed
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => PatientHomeScreen(
+                userModel: widget.user,
+              )),
+              (Route route) => false);
+      return false; // Returning false prevents the default back button behavior
+    },
+    child:Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: ListView(
         children: [
@@ -80,15 +92,21 @@ class _NoCasesScreenState extends State<NoCasesScreen> {
             borderColor: Theme.of(context).colorScheme.secondary,
             text: "حجز موعد",
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return DiseaseSelectionScreen(
-                  user: widget.user,
-                );
-              }));
+              // Navigate to disease selection screen
+              PatientHomeScreen.caseDetails = CaseDetails();
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        DiseaseSelectionScreen(
+                          user: widget.user,
+                          caseDetails: PatientHomeScreen.caseDetails!,
+                        ),
+                  ));
             },
           ),
         ],
       ),
-    );
+    ));
   }
 }

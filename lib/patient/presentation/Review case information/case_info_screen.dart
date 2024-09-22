@@ -4,13 +4,17 @@ import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/auth/presentation/medical_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import '../../data/database services/requests_database_services.dart';
+import '../../data/models/case_details.dart';
+import '../Home/patient_home_screen.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/patient_image_and_name.dart';
+import 'no_cases_screen.dart';
 
 class CaseInformationScreen extends StatefulWidget {
   final UserModel user;
-
+  String caseStatus = "";
+  CaseDetails caseDetails ;
   Color getColor(String status) {
     //TODO: return color based on case status
     if (status == "Active") {
@@ -25,7 +29,11 @@ class CaseInformationScreen extends StatefulWidget {
   }
 
   //constructor
-  const CaseInformationScreen({super.key, required this.user});
+  CaseInformationScreen(
+      {required this.user,
+        required this.caseStatus,
+        required this.caseDetails
+      });
 
   @override
   State<CaseInformationScreen> createState() => _CaseInformationScreenState();
@@ -33,8 +41,21 @@ class CaseInformationScreen extends StatefulWidget {
 
 class _CaseInformationScreenState extends State<CaseInformationScreen> {
   @override
+
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: () async {
+      // Navigate back to the home page when the back button is pressed
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) =>
+                  PatientHomeScreen(
+                    userModel: widget.user,
+                  )),
+              (Route route) => false);
+      return false; // Returning false prevents the default back button behavior
+    },
+    child:Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
         children: [
@@ -66,12 +87,14 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
               width: 346.w,
               height: 70.h,
               //TODO: display disease name
-              child: Text('widget.disease',
+              child: Text(widget.caseDetails!.diseaseName ,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                     fontSize: 32.sp,
+                    fontFamily: 'NotoSansArabic',
                     fontWeight: FontWeight.w700,
+
                   )),
             ),
           ),
@@ -85,10 +108,10 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
               height: 30.h,
               child: Text(
                 //TODO: case status
-                'widget.caseStatus',
+                widget.caseStatus,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: widget.getColor('Active'),
+                  color: widget.getColor(widget.caseStatus),
                   fontSize: 21.sp,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w600,
@@ -96,8 +119,8 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
               ),
             ),
           ),
-          const SizedBox(
-            height: 177,
+         SizedBox(
+            height: 140.h,
           ),
           //Review patient history button
           CustomButton(
@@ -126,10 +149,20 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
             fontColor: Colors.white,
             borderColor: const Color(0xFFEF0107),
             text: "الغاء الموعد",
-            onTap: () {},
+            onTap: () async {
+              final uid = widget.user.email;
+              await RequestDatabaseServices(uid: uid).deleteRequest();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        NoCasesScreen(user: widget.user)),
+              );
+            },
           ),
         ],
       ),
+    )
     );
   }
 }

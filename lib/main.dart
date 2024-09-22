@@ -1,6 +1,4 @@
-import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/auth/data/source/auth_firebase_service.dart';
 import 'package:diente/auth/presentation/email_verification_screen.dart';
@@ -8,18 +6,11 @@ import 'package:diente/auth/presentation/home_screen.dart';
 import 'package:diente/auth/presentation/login_screen.dart';
 import 'package:diente/auth/presentation/create_new_password_screen.dart';
 import 'package:diente/auth/presentation/fill_information_screen.dart';
-import 'package:diente/auth/presentation/medical_history_screen.dart';
 import 'package:diente/auth/presentation/signup_screen.dart';
 import 'package:diente/firebase_options.dart';
-import 'package:diente/patient/home/patient_home_screen.dart';
-import 'package:diente/patient/Review%20case%20information/case_info_screen.dart';
-import 'package:diente/patient/Review%20case%20information/no_cases_screen.dart';
-import 'package:diente/patient/appointment%20booking/disease_selection_screen.dart';
-import 'package:diente/patient/appointment%20booking/teeth_selection_%20screen.dart';
-import 'package:diente/patient/edit%20profile%20info/edit_patient_profile_screen.dart';
+import 'package:diente/patient/presentation/edit%20profile%20info/edit_patient_profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/theme/lightmode.dart';
@@ -40,10 +31,6 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  @override
-  void initState() async {
-    super.initState();
-  }
 
   Widget initialScreen() {
     return FutureBuilder(
@@ -51,7 +38,7 @@ class _MainAppState extends State<MainApp> {
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
-          return const Center(child: Text("Error loading user data"));
+          return const SignupScreen();
         }
 
         // Check if data has been fetched

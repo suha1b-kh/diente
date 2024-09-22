@@ -1,13 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/auth/data/source/auth_firebase_service.dart';
 import 'package:diente/auth/presentation/medical_history_screen.dart';
-import 'package:diente/patient/edit%20profile%20info/edit_email.dart';
-import 'package:diente/patient/edit%20profile%20info/edit_password.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,8 +12,9 @@ import 'package:gap/gap.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import '../widgets/custom_button.dart';
-import '../widgets/custom_text_field.dart';
 import '../widgets/patient_image_and_name.dart';
+import 'edit_email.dart';
+import 'edit_password.dart';
 
 class EditPatientProfileScreen extends StatefulWidget {
   String patientName = "";

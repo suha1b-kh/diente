@@ -1,8 +1,8 @@
 // ignore_for_file: must_be_immutable
-
-import 'package:diente/patient/edit%20profile%20info/edit_patient_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../edit profile info/edit_patient_profile_screen.dart';
 
 class CustomHeader extends StatelessWidget {
   final String? patientName;
