@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:diente/auth/data/models/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../data/database services/requests_database_services.dart';
@@ -91,7 +92,7 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
                   fontColor: Colors.white,
                   onTap:  () async {
                     PatientHomeScreen.caseDetails?.toothNumber = widget.controller.text;
-                    final uid = widget.user.email;
+                    final uid = FirebaseAuth.instance.currentUser!.uid;
                     Request req = Request(isAccepted: false, caseDescription: {
                       'Name':PatientHomeScreen.caseDetails?.diseaseName,
                       'toothNumber': PatientHomeScreen.caseDetails?.toothNumber

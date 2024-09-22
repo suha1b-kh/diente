@@ -2,6 +2,7 @@
 
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/auth/presentation/medical_history_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../data/database services/requests_database_services.dart';
@@ -150,7 +151,7 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
             borderColor: const Color(0xFFEF0107),
             text: "الغاء الموعد",
             onTap: () async {
-              final uid = widget.user.email;
+              final uid = FirebaseAuth.instance.currentUser!.uid;;
               await RequestDatabaseServices(uid: uid).deleteRequest();
               Navigator.push(
                 context,

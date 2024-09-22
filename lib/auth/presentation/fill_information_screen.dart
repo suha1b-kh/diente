@@ -169,7 +169,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                 context,
                 Theme.of(context).colorScheme.secondary,
                 () async {
-                 /* final storageRef = FirebaseStorage.instance.ref();
+                  final storageRef = FirebaseStorage.instance.ref();
                   UploadTask task = storageRef
                       .child('profile_pic/${_imageFile!.path.split('/').last}')
                       .putFile(_imageFile!);
@@ -181,7 +181,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         .collection('patients')
                         .doc(FirebaseAuth.instance.currentUser!.uid)
                         .update({'profilePic': downloadUrlString});
-                  });*/
+                  });
 
                   if (formKey.currentState!.validate()) {
                     UserModel user = UserModel(

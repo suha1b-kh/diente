@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../patient/home/patient_home_screen.dart';
+import '../../patient/presentation/Home/patient_home_screen.dart';
+
 
 class MedicalHistoryScreen extends StatefulWidget {
   final UserModel user;

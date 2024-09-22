@@ -33,7 +33,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   @override
   void initState() {
     super.initState();
-    uid = widget.userModel?.email;
+    uid  = FirebaseAuth.instance.currentUser!.uid;
     checkExistence();
     getData();
   }
