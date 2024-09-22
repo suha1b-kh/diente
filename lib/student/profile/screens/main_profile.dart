@@ -8,8 +8,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 
-
-
 import '../widgets/list_reports.dart';
 
 // ignore: camel_case_types
@@ -50,9 +48,8 @@ class _mainProfileState extends State<MainProfile> {
         child: Column(
           children: [
             Center(
-              child: SizedBox(
-                width: 145.w,
-                height: 145.h,
+              child: CircleAvatar(
+                radius: 50.r,
                 child: Image.asset(
                   'assets/images/profile_photo.png',
                 ),

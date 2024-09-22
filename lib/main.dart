@@ -6,9 +6,13 @@ import 'package:diente/auth/signup/medical_history_screen.dart';
 import 'package:diente/auth/signup/signup_screen.dart';
 import 'package:diente/core/theme/lightmode.dart';
 import 'package:diente/student/profile/screens/control_screen.dart';
+import 'package:diente/student/profile/screens/edit_profile.dart';
+import 'package:diente/student/profile/screens/home_screen_student.dart';
+import 'package:diente/student/profile/screens/main_profile.dart';
+import 'package:diente/student/profile/screens/my_Treatment.dart';
+import 'package:diente/student/profile/screens/students.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 
 void main() {
   runApp(const MainApp());
@@ -22,7 +26,7 @@ class MainApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       child: MaterialApp(
-        home:   const ControlScreen() ,//const HomeScreen(),
+        home: const ControlScreen(), //const HomeScreen(),
         //app routes to navigate
         routes: {
           //home screen
@@ -39,6 +43,18 @@ class MainApp extends StatelessWidget {
           //fill medical history screen
           "/create_new_password_screen": (context) =>
               const CreateNewPasswordScreen(),
+          //control screen
+          "/control_screen": (context) => const ControlScreen(),
+          //main profile screen
+          "/main_profile": (context) => const MainProfile(),
+          //Home Student Screen
+          "/home_student_screen": (context) => const HomeStudentScreen(),
+          //my treatment screen
+          "/my_treatment_screen": (context) => const MyTreatment(),
+          //students screen
+          "/students_screen": (context) => const Students(),
+          //EditProfile screen
+          "/edit_profile": (context) => EditProfile(),
         },
         //light and dark mode
         theme: lightMode,

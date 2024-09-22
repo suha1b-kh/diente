@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class ListPatientWidgets extends StatelessWidget {
    const ListPatientWidgets({super.key});
- 
+ //not needed after enum
   @override
   Widget build(BuildContext context) {
     

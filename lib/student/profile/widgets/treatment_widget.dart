@@ -21,14 +21,17 @@ class TreatmentWidget extends StatelessWidget {
             ),
             child: Row(
               children: [
-                SizedBox(
-                  width: 65.w,
-                  height: 65.h,
-                  child: Image.asset(
-                    'assets/images/profile_photo.png',
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.h),
+                  child: CircleAvatar(
+                    radius: 28.r,
+                    child: Image.asset(
+                      'assets/images/profile_photo.png',
+                    ),
                   ),
                 ),
-                Center(
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 31),
                   child: Text(
                     patientName,
                     style: TextStyle(
@@ -40,8 +43,8 @@ class TreatmentWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                  Padding(
-                  padding: EdgeInsets.only(left: 180.h),
+                Padding(
+                  padding: EdgeInsets.only(left: 158.r),
                   child: const Icon(Icons.arrow_forward_ios),
                 ),
               ],
