@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/patient/Review%20case%20information/no_cases_screen.dart';
 import 'package:diente/patient/appointment%20booking/disease_selection_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,24 +10,28 @@ import '../widgets/custom_header.dart';
 
 // ignore: must_be_immutable
 class PatientHomeScreen extends StatelessWidget {
-  final user = FirebaseAuth.instance.currentUser!.email!.split('@')[0];
-  // String? patientName = "";
-  // ImageProvider? patientImage;
   final UserModel? userModel;
 
   // Constructor
   PatientHomeScreen({super.key, this.userModel});
 
+  String? patientImage;
+
   @override
   Widget build(BuildContext context) {
-    log(userModel!.profilePic.toString());
+    patientImage = userModel!.profilePic.toString();
+    log('Patient Image: $patientImage');
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
         children: [
           //Header
           CustomHeader(
-              patientName: '${userModel?.firstName} ${userModel?.secondName}'),
+            patientName: '${userModel?.firstName} ${userModel?.secondName}',
+            patientImage: patientImage != null
+                ? NetworkImage(patientImage!)
+                : const AssetImage('assets/images/patient.png'),
+          ),
           SizedBox(
             height: 101.h,
             width: 375.w,
@@ -65,12 +70,11 @@ class PatientHomeScreen extends StatelessWidget {
             text: "حجز موعد جديد",
             onTap: () {
               //TODO: navigate to disease selection screen
-              // Navigator.push(context, MaterialPageRoute(builder: (context){
-              //   return DiseaseSelectionScreen(
-              //     patientName: '${userModel?.firstName} ${userModel?.secondName}',
-              //     patientImage: Image,
-              //   );
-              // }));
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return DiseaseSelectionScreen(
+                  user: userModel!,
+                );
+              }));
             },
           ),
 
@@ -84,7 +88,11 @@ class PatientHomeScreen extends StatelessWidget {
             borderColor: Theme.of(context).colorScheme.secondary,
             text: "مراجعة معلومات الحالة",
             onTap: () {
-              Navigator.pushNamed(context, 'no_cases_screen');
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return NoCasesScreen(
+                  user: userModel!,
+                );
+              }));
             },
           ),
           CustomButton(

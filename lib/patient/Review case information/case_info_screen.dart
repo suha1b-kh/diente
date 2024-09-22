@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/auth/presentation/medical_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,29 +9,23 @@ import '../widgets/custom_button.dart';
 import '../widgets/patient_image_and_name.dart';
 
 class CaseInformationScreen extends StatefulWidget {
-  String patientName = "";
-  ImageProvider? patientImage;
-  String disease = "فحص روتيني";
-  String caseStatus = "";
+  final UserModel user;
 
   Color getColor(String status) {
     //TODO: return color based on case status
     if (status == "Active") {
       return const Color(0xFF11C72E);
-    } else if (status == "Waiting")
+    } else if (status == "Waiting") {
       return const Color(0xFFFBBC05);
-    else if (status == "Finished")
+    } else if (status == "Finished") {
       return Colors.blue;
-    else
+    } else {
       return Colors.red;
+    }
   }
 
   //constructor
-  CaseInformationScreen(
-      {super.key,
-      required this.patientName,
-      required this.patientImage,
-      required this.caseStatus});
+  const CaseInformationScreen({super.key, required this.user});
 
   @override
   State<CaseInformationScreen> createState() => _CaseInformationScreenState();
@@ -59,8 +55,8 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
               )),
           //patient image and name
           PatientImageAndName(
-              patientName: widget.patientName,
-              patientImage: widget.patientImage),
+              patientName: "${widget.user.firstName} ${widget.user.secondName}",
+              patientImage: NetworkImage(widget.user.profilePic)),
           SizedBox(
             height: 31.h,
           ),
@@ -69,12 +65,12 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
             child: SizedBox(
               width: 346.w,
               height: 70.h,
-              child: Text(widget.disease,
+              //TODO: display disease name
+              child: Text('widget.disease',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                     fontSize: 32.sp,
-                    fontFamily: 'NotoSansArabic',
                     fontWeight: FontWeight.w700,
                   )),
             ),
@@ -88,10 +84,11 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
               width: 168.w,
               height: 30.h,
               child: Text(
-                widget.caseStatus,
+                //TODO: case status
+                'widget.caseStatus',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: widget.getColor(widget.caseStatus),
+                  color: widget.getColor('Active'),
                   fontSize: 21.sp,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w600,
@@ -111,7 +108,11 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
             fontColor: Colors.white,
             borderColor: Theme.of(context).colorScheme.secondary,
             text: "مراجعة السجل المرضي",
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return MedicalHistoryScreen(user: widget.user);
+              }));
+            },
           ),
           SizedBox(
             height: 5.h,

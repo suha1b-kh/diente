@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomHeader extends StatelessWidget {
-  String? patientName = "";
-  ImageProvider? patientImage;
+  final String? patientName;
+  final ImageProvider? patientImage;
 
-  CustomHeader({super.key, this.patientName, this.patientImage});
+  const CustomHeader(
+      {super.key, required this.patientName, required this.patientImage});
 
   @override
   Widget build(BuildContext context) {
@@ -57,18 +58,6 @@ class CustomHeader extends StatelessWidget {
                   }));
                 }),
           ),
-
-          //notification icon
-          Positioned(
-              left: 319.w,
-              top: 17.h,
-              child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.notifications,
-                    size: 27.sp,
-                    color: Theme.of(context).colorScheme.secondary,
-                  )))
         ],
       ),
     );

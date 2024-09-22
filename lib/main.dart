@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/auth/data/source/auth_firebase_service.dart';
 import 'package:diente/auth/presentation/email_verification_screen.dart';
@@ -18,6 +19,7 @@ import 'package:diente/patient/appointment%20booking/teeth_selection_%20screen.d
 import 'package:diente/patient/edit%20profile%20info/edit_patient_profile_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/theme/lightmode.dart';
@@ -38,26 +40,52 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  // User? user;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   user = FirebaseAuth.instance.currentUser;
-  //   log(user.toString());
-  // }
+  @override
+  void initState() async {
+    super.initState();
+  }
+
   Widget initialScreen() {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      return const LoginScreen();
-    }
-    if (!user.emailVerified) {
-      return const EmailVerificationScreen();
-    } else if (user.displayName == null) {
-      return const FillProfileScreen();
-    } else {
-      log('user.displayName.toString()');
-      return const HomeScreen();
-    }
+    return FutureBuilder(
+      future: AuthFirebaseService().fetchUser(),
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return const Center(child: Text("Error loading user data"));
+        }
+
+        // Check if data has been fetched
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        final user = FirebaseAuth.instance.currentUser;
+
+        if (user == null) {
+          // No user is signed in, show login screen
+          return const LoginScreen();
+        }
+
+        if (!user.emailVerified) {
+          // Email is not verified, show email verification screen
+          return const EmailVerificationScreen();
+        }
+
+        final UserModel? userData = snapshot.data;
+
+        if (userData == null ||
+            userData.firstName.isEmpty ||
+            userData.secondName.isEmpty ||
+            userData.age.isEmpty ||
+            userData.phoneNum.isEmpty) {
+          // If user data is incomplete, navigate to fill profile screen
+          return const FillProfileScreen();
+        }
+
+        // If everything is okay, go to HomeScreen
+        return const HomeScreen();
+      },
+    );
   }
 
   // This widget is the root of your application.
@@ -95,22 +123,22 @@ class _MainAppState extends State<MainApp> {
             //       patientImage: const AssetImage("assets/images/patient.png"),
             //     ),
             //case information screen
-            "case_info_screen": (context) => CaseInformationScreen(
-                patientName: "Patient name",
-                patientImage: const AssetImage("assets/images/patient.png"),
-                caseStatus: "Waiting"),
+            // "case_info_screen": (context) => CaseInformationScreen(
+            //     patientName: "Patient name",
+            //     patientImage: const AssetImage("assets/images/patient.png"),
+            //     caseStatus: "Waiting"),
             //no cases screen
-            "no_cases_screen": (context) => NoCasesScreen(
-                patientName: "Patient name",
-                patientImage: const AssetImage("assets/images/patient.png")),
-            //disease selection screen
-            "disease_selection_screen": (context) => DiseaseSelectionScreen(
-                patientName: "Patient name",
-                patientImage: const AssetImage("assets/images/patient.png")),
-            //teeth selection screen
-            "teeth_selection_screen": (context) => TeethSelectionScreen(
-                patientName: "Patient name",
-                patientImage: const AssetImage("assets/images/patient.png")),
+            // "no_cases_screen": (context) => NoCasesScreen(
+            //     patientName: "Patient name",
+            //     patientImage: const AssetImage("assets/images/patient.png")),
+            // //disease selection screen
+            // "disease_selection_screen": (context) => DiseaseSelectionScreen(
+            //     patientName: "Patient name",
+            //     patientImage: const AssetImage("assets/images/patient.png")),
+            // //teeth selection screen
+            // "teeth_selection_screen": (context) => TeethSelectionScreen(
+            //     patientName: "Patient name",
+            //     patientImage: const AssetImage("assets/images/patient.png")),
             //edit patient profile screen
             "edit_profile_screen": (context) => EditPatientProfileScreen(
                 patientName: "Patient name",

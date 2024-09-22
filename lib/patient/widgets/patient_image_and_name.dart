@@ -25,14 +25,15 @@ class _PatientImageAndNameState extends State<PatientImageAndName> {
       children: [
         //image
         Container(
-          width: 145.w,
-          height: 145.h,
-          decoration: const ShapeDecoration(
-            shape: OvalBorder(),
-          ),
-          child: Image(
-            image: widget.patientImage!,
-            fit: BoxFit.contain,
+          margin: EdgeInsets.only(top: 20.h),
+          height: 200.h,
+          width: 200.w,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: widget.patientImage!,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         //name

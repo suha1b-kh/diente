@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/patient/appointment%20booking/disease_selection_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,12 +9,10 @@ import '../widgets/custom_button.dart';
 import '../widgets/custom_header.dart';
 
 class NoCasesScreen extends StatefulWidget {
-  String? patientName = "";
-  ImageProvider? patientImage;
+  final UserModel user;
 
   //constructor
-  NoCasesScreen(
-      {super.key, required this.patientName, required this.patientImage});
+  const NoCasesScreen({super.key, required this.user});
 
   @override
   State<NoCasesScreen> createState() => _NoCasesScreenState();
@@ -27,8 +27,9 @@ class _NoCasesScreenState extends State<NoCasesScreen> {
         children: [
           //Header
           CustomHeader(
-              patientName: widget.patientName,
-              patientImage: widget.patientImage),
+            patientImage: NetworkImage(widget.user.profilePic),
+            patientName: '${widget.user.firstName} ${widget.user.secondName}',
+          ),
           SizedBox(height: 100.h),
           //no cases image
           SizedBox(
@@ -79,8 +80,11 @@ class _NoCasesScreenState extends State<NoCasesScreen> {
             borderColor: Theme.of(context).colorScheme.secondary,
             text: "حجز موعد",
             onTap: () {
-              //TODO: navigate to disease selection screen
-              Navigator.pushNamed(context, 'disease_selection_screen');
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return DiseaseSelectionScreen(
+                  user: widget.user,
+                );
+              }));
             },
           ),
         ],

@@ -1,12 +1,14 @@
 import 'dart:developer';
 import 'dart:io';
-import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/auth/data/source/auth_firebase_service.dart';
 import 'package:diente/auth/presentation/medical_history_screen.dart';
-import 'package:diente/patient/home/patient_home_screen.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -52,6 +54,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
 
   // Variables for image picking
   File? _imageFile;
+  String? downloadUrlString = "";
 
   @override
   Widget build(BuildContext context) {
@@ -85,16 +88,19 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                   await _pickImage(ImageSource.gallery);
                 },
                 child: _imageFile == null
-                    ? Image.asset(
-                        'assets/images/profile_photo.png', // Default image
-                        width: 122.w,
-                        height: 122.h,
-                        // fit: BoxFit.cover,
+                    ? const Center(
+                        child: CircleAvatar(
+                          radius: 61,
+                          backgroundImage:
+                              AssetImage('assets/images/patient.png'),
+                        ),
                       )
-                    : CircleAvatar(
-                        radius: 61.w,
-                        backgroundImage: FileImage(
-                          _imageFile!,
+                    : Center(
+                        child: CircleAvatar(
+                          radius: 61.w,
+                          backgroundImage: FileImage(
+                            _imageFile!,
+                          ),
                         ),
                       ),
               ),
@@ -162,14 +168,28 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
               customButton(
                 context,
                 Theme.of(context).colorScheme.secondary,
-                () {
+                () async {
+                  final storageRef = FirebaseStorage.instance.ref();
+                  UploadTask task = storageRef
+                      .child('profile_pic/${_imageFile!.path.split('/').last}')
+                      .putFile(_imageFile!);
+                  task.whenComplete(() async {
+                    final downloadUrl = storageRef.child(
+                        'profile_pic/${_imageFile!.path.split('/').last}');
+                    downloadUrlString = await downloadUrl.getDownloadURL();
+                    await FirebaseFirestore.instance
+                        .collection('patients')
+                        .doc(FirebaseAuth.instance.currentUser!.uid)
+                        .update({'profilePic': downloadUrlString});
+                  });
+
                   if (formKey.currentState!.validate()) {
                     UserModel user = UserModel(
                       age: ageController.text,
                       email: userAuth!.email.toString(),
                       firstName: firstnameController.text,
                       secondName: secondnameController.text,
-                      profilePic: "",
+                      profilePic: downloadUrlString ?? "",
                       gender: genderController.text,
                       medicalHistory: <String, dynamic>{},
                       phoneNum: phoneNumberController.text,

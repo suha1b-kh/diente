@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/patient/Review%20case%20information/case_info_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,12 +10,13 @@ import '../widgets/custom_header.dart';
 import '../widgets/custom_text_field.dart';
 
 class TeethSelectionScreen extends StatefulWidget {
-  String? patientName = "";
-  ImageProvider? patientImage;
+  final UserModel user;
 
   //constructor
-  TeethSelectionScreen(
-      {super.key, required this.patientName, required this.patientImage});
+  const TeethSelectionScreen({
+    super.key,
+    required this.user,
+  });
 
   @override
   State<TeethSelectionScreen> createState() => _ToothSelectionScreenState();
@@ -32,8 +35,9 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
               children: [
                 //header
                 CustomHeader(
-                    patientName: widget.patientName,
-                    patientImage: widget.patientImage),
+                    patientImage: NetworkImage(widget.user.profilePic),
+                    patientName:
+                        '${widget.user.firstName} ${widget.user.secondName}'),
                 //tooth image
                 SizedBox(
                   width: 317.w,
@@ -83,7 +87,12 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
                   fontColor: Colors.white,
                   onTap: () {
                     //TODO: navigate to case information screen
-                    Navigator.pushNamed(context, 'case_info_screen');
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return CaseInformationScreen(
+                        user: widget.user,
+                      );
+                    }));
                   },
                 )),
               ],
