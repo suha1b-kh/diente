@@ -5,7 +5,6 @@ import 'package:panara_dialogs/panara_dialogs.dart';
 
 import '../widgets/list_reports.dart';
 
-
 // ignore: camel_case_types
 class mainProfile extends StatelessWidget {
   const mainProfile({super.key});
@@ -18,14 +17,14 @@ class mainProfile extends StatelessWidget {
           children: [
             Center(
               child: SizedBox(
-          width: 145.w,
-          height: 145.h,
-          child: Image.asset(
-            'assets/images/profile_photo.png',
-          ),
-        ) ,
+                width: 145.w,
+                height: 145.h,
+                child: Image.asset(
+                  'assets/images/profile_photo.png',
+                ),
+              ),
             ),
-             Text(
+            Text(
               'Diente student',
               style: TextStyle(
                 color: const Color(0xFF1B2A57),
@@ -35,8 +34,8 @@ class mainProfile extends StatelessWidget {
                 height: 0.h,
               ),
             ),
-             Gap(57.h),
-             Text(
+            Gap(57.h),
+            Text(
               'Diente student  Reports',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -47,34 +46,29 @@ class mainProfile extends StatelessWidget {
                 height: 0.h,
               ),
             ),
-             Gap(28.h),
-             
-             
-               const listReportsView(),
-             
-        ],
+            Gap(28.h),
+            const listReportsView(),
+          ],
         ),
       ),
       //TODO add reports
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton:  FloatingActionButton(onPressed: 
-           (){
-            PanaraInfoDialog.showAnimatedGrow(
-                  context,
-                  title: "Hello",
-                  message: "This is the Panara Info Dialog Normal.",
-                  buttonText: "Okay",
-                  onTapDismiss: () {
-                    Navigator.pop(context);
-                  },
-                  panaraDialogType: PanaraDialogType.normal,
-                );
-           },
-           backgroundColor: Colors.blue,
-           child: const Icon(Icons.add),
-           
-           ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          PanaraInfoDialog.showAnimatedGrow(
+            context,
+            title: "Hello",
+            message: "This is the Panara Info Dialog Normal.",
+            buttonText: "Okay",
+            onTapDismiss: () {
+              Navigator.pop(context);
+            },
+            panaraDialogType: PanaraDialogType.normal,
+          );
+        },
+        backgroundColor: Colors.blue,
+        child: const Icon(Icons.add),
+      ),
     );
   }
-
 }
