@@ -14,8 +14,7 @@ class reportsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-        Row(
+    return  Row(
           children: [
             Container(//widget 
               width: 170.w,

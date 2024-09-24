@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 class TreatmentWidget extends StatelessWidget {
   TreatmentWidget({super.key, required this.patientName});
@@ -21,32 +22,26 @@ class TreatmentWidget extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.h),
-                  child: CircleAvatar(
-                    radius: 28.r,
-                    child: Image.asset(
-                      'assets/images/profile_photo.png',
-                    ),
+                Gap(14.w),
+                CircleAvatar(
+                  radius: 28.r,
+                  child: Image.asset(
+                    'assets/images/profile_photo.png',
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 31),
-                  child: Text(
-                    patientName,
-                    style: TextStyle(
-                      color: const Color(0xFF1B2A57),
-                      fontSize: 16.sp,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
-                      height: 0.h,
-                    ),
+                Gap(20.w),
+                Text(
+                  patientName,
+                  style: TextStyle(
+                    color: const Color(0xFF1B2A57),
+                    fontSize: 16.sp,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                    height: 0.h,
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 158.r),
-                  child: const Icon(Icons.arrow_forward_ios),
-                ),
+                Gap(140.w),
+                const Icon(Icons.arrow_forward_ios),
               ],
             ),
           ),

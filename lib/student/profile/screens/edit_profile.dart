@@ -16,16 +16,21 @@ class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Column(
-        
         children: [
           Container(
-            margin: EdgeInsets.only(top: 100.h, bottom: 10.h),
+            margin: EdgeInsets.only(bottom: 2.h),
             width: 145.w,
             height: 145.h,
-
             //Todo fetch student image from firestore
-
             child: ClipOval(
                 child: Image.asset(
               'assets/images/stu_img.png',
@@ -42,11 +47,13 @@ class EditProfile extends StatelessWidget {
             FontWeight.w500,
           ),
           Gap(15.h),
-          CustomTextField(
-            width: 343.w,
-            height: 56.h,
-            controller: phoneNumberController,
-            text: 'Phone number',
+          Center(
+            child: CustomTextField(
+              width: 343.w,
+              height: 56.h,
+              controller: phoneNumberController,
+              text: 'Phone number',
+            ),
           ),
           Gap(15.h),
           CustomTextField(

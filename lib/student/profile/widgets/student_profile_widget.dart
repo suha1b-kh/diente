@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 class StudentProfileWidget extends StatelessWidget {
   StudentProfileWidget(
@@ -11,7 +12,7 @@ class StudentProfileWidget extends StatelessWidget {
     return Row(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 18),
+          padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 18.w),
           child: Container(
             width: 335.w,
             height: 120.h,
@@ -23,16 +24,14 @@ class StudentProfileWidget extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.h),
-                  child:  CircleAvatar(
-                      radius: 30.r,
-                      child: Image.asset(
-                        'assets/images/profile_photo.png',
-                      ),
-                    ),
-                  
+                Gap(14.w),
+                CircleAvatar(
+                  radius: 30.r,
+                  child: Image.asset(
+                    'assets/images/profile_photo.png',
+                  ),
                 ),
+                Gap(20.w),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,10 +58,8 @@ class StudentProfileWidget extends StatelessWidget {
                     )
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 224.h),
-                  child: const Icon(Icons.arrow_forward_ios),
-                ),
+                Gap(140.w),
+                const Icon(Icons.arrow_forward_ios),
               ],
             ),
           ),

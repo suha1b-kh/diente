@@ -11,6 +11,7 @@ import 'package:diente/student/profile/screens/home_screen_student.dart';
 import 'package:diente/student/profile/screens/main_profile.dart';
 import 'package:diente/student/profile/screens/my_Treatment.dart';
 import 'package:diente/student/profile/screens/students.dart';
+import 'package:diente/student/profile/screens/view_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -55,6 +56,8 @@ class MainApp extends StatelessWidget {
           "/students_screen": (context) => const Students(),
           //EditProfile screen
           "/edit_profile": (context) => EditProfile(),
+          //view case screen
+          "/view_case_screen": (context) => const ViewCase()
         },
         //light and dark mode
         theme: lightMode,
