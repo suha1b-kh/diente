@@ -29,9 +29,10 @@ class PatientWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CircleAvatar(
-                  radius: 28.r,
+                  radius: 20.r,
                   child: Image.asset(
-                    'assets/images/profile_photo.png',
+                    'assets/images/pa_img.png',
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Padding(

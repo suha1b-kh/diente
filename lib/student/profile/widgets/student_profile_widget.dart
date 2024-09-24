@@ -25,12 +25,13 @@ class StudentProfileWidget extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.h),
-                  child: CircleAvatar(
-                    radius: 30.r,
-                    child: Image.asset(
-                      'assets/images/profile_photo.png',
+                  child:  CircleAvatar(
+                      radius: 30.r,
+                      child: Image.asset(
+                        'assets/images/profile_photo.png',
+                      ),
                     ),
-                  ),
+                  
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,

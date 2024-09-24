@@ -7,11 +7,16 @@ class StudentAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: CircleAvatar(
-        radius: 20.r,
-        child: Image.asset(
-          'assets/images/profile_photo.png',
-        ),
+      leading: MaterialButton(
+        onPressed: () =>
+            Navigator.of(context).pushNamed('/main_student_profile'),
+        child: ClipOval(
+            child: Image.asset(
+          'assets/images/stu_img.png',
+          width: 145.w,
+          height: 145.h,
+          fit: BoxFit.cover,
+        )),
       ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

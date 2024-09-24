@@ -46,7 +46,7 @@ class MainApp extends StatelessWidget {
           //control screen
           "/control_screen": (context) => const ControlScreen(),
           //main profile screen
-          "/main_profile": (context) => const MainProfile(),
+          "/main_student_profile": (context) => const MainStudentProfile(),
           //Home Student Screen
           "/home_student_screen": (context) => const HomeStudentScreen(),
           //my treatment screen

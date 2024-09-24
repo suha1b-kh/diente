@@ -1,3 +1,4 @@
+import 'package:diente/core/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -16,26 +17,29 @@ class EditProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        
         children: [
           Container(
             margin: EdgeInsets.only(top: 100.h, bottom: 10.h),
             width: 145.w,
             height: 145.h,
-            child: CircleAvatar(
-              //Todo fetch student image from firestore
-              child: Image.asset('assets/images/profile_photo.png'),
-            ),
+
+            //Todo fetch student image from firestore
+
+            child: ClipOval(
+                child: Image.asset(
+              'assets/images/stu_img.png',
+              width: 145.w,
+              height: 145.h,
+              fit: BoxFit.cover,
+            )),
           ),
-          const Text(
+          customText(
+            context,
             'Diente student',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color(0xFF1B2A57),
-              fontSize: 20,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w400,
-              height: 0,
-            ),
+            Theme.of(context).colorScheme.primary,
+            16.sp,
+            FontWeight.w500,
           ),
           Gap(15.h),
           CustomTextField(

@@ -11,14 +11,14 @@ import 'package:image_picker/image_picker.dart';
 import '../widgets/list_reports.dart';
 
 // ignore: camel_case_types
-class MainProfile extends StatefulWidget {
-  const MainProfile({super.key});
+class MainStudentProfile extends StatefulWidget {
+  const MainStudentProfile({super.key});
 
   @override
-  State<MainProfile> createState() => _mainProfileState();
+  State<MainStudentProfile> createState() => _mainProfileState();
 }
 
-class _mainProfileState extends State<MainProfile> {
+class _mainProfileState extends State<MainStudentProfile> {
   File? _imageFile;
   final _picker = ImagePicker();
 
@@ -48,11 +48,16 @@ class _mainProfileState extends State<MainProfile> {
         child: Column(
           children: [
             Center(
-              child: CircleAvatar(
-                radius: 50.r,
-                child: Image.asset(
-                  'assets/images/profile_photo.png',
-                ),
+              child: MaterialButton(
+                onPressed: () =>
+                    Navigator.of(context).pushNamed('/edit_profile'),
+                child: ClipOval(
+                    child: Image.asset(
+                  'assets/images/stu_img.png',
+                  width: 145.w,
+                  height: 145.h,
+                  fit: BoxFit.cover,
+                )),
               ),
             ),
             Text(
