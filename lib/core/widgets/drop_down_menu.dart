@@ -11,7 +11,7 @@ class CustomDropDownMenu extends StatelessWidget {
     this.icon,
     required this.items,
     required this.selectedItem,
-    required this.onChanged,
+    required this.onChanged, required String? Function(String? value) validator,
   });
 
   final double width, height;
