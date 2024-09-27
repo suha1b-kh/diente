@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,7 +18,7 @@ import 'package:diente/core/widgets/text_fields.dart';
 import 'package:image_cropper/image_cropper.dart';
 // import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image_cropper/image_cropper.dart';
+
 class FillProfileScreen extends StatefulWidget {
   const FillProfileScreen({super.key});
 

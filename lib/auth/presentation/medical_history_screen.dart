@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:diente/auth/data/models/medical_history_model.dart';
 import 'package:diente/auth/data/models/user.dart';

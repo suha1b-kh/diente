@@ -16,7 +16,7 @@ import '../widgets/custom_header.dart';
 class PatientHomeScreen extends StatefulWidget {
   final UserModel? userModel;
   static CaseDetails? caseDetails = CaseDetails();
-  PatientHomeScreen({super.key, this.userModel});
+  const PatientHomeScreen({super.key, this.userModel});
 
   @override
   State<PatientHomeScreen> createState() => _PatientHomeScreenState();
@@ -181,7 +181,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                 "لقد قمت بحجز موعد مسبقاً,  لا يمكن حجز اكثر من موعد في آنٍ واحد",
                 style: TextStyle(fontSize: 17.sp),
               )),
-          actions: <Widget>[],
+          actions: const <Widget>[],
         );
       },
     );

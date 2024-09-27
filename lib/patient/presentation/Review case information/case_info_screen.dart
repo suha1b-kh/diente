@@ -31,7 +31,7 @@ class CaseInformationScreen extends StatefulWidget {
 
   //constructor
   CaseInformationScreen(
-      {required this.user,
+      {super.key, required this.user,
         required this.caseStatus,
         required this.caseDetails
       });
@@ -88,7 +88,7 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
               width: 346.w,
               height: 70.h,
               //TODO: display disease name
-              child: Text(widget.caseDetails!.diseaseName ,
+              child: Text(widget.caseDetails.diseaseName ,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
@@ -151,7 +151,7 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
             borderColor: const Color(0xFFEF0107),
             text: "الغاء الموعد",
             onTap: () async {
-              final uid = FirebaseAuth.instance.currentUser!.uid;;
+              final uid = FirebaseAuth.instance.currentUser!.uid;
               await RequestDatabaseServices(uid: uid).deleteRequest();
               Navigator.push(
                 context,

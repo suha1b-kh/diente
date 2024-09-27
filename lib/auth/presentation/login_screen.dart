@@ -3,8 +3,6 @@ import 'dart:developer';
 import 'package:diente/auth/presentation/bloc/login_bloc/bloc/login_bloc.dart';
 import 'package:diente/auth/presentation/bloc/login_bloc/bloc/login_event.dart';
 import 'package:diente/auth/presentation/bloc/login_bloc/bloc/login_state.dart';
-import 'package:diente/auth/presentation/email_verification_screen.dart';
-import 'package:diente/auth/presentation/fill_information_screen.dart';
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/google.dart';
 import 'package:diente/core/widgets/text.dart';
@@ -16,8 +14,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../patient/presentation/Home/patient_home_screen.dart';
-
-
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -174,7 +170,8 @@ class _bodyWidgetState extends State<bodyWidget> {
               height: 56.h,
               controller: widget.emailController,
               text: 'Enter your email',
-              validator: validateField, keyboardType: TextInputType.emailAddress,
+              validator: validateField,
+              keyboardType: TextInputType.emailAddress,
             ),
             SizedBox(height: 16.h),
             CustomTextField(

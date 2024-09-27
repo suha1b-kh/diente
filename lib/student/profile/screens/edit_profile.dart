@@ -15,6 +15,7 @@ class EditProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -53,6 +54,7 @@ class EditProfile extends StatelessWidget {
               height: 56.h,
               controller: phoneNumberController,
               text: 'Phone number',
+              keyboardType: TextInputType.number,
             ),
           ),
           Gap(15.h),
@@ -62,6 +64,7 @@ class EditProfile extends StatelessWidget {
             controller: passwordController,
             text: 'password',
             icon: Icons.visibility,
+            
           ),
           Gap(15.h),
           CustomTextField(
