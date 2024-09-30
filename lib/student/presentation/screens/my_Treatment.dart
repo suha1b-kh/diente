@@ -1,6 +1,6 @@
-import 'package:diente/student/profile/widgets/list_treatment_widgets.dart';
-import 'package:diente/student/profile/widgets/student_appbar.dart';
-import 'package:diente/student/profile/widgets/treatment_widget.dart';
+import 'package:diente/student/presentation/widgets/list_treatment_widgets.dart';
+import 'package:diente/student/presentation/widgets/student_appbar.dart';
+import 'package:diente/student/presentation/widgets/treatment_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,7 +15,7 @@ class MyTreatment extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding:  EdgeInsets.only(top:46.h,bottom: 36.h),
+              padding: EdgeInsets.only(top: 46.h, bottom: 36.h),
               child: Text(
                 'Treatment List',
                 style: TextStyle(

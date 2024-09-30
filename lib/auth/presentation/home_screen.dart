@@ -1,5 +1,7 @@
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/text.dart';
+import 'package:diente/student/presentation/screens/control_screen.dart';
+import 'package:diente/student/login/student_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -41,8 +43,10 @@ class HomeScreen extends StatelessWidget {
             Gap(15.h),
             //signup button
             customButton(context, Theme.of(context).colorScheme.secondary, () {
-              Navigator.popAndPushNamed(context, '/signup_screen');
-            }, 'Create Account', 16.sp),
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const StudentLoginScreen();
+              }));
+            }, 'Student Login', 16.sp),
           ],
         ),
       ),

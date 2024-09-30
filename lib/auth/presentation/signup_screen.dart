@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:diente/auth/presentation/bloc/bloc/signup_bloc.dart';
-import 'package:diente/auth/presentation/bloc/bloc/signup_event.dart';
-import 'package:diente/auth/presentation/bloc/bloc/signup_state.dart';
+import 'package:diente/auth/presentation/bloc/signup_bloc/signup_bloc.dart';
+import 'package:diente/auth/presentation/bloc/signup_bloc/signup_event.dart';
+import 'package:diente/auth/presentation/bloc/signup_bloc/signup_state.dart';
 
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/google.dart';

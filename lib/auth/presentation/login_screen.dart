@@ -17,8 +17,6 @@ import 'package:gap/gap.dart';
 
 import '../../patient/presentation/Home/patient_home_screen.dart';
 
-
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 

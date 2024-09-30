@@ -1,7 +1,7 @@
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/auth/data/source/auth_firebase_service.dart';
-import 'package:diente/auth/presentation/bloc/bloc/signup_event.dart';
-import 'package:diente/auth/presentation/bloc/bloc/signup_state.dart';
+import 'package:diente/auth/presentation/bloc/signup_bloc/signup_event.dart';
+import 'package:diente/auth/presentation/bloc/signup_bloc/signup_state.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 

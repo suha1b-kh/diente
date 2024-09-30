@@ -54,7 +54,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
 
   // Variables for image picking
   File? _imageFile;
-  String? downloadUrlString = "";
+  String? downloadUrlString;
 
   @override
   Widget build(BuildContext context) {
@@ -91,8 +91,9 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                     ? const Center(
                         child: CircleAvatar(
                           radius: 61,
-                          backgroundImage:
-                              AssetImage('assets/images/patient.png'),
+                          backgroundImage: NetworkImage(
+                              'https://firebasestorage.googleapis.com/v0/b/diente-e540a.appspot.com/o/profile_pic%2F909657-profile_pic.png?alt=media&token=927fbec3-22af-4cdc-84ec-3b0cd8038ca0'),
+                          //AssetImage('assets/images/profile_photo.png'),
                         ),
                       )
                     : Center(
@@ -169,35 +170,44 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                 context,
                 Theme.of(context).colorScheme.secondary,
                 () async {
-                  final storageRef = FirebaseStorage.instance.ref();
-                  UploadTask task = storageRef
-                      .child('profile_pic/${_imageFile!.path.split('/').last}')
-                      .putFile(_imageFile!);
-                  task.whenComplete(() async {
-                    final downloadUrl = storageRef.child(
-                        'profile_pic/${_imageFile!.path.split('/').last}');
-                    downloadUrlString = await downloadUrl.getDownloadURL();
-                    await FirebaseFirestore.instance
-                        .collection('patients')
-                        .doc(FirebaseAuth.instance.currentUser!.uid)
-                        .update({'profilePic': downloadUrlString});
-                  });
-
+                  if (_imageFile != null) {
+                    //reference to the firebase storage
+                    final storageRef = FirebaseStorage.instance.ref();
+                    //upload the image to the firebase storage
+                    UploadTask task = storageRef
+                        .child(
+                            'profile_pic/${_imageFile!.path.split('/').last}')
+                        .putFile(_imageFile!);
+                    //get the download url of the image
+                    task.whenComplete(() async {
+                      final downloadUrl = storageRef.child(
+                          'profile_pic/${_imageFile!.path.split('/').last}');
+                      downloadUrlString = await downloadUrl.getDownloadURL();
+                      log(downloadUrlString.toString());
+                    });
+                  } else {
+                    downloadUrlString =
+                        "https://firebasestorage.googleapis.com/v0/b/diente-e540a.appspot.com/o/profile_pic%2F909657-profile_pic.png?alt=media&token=927fbec3-22af-4cdc-84ec-3b0cd8038ca0";
+                  }
                   if (formKey.currentState!.validate()) {
                     UserModel user = UserModel(
                       age: ageController.text,
                       email: userAuth!.email.toString(),
                       firstName: firstnameController.text,
                       secondName: secondnameController.text,
-                      profilePic: downloadUrlString ?? "",
+                      profilePic: downloadUrlString!,
                       gender: genderController.text,
                       medicalHistory: <String, dynamic>{},
                       phoneNum: phoneNumberController.text,
                     );
 
+                    try {
+                      AuthFirebaseService().createUser(user);
+                    } catch (e) {
+                      log(e.toString());
+                    }
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      AuthFirebaseService().createUser(user);
                       return MedicalHistoryScreen(
                         user: user,
                       );

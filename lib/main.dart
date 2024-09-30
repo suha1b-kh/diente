@@ -1,3 +1,4 @@
+import 'dart:developer';
 
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/auth/data/source/auth_firebase_service.dart';
@@ -31,13 +32,14 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-
   Widget initialScreen() {
+    log("initial screen");
     return FutureBuilder(
       future: AuthFirebaseService().fetchUser(),
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
+          // log(snapshot.error.toString());
           return const SignupScreen();
         }
 

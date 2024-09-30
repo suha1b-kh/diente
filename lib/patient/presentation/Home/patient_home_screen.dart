@@ -16,24 +16,22 @@ import '../widgets/custom_header.dart';
 class PatientHomeScreen extends StatefulWidget {
   final UserModel? userModel;
   static CaseDetails? caseDetails = CaseDetails();
-  PatientHomeScreen({super.key, this.userModel});
+  const PatientHomeScreen({super.key, this.userModel});
 
   @override
   State<PatientHomeScreen> createState() => _PatientHomeScreenState();
 }
 
 class _PatientHomeScreenState extends State<PatientHomeScreen> {
-
   String? patientImage;
   final user = FirebaseAuth.instance.currentUser!.email!.split('@')[0];
   late final uid;
-  late bool isExist ;
-
+  late bool isExist;
 
   @override
   void initState() {
     super.initState();
-    uid  = FirebaseAuth.instance.currentUser!.uid;
+    uid = FirebaseAuth.instance.currentUser!.uid;
     checkExistence();
     getData();
   }
@@ -41,9 +39,12 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   Future<void> checkExistence() async {
     isExist = await RequestDatabaseServices(uid: uid!).checkExist(uid);
   }
-  Future<void> getData()async{
-    PatientHomeScreen.caseDetails?.diseaseName= await RequestDatabaseServices(uid: uid).getData();
+
+  Future<void> getData() async {
+    PatientHomeScreen.caseDetails?.diseaseName =
+        await RequestDatabaseServices(uid: uid).getData();
   }
+
   @override
   Widget build(BuildContext context) {
     patientImage = widget.userModel!.profilePic.toString();
@@ -54,11 +55,9 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
         children: [
           //Header
           CustomHeader(
-            patientName: '${ widget.userModel?.firstName} ${ widget.userModel?.secondName}',
-            patientImage: patientImage != null
-                ? NetworkImage(patientImage!)
-                : const AssetImage('assets/images/patient.png'),
-          ),
+              patientName:
+                  '${widget.userModel?.firstName} ${widget.userModel?.secondName}',
+              patientImage: NetworkImage(patientImage!)),
           SizedBox(
             height: 101.h,
             width: 375.w,
@@ -73,14 +72,14 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
           ),
           Center(
               child: Text(
-                "best place for free dental treatment",
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontSize: 13.sp,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w400,
-                ),
-              )),
+            "best place for free dental treatment",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+              fontSize: 13.sp,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w400,
+            ),
+          )),
           SizedBox(
             height: 175.h,
             width: 375.w,
@@ -101,7 +100,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => DiseaseSelectionScreen(
-                        //edited
+                          //edited
                           user: widget.userModel!,
                           caseDetails: PatientHomeScreen.caseDetails!)),
                 );
@@ -127,10 +126,10 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => CaseInformationScreen(
-                        caseDetails: PatientHomeScreen.caseDetails!,
-                        user: widget.userModel!,
-                        caseStatus: "Waiting", //need to be edited
-                      )),
+                            caseDetails: PatientHomeScreen.caseDetails!,
+                            user: widget.userModel!,
+                            caseStatus: "Waiting", //need to be edited
+                          )),
                 );
               } else {
                 Navigator.push(
@@ -181,12 +180,9 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                 "لقد قمت بحجز موعد مسبقاً,  لا يمكن حجز اكثر من موعد في آنٍ واحد",
                 style: TextStyle(fontSize: 17.sp),
               )),
-          actions: <Widget>[],
+          actions: const <Widget>[],
         );
       },
     );
   }
 }
-
-
-

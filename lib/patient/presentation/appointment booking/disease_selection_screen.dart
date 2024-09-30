@@ -14,10 +14,9 @@ class DiseaseSelectionScreen extends StatefulWidget {
   CaseDetails caseDetails;
   UserModel user;
 
-
   //constructor
-  DiseaseSelectionScreen({super.key, required this.user, required this.caseDetails});
-
+  DiseaseSelectionScreen(
+      {super.key, required this.user, required this.caseDetails});
 
   @override
   State<DiseaseSelectionScreen> createState() => _DiseaseSelectionScreenState();
@@ -43,7 +42,7 @@ class _DiseaseSelectionScreenState extends State<DiseaseSelectionScreen> {
         body: ListView(children: [
           //Header
           CustomHeader(
-              patientImage: NetworkImage(widget.user.profilePic),
+              patientImage: NetworkImage(widget.user.profilePic!),
               patientName:
                   '${widget.user.firstName} ${widget.user.secondName}'),
           //Hint
@@ -69,7 +68,8 @@ class _DiseaseSelectionScreenState extends State<DiseaseSelectionScreen> {
               title: diseases[index].name,
               description: diseases[index].description,
               onTap: () {
-                PatientHomeScreen.caseDetails?.diseaseName=diseases[index].name;
+                PatientHomeScreen.caseDetails?.diseaseName =
+                    diseases[index].name;
                 Navigator.push(
                   context,
                   MaterialPageRoute(

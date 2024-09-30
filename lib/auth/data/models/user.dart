@@ -7,6 +7,7 @@ class UserModel {
   final Map<String, dynamic> medicalHistory;
   final String phoneNum;
   final String profilePic;
+  // final String role;
 
   UserModel({
     required this.age,
@@ -17,6 +18,7 @@ class UserModel {
     required this.medicalHistory,
     required this.phoneNum,
     required this.profilePic,
+    // required this.role,
   });
 
   // Create UserModel from a map (e.g., Firebase data)
@@ -30,6 +32,7 @@ class UserModel {
       medicalHistory: map['medicalHistory'],
       phoneNum: map['phoneNum'],
       profilePic: map['profilePic'],
+      // role: map['role'],
     );
   }
 
@@ -44,6 +47,7 @@ class UserModel {
       'medicalHistory': medicalHistory,
       'phoneNum': phoneNum,
       'profilePic': profilePic,
+      // 'role': role,
     };
   }
 }

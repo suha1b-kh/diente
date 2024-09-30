@@ -20,7 +20,8 @@ class TeethSelectionScreen extends StatefulWidget {
   final controller = TextEditingController();
 
   //constructor
-  TeethSelectionScreen({super.key, required this.user, required this.caseDetails});
+  TeethSelectionScreen(
+      {super.key, required this.user, required this.caseDetails});
 
   @override
   State<TeethSelectionScreen> createState() => _ToothSelectionScreenState();
@@ -39,7 +40,7 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
               children: [
                 //header
                 CustomHeader(
-                    patientImage: NetworkImage(widget.user.profilePic),
+                    patientImage: NetworkImage(widget.user.profilePic!),
                     patientName:
                         '${widget.user.firstName} ${widget.user.secondName}'),
                 //tooth image
@@ -90,11 +91,12 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
                   borderColor: Theme.of(context).colorScheme.secondary,
                   text: "تم",
                   fontColor: Colors.white,
-                  onTap:  () async {
-                    PatientHomeScreen.caseDetails?.toothNumber = widget.controller.text;
+                  onTap: () async {
+                    PatientHomeScreen.caseDetails?.toothNumber =
+                        widget.controller.text;
                     final uid = FirebaseAuth.instance.currentUser!.uid;
                     Request req = Request(isAccepted: false, caseDescription: {
-                      'Name':PatientHomeScreen.caseDetails?.diseaseName,
+                      'Name': PatientHomeScreen.caseDetails?.diseaseName,
                       'toothNumber': PatientHomeScreen.caseDetails?.toothNumber
                     });
                     await RequestDatabaseServices(uid: uid).addRequest(req);
@@ -102,10 +104,10 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CaseInformationScreen(
-                            user: widget.user,
-                            caseDetails: PatientHomeScreen.caseDetails!,
-                            caseStatus: "Waiting",
-                          )),
+                                user: widget.user,
+                                caseDetails: PatientHomeScreen.caseDetails!,
+                                caseStatus: "Waiting",
+                              )),
                     );
                   },
                 )),
