@@ -10,6 +10,7 @@ import 'package:diente/auth/presentation/fill_information_screen.dart';
 import 'package:diente/auth/presentation/signup_screen.dart';
 import 'package:diente/firebase_options.dart';
 import 'package:diente/patient/presentation/edit%20profile%20info/edit_patient_profile_screen.dart';
+import 'package:diente/student/profile/screens/control_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +85,8 @@ class _MainAppState extends State<MainApp> {
     return ScreenUtilInit(
         designSize: const Size(375, 812),
         child: MaterialApp(
-          home: initialScreen(),
+          // home: initialScreen(),
+          home: const ControlScreen(),
           routes: {
             //home screen
             "/home_screen": (context) => const HomeScreen(),

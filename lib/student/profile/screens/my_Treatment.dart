@@ -1,6 +1,7 @@
-import 'package:diente/student/presentation/widgets/list_treatment_widgets.dart';
-import 'package:diente/student/presentation/widgets/student_appbar.dart';
-import 'package:diente/student/presentation/widgets/treatment_widget.dart';
+import 'package:diente/student/profile/widgets/enum.dart';
+import 'package:diente/student/profile/widgets/list_treatment_widgets.dart';
+import 'package:diente/student/profile/widgets/student_appbar.dart';
+import 'package:diente/student/profile/widgets/treatment_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -27,7 +28,7 @@ class MyTreatment extends StatelessWidget {
                 ),
               ),
             ),
-            const ListTreatmentWidgets()
+            const ListWidgets(widgetType: WidgetType.treatment),
           ],
         ),
       ),

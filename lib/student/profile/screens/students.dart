@@ -1,6 +1,7 @@
-import 'package:diente/student/presentation/widgets/list_students_profile_widgets.dart';
-import 'package:diente/student/presentation/widgets/search_bar.dart';
-import 'package:diente/student/presentation/widgets/student_appbar.dart';
+import 'package:diente/student/profile/widgets/enum.dart';
+import 'package:diente/student/profile/widgets/list_students_profile_widgets.dart';
+import 'package:diente/student/profile/widgets/search_bar.dart';
+import 'package:diente/student/profile/widgets/student_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -19,7 +20,7 @@ class Students extends StatelessWidget {
               Gap(29.h),
               const SearchStudentBar(),
               Gap(34.h),
-              const ListStudentsProfileWidgets(),
+              const ListWidgets(widgetType: WidgetType.studentProfile)
             ],
           ),
         ],

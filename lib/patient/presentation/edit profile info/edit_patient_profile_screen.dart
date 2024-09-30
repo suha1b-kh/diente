@@ -9,7 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:image_cropper/image_cropper.dart';
+// import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/patient_image_and_name.dart';
@@ -158,30 +158,31 @@ class _EditProfileScreenState extends State<EditPatientProfileScreen> {
     );
   }
 
-  Future<File?> _cropImage({required File imageFile}) async {
-    CroppedFile? croppedImage = await ImageCropper().cropImage(
-      sourcePath: imageFile.path,
-      aspectRatioPresets: [
-        CropAspectRatioPreset.square,
-        CropAspectRatioPreset.ratio3x2,
-        CropAspectRatioPreset.original,
-        CropAspectRatioPreset.ratio4x3,
-        CropAspectRatioPreset.ratio16x9,
-      ],
-    );
+  // Future<File?> _cropImage({required File imageFile}) async {
+  //   CroppedFile? croppedImage = await ImageCropper().cropImage(
+  //     sourcePath: imageFile.path,
+  //     aspectRatioPresets: [
+  //       CropAspectRatioPreset.square,
+  //       CropAspectRatioPreset.ratio3x2,
+  //       CropAspectRatioPreset.original,
+  //       CropAspectRatioPreset.ratio4x3,
+  //       CropAspectRatioPreset.ratio16x9,
+  //     ],
+  //   );
 
-    if (croppedImage == null) {
-      return null;
-    } else {
-      return File(croppedImage.path);
-    }
-  }
+  //   if (croppedImage == null) {
+  //     return null;
+  //   } else {
+  //     return File(croppedImage.path);
+  //   }
+  // }
 
   Future _pickImage(ImageSource source) async {
     final image = await ImagePicker().pickImage(source: source);
     if (image == null) return;
     File? imageFile = File(image.path);
-    imageFile = await _cropImage(imageFile: imageFile);
+    // imageFile = await _cropImage(imageFile: imageFile);
+    imageFile = imageFile;
     setState(() {
       _imageFile = imageFile;
     });

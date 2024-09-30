@@ -1,7 +1,6 @@
-import 'package:diente/student/presentation/screens/edit_profile.dart';
-import 'package:diente/student/presentation/screens/home_screen_student.dart';
-import 'package:diente/student/presentation/screens/my_Treatment.dart';
-import 'package:diente/student/presentation/screens/students.dart';
+import 'package:diente/student/profile/screens/home_screen_student.dart';
+import 'package:diente/student/profile/screens/my_Treatment.dart';
+import 'package:diente/student/profile/screens/students.dart';
 import 'package:flutter/material.dart';
 
 int _selectedIndex = 0;
@@ -26,25 +25,35 @@ class _ControlScreenState extends State<ControlScreen> {
         child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+          unselectedIconTheme:
+              IconThemeData(color: Theme.of(context).colorScheme.surface),
+          unselectedItemColor: Theme.of(context).colorScheme.surface,
+          selectedFontSize: 20,
+          unselectedFontSize: 15,
+          showUnselectedLabels: false,
           currentIndex: _selectedIndex, //New
           onTap: _onItemTapped,
           backgroundColor: const Color(0xFF7CA0CA),
           items: const [
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.home,
+                Icons.home_outlined,
+                size: 35,
               ),
               label: 'Home',
             ),
-            // BottomNavigationBarItem(
-            //     icon: ImageIcon(
-            //         size: 2, AssetImage('assets/images/treatmentIcon.png')),
-            //     label: 'My treatment'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.local_hospital_outlined),
+                icon: Icon(
+                  Icons.local_hospital_outlined,
+                  size: 35,
+                ),
                 label: 'My treatment'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.people), label: 'Students'),
+                icon: Icon(
+                  Icons.people,
+                  size: 35,
+                ),
+                label: 'Students'),
           ]),
     );
   }

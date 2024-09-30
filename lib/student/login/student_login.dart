@@ -6,7 +6,7 @@ import 'package:diente/core/widgets/text_fields.dart';
 import 'package:diente/student/login/login_bloc/bloc/login_bloc.dart';
 import 'package:diente/student/login/login_bloc/bloc/login_event.dart';
 import 'package:diente/student/login/login_bloc/bloc/login_state.dart';
-import 'package:diente/student/presentation/screens/control_screen.dart';
+import 'package:diente/student/profile/screens/control_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

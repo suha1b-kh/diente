@@ -1,6 +1,5 @@
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/text.dart';
-import 'package:diente/student/presentation/screens/control_screen.dart';
 import 'package:diente/student/login/student_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
