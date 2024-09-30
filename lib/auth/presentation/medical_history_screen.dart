@@ -11,7 +11,6 @@ import 'package:gap/gap.dart';
 
 import '../../patient/presentation/Home/patient_home_screen.dart';
 
-
 class MedicalHistoryScreen extends StatefulWidget {
   final UserModel user;
   const MedicalHistoryScreen({super.key, required this.user});
@@ -68,41 +67,107 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
             Gap(60.h),
             _buildCheckboxRow(context, 'diabetes', diabetes, (value) {
               setState(() {
-                diabetes = value!;
+                if (doNotSuffer == false) {
+                  diabetes = value!;
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      duration: Duration(milliseconds: 700),
+                      content: Text(
+                          'Cannot select both diabetes and do not suffer.'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
               });
             }),
             Gap(29.h),
             _buildCheckboxRow(context, 'high blood pressure', highBloodPressure,
                 (value) {
               setState(() {
-                highBloodPressure = value!;
+                if (doNotSuffer == false) {
+                  highBloodPressure = value!;
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      duration: Duration(milliseconds: 700),
+                      content: Text(
+                          'Cannot select both high blood pressure and do not suffer.'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
               });
             }),
             Gap(29.h),
             _buildCheckboxRow(context, 'heart disease', heartDisease, (value) {
               setState(() {
-                heartDisease = value!;
+                if (doNotSuffer == false) {
+                  heartDisease = value!;
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      duration: Duration(milliseconds: 700),
+                      content: Text(
+                          'Cannot select both heart disease and do not suffer.'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
               });
             }),
             Gap(29.h),
             _buildCheckboxRow(
                 context, 'respiratory diseases', respiratoryDiseases, (value) {
               setState(() {
-                respiratoryDiseases = value!;
+                if (doNotSuffer == false) {
+                  respiratoryDiseases = value!;
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      duration: Duration(milliseconds: 700),
+                      content: Text(
+                          'Cannot select both respiratory diseases and do not suffer.'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
               });
             }),
             Gap(29.h),
             _buildCheckboxRow(context, 'kidney disease', kidneyDisease,
                 (value) {
               setState(() {
-                kidneyDisease = value!;
+                if (doNotSuffer == false) {
+                  kidneyDisease = value!;
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      duration: Duration(milliseconds: 700),
+                      content: Text(
+                          'Cannot select both kidney disease and do not suffer.'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
               });
             }),
             Gap(29.h),
             _buildCheckboxRow(context, 'bleeding disorders', bleedingDisorders,
                 (value) {
               setState(() {
-                bleedingDisorders = value!;
+                if (doNotSuffer == false) {
+                  bleedingDisorders = value!;
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      duration: Duration(milliseconds: 700),
+                      content: Text(
+                          'Cannot select both bleeding disorders and do not suffer.'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
               });
             }),
             Gap(29.h),
@@ -112,10 +177,35 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
                 doNotSuffer, (value) {
               setState(() {
                 doNotSuffer = value!;
+                if (value == true) {
+                  diabetes = false;
+                  highBloodPressure = false;
+                  heartDisease = false;
+                  respiratoryDiseases = false;
+                  kidneyDisease = false;
+                  bleedingDisorders = false;
+                }
               });
             }),
             Gap(50.h),
             customButton(context, Theme.of(context).colorScheme.secondary, () {
+              if (diabetes == false &&
+                  highBloodPressure == false &&
+                  heartDisease == false &&
+                  respiratoryDiseases == false &&
+                  kidneyDisease == false &&
+                  bleedingDisorders == false &&
+                  doNotSuffer == false) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    duration: Duration(milliseconds: 700),
+                    content: Text('Please select at least one option.'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+                return;
+              }
+
               MedicalHistoryModel medModel = MedicalHistoryModel(
                 diabetes: diabetes,
                 highBloodPressure: highBloodPressure,
