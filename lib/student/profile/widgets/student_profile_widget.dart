@@ -46,7 +46,6 @@ class StudentProfileWidget extends StatelessWidget {
                         height: 0.h,
                       ),
                     ),
-                    Gap(15.w),
                     Text(
                       studentYear,
                       style: TextStyle(

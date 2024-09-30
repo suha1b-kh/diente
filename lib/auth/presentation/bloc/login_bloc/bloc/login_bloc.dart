@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/auth/data/source/auth_firebase_service.dart';

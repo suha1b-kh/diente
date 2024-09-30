@@ -1,7 +1,5 @@
 import 'package:diente/student/profile/widgets/enum.dart';
-import 'package:diente/student/profile/widgets/list_treatment_widgets.dart';
 import 'package:diente/student/profile/widgets/student_appbar.dart';
-import 'package:diente/student/profile/widgets/treatment_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,7 +18,7 @@ class MyTreatment extends StatelessWidget {
               child: Text(
                 'Treatment List',
                 style: TextStyle(
-                  color: const Color(0xFF1B2A57),
+                  color: Theme.of(context).colorScheme.primary, //
                   fontSize: 24.sp,
                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w600,
@@ -28,7 +26,7 @@ class MyTreatment extends StatelessWidget {
                 ),
               ),
             ),
-            const ListWidgets(widgetType: WidgetType.treatment),
+            const ListWidgets(widgetType: WidgetType.treatment)
           ],
         ),
       ),

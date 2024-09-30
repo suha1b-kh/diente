@@ -1,3 +1,4 @@
+import 'package:diente/core/widgets/text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -5,74 +6,83 @@ import 'package:gap/gap.dart';
 import '../../../core/widgets/text_fields.dart';
 
 class EditProfile extends StatelessWidget {
-   EditProfile({super.key,dispo});
-final TextEditingController phoneNumberController = TextEditingController();
-final TextEditingController passwordController = TextEditingController();
-final TextEditingController newPasswordController = TextEditingController();
-final TextEditingController confirmPasswordController = TextEditingController();
+  EditProfile({super.key, dispo});
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController newPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold
-     (body:  Column(
-      children: [
-        Container(
-          margin: EdgeInsets.only(top: 100.h, bottom: 10.h),
-          width: 145.w,
-          height: 145.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(500.0.r)),
-            image: const DecorationImage(
-              //Todo fetch student image from firebase
-              image: AssetImage('assets/images/profile_photo.png'),
-            ),
-          ),
+    
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        const Text(
-          'Diente student',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Color(0xFF1B2A57),
-            fontSize: 20,
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w400,
-            height: 0,
+      ),
+      body: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.only(bottom: 2.h),
+            width: 145.w,
+            height: 145.h,
+            //Todo fetch student image from firestore
+            child: ClipOval(
+                child: Image.asset(
+              'assets/images/stu_img.png',
+              width: 145.w,
+              height: 145.h,
+              fit: BoxFit.cover,
+            )),
           ),
-        ),
-        Gap(15.h),
-        CustomTextField(
+          customText(
+            context,
+            'Diente student',
+            Theme.of(context).colorScheme.primary,
+            16.sp,
+            FontWeight.w500,
+          ),
+          Gap(15.h),
+          Center(
+            child: CustomTextField(
               width: 343.w,
               height: 56.h,
               controller: phoneNumberController,
               text: 'Phone number',
+              keyboardType: TextInputType.number,
             ),
-             Gap(15.h),
-            CustomTextField(
-              width: 343.w,
-              height: 56.h,
-              controller: passwordController,
-              text: 'password',
-              icon: Icons.visibility,
-            ),
-             Gap(15.h),
-              CustomTextField(
-              width: 343.w,
-              height: 56.h,
-              controller: newPasswordController,
-              text: 'new password',
-              
-            ),
-            Gap(15.h),
-            CustomTextField(
-              width: 343.w,
-              height: 56.h,
-              controller: confirmPasswordController,
-              text: 'Confirm Password',
-              icon: Icons.visibility,
-
-            ), 
-      ],
-    )
-    ,);
+          ),
+          Gap(15.h),
+          CustomTextField(
+            width: 343.w,
+            height: 56.h,
+            controller: passwordController,
+            text: 'password',
+            icon: Icons.visibility,
+            
+          ),
+          Gap(15.h),
+          CustomTextField(
+            width: 343.w,
+            height: 56.h,
+            controller: newPasswordController,
+            text: 'new password',
+          ),
+          Gap(15.h),
+          CustomTextField(
+            width: 343.w,
+            height: 56.h,
+            controller: confirmPasswordController,
+            text: 'Confirm Password',
+            icon: Icons.visibility,
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:diente/student/profile/screens/main_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,12 +8,8 @@ class StudentAppbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       leading: MaterialButton(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const mainProfile(),
-          ),
-        ),
+        onPressed: () =>
+            Navigator.of(context).pushNamed('/main_student_profile'),
         child: ClipOval(
             child: Image.asset(
           'assets/images/stu_img.png',

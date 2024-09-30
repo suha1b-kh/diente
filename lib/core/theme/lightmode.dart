@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 ThemeData lightMode = ThemeData(
-    textSelectionTheme: const TextSelectionThemeData(
-      selectionColor: Color(0xFF7CA0CA),
-    ),
     brightness: Brightness.light,
     colorScheme: const ColorScheme.light(
       surface: Color.fromARGB(255, 255, 255, 255),
@@ -13,8 +10,7 @@ ThemeData lightMode = ThemeData(
       inverseSurface: Color(0xFFF2F4F7),
     ),
     textTheme: ThemeData.light().textTheme.apply(
-          // bodyColor: const Color.fromARGB(255, 255, 255, 255),
-          bodyColor: const Color(0xFF7CA0CA),
+          bodyColor: const Color.fromARGB(255, 255, 255, 255),
           displayColor: const Color(0xFF7CA0CA),
           decorationColor: const Color(0xFF1B2A57),
         ));

@@ -9,21 +9,13 @@ class CustomTextField extends StatelessWidget {
     required this.height,
     required this.controller,
     required this.text,
-    this.icon,
-    this.iconPressed,
-    this.validator,
-    this.hide,
-    this.keyboardType,
+    this.icon,  String? Function(String? value) ?validator,  TextInputType? keyboardType,  bool? hide,  Null Function()? iconPressed,
   });
 
   final double width, height;
-  final TextInputType? keyboardType;
   final TextEditingController controller;
   final String text;
   final IconData? icon;
-  final bool? hide;
-  final VoidCallback? iconPressed;
-  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +28,12 @@ class CustomTextField extends StatelessWidget {
       ),
       child: Center(
         child: TextFormField(
-          keyboardType: keyboardType,
-          validator: validator,
-          obscureText: hide ?? false,
           cursorColor: Theme.of(context).colorScheme.inversePrimary,
           controller: controller,
           style: TextStyle(
               color: Theme.of(context).colorScheme.inversePrimary,
               fontSize: 14.sp),
           decoration: InputDecoration(
-            errorStyle: TextStyle(fontSize: 12.sp),
             filled: true,
             fillColor: Theme.of(context).colorScheme.inverseSurface,
             contentPadding:
@@ -61,13 +49,10 @@ class CustomTextField extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
             suffixIcon: icon != null
-                ? IconButton(
-                    onPressed: iconPressed,
-                    icon: Icon(
-                      icon,
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                      size: 24.sp,
-                    ),
+                ? Icon(
+                    icon,
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                    size: 24.sp,
                   )
                 : null,
           ),

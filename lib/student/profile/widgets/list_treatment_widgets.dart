@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class ListTreatmentWidgets extends StatelessWidget {
   const ListTreatmentWidgets({super.key});
-
+//not needed after enum
   @override
   Widget build(BuildContext context) {
     return ListView.builder(

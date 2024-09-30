@@ -77,7 +77,7 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
               PatientImageAndName(
                   patientName:
                       "${widget.user.firstName} ${widget.user.secondName}",
-                  patientImage: NetworkImage(widget.user.profilePic!)),
+                  patientImage: NetworkImage(widget.user.profilePic)),
               SizedBox(
                 height: 31.h,
               ),
