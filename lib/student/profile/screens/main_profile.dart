@@ -3,6 +3,9 @@ import 'dart:io';
 
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/text.dart';
+import 'package:diente/patient/presentation/widgets/custom_text_field.dart';
+import 'package:diente/student/data/models/report_model.dart';
+import 'package:diente/student/data/services/choose_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -56,12 +59,16 @@ class _mainProfileState extends State<MainStudentProfile> {
         child: Column(
           children: [
             Center(
-              child: SizedBox(
-                width: 145.w,
-                height: 145.h,
-                child: Image.asset(
-                  'assets/images/profile_photo.png',
-                ),
+              child: MaterialButton(
+                onPressed: () =>
+                    Navigator.of(context).pushNamed('/edit_profile'),
+                child: ClipOval(
+                    child: Image.asset(
+                  'assets/images/stu_img.png',
+                  width: 145.w,
+                  height: 145.h,
+                  fit: BoxFit.cover,
+                )),
               ),
             ),
             Text(
@@ -95,20 +102,68 @@ class _mainProfileState extends State<MainStudentProfile> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          PanaraInfoDialog.showAnimatedGrow(
-            context,
-            title: "Hello",
-            message: "This is the Panara Info Dialog Normal.",
-            buttonText: "Okay",
-            onTapDismiss: () {
-              Navigator.pop(context);
-            },
-            panaraDialogType: PanaraDialogType.normal,
-          );
+          showDialog(context: context, builder: (context) => customDialog());
         },
-        backgroundColor: Colors.blue,
         child: const Icon(Icons.add),
       ),
+    );
+  }
+
+  Widget customDialog() {
+    return Dialog(
+        child: Container(
+      width: 347,
+      height: 500,
+      decoration: ShapeDecoration(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(40),
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(30.w),
+        child: Center(
+          child: selectPhotoDialog(),
+        ),
+      ),
+    ));
+  }
+
+  Column selectPhotoDialog() {
+    return Column(
+      children: [
+        _imageFile == null
+            ? Image.asset('assets/images/p.png')
+            : Image.file(
+                height: 150.w,
+                _imageFile!.absolute,
+                fit: BoxFit.cover,
+              ),
+        Gap(35.h),
+        customText(context, 'Add photo of your report',
+            Theme.of(context).colorScheme.secondary, 14.sp, FontWeight.w400),
+        Gap(35.h),
+        CustomTextField(
+          hint: 'add description',
+          textAlign: TextAlign.center,
+          inputType: TextInputType.text,
+          obscureText: false,
+        ),
+        Gap(20.h),
+        customDialogButton(context, Theme.of(context).colorScheme.secondary,
+            () {
+          // setState(() {
+          //   _pickImage();
+          //   log('ss');
+          // });
+          // log('message');
+          ReportModel report = ReportModel(
+            caseName: 'fdts',
+            reportPic: 'fysd',
+            reportId: 'fstd0',
+          );
+        }, 'select photo', 16.sp),
+      ],
     );
   }
 }

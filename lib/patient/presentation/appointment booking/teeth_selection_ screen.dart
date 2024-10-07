@@ -40,7 +40,7 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
               children: [
                 //header
                 CustomHeader(
-                    patientImage: NetworkImage(widget.user.profilePic!),
+                    patientImage: NetworkImage(widget.user.profilePic),
                     patientName:
                         '${widget.user.firstName} ${widget.user.secondName}'),
                 //tooth image
@@ -95,20 +95,31 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
                     PatientHomeScreen.caseDetails?.toothNumber =
                         widget.controller.text;
                     final uid = FirebaseAuth.instance.currentUser!.uid;
-                    Request req = Request(isAccepted: false, caseDescription: {
-                      'Name': PatientHomeScreen.caseDetails?.diseaseName,
-                      'toothNumber': PatientHomeScreen.caseDetails?.toothNumber
-                    });
+                    Request req = Request(
+                        isAccepted: null,
+                        caseDescription: {
+                          'Name': PatientHomeScreen.caseDetails?.diseaseName,
+                          'toothNumber':
+                              PatientHomeScreen.caseDetails?.toothNumber
+                        },
+                        id: uid);
                     await RequestDatabaseServices(uid: uid).addRequest(req);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CaseInformationScreen(
-                                user: widget.user,
-                                caseDetails: PatientHomeScreen.caseDetails!,
-                                caseStatus: "Waiting",
-                              )),
-                    );
+                    if (widget.controller.text != '') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CaseInformationScreen(
+                                  user: widget.user,
+                                  caseDetails: PatientHomeScreen.caseDetails!,
+                                  caseStatus: "Waiting",
+                                )),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text('Please enter the tooth number'),
+                      ));
+                    }
                   },
                 )),
               ],

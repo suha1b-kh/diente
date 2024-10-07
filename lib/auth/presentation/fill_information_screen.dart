@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -149,7 +150,6 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         setState(() {
                           genderController.text = newValue ?? '';
                         });
-                        //TODO: Refactor using bloc
                       },
                     ),
                     Gap(10.h),

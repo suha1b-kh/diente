@@ -14,7 +14,11 @@ class RequestDatabaseServices {
   Future addRequest(Request req) async {
     return await requestsCollection
         .doc(uid)
-        .set({'description': req.caseDescription, 'isAccepted': req.isAccepted})
+        .set({
+          'description': req.caseDescription,
+          'isAccepted': req.isAccepted,
+          'id': req.id
+        })
         .then((value) => print("request Added"))
         .catchError((error) => print("Failed to add request: $error"));
   }
@@ -23,7 +27,7 @@ class RequestDatabaseServices {
     //try
     await FirebaseFirestore.instance
         .collection('requests')
-        .doc(uid) 
+        .doc(uid)
         .delete()
         .then(
           (doc) => print("Document deleted"),
@@ -42,8 +46,6 @@ class RequestDatabaseServices {
       return false;
     }
   }
-
-
 
   Future<Request> getRequest() async {
     try {
@@ -71,7 +73,7 @@ class RequestDatabaseServices {
 
   Future getData() async {
     try {
-      var snapshot = await requestsCollection.doc(uid).get() ;
+      var snapshot = await requestsCollection.doc(uid).get();
       if (snapshot.exists) {
         log(snapshot['description'].toString());
         final description = snapshot['description'] as Map<String, dynamic>;
