@@ -13,18 +13,24 @@ class DatabaseServices {
   final treatmentCollection =
       FirebaseFirestore.instance.collection('treatments');
 
-  Future<List<Map<String, dynamic>>> getAllAcceptedRequests() async {
+  Future<List<CaseModel>> getAllAcceptedRequests() async {
+    List<CaseModel> casesList = [];
+
     try {
-      final allDocs = await acceptedRequestsCollection.get();
-      log(allDocs.size.toString());
-      if (allDocs.size > 0) {
-        return allDocs.docs.map((doc) => doc.data()).toList();
-      } else {
-        return [];
+      QuerySnapshot querySnapshot = await acceptedRequestsCollection.get();
+      for (var doc in querySnapshot.docs) {
+        casesList
+            .add(CaseModel.fromFirestore(doc.data() as Map<String, dynamic>));
       }
+      log(casesList.toString());
     } catch (e) {
-      throw Exception(e.toString());
+      if (e is FirebaseException) {
+        log("FirebaseException: ${e.message}");
+      } else {
+        log("Error fetching requests: $e");
+      }
     }
+    return casesList;
   }
 
   Future<UserModel?> getPatient(String uid) async {

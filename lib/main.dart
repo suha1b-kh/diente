@@ -156,7 +156,7 @@ class _MainAppState extends State<MainApp> {
         //EditProfile screen
         "/edit_profile": (context) => EditProfile(),
         //view case screen
-        "/view_case_screen": (context) => const ViewCase()
+        // "/view_case_screen": (context) => const ViewCase()
       },
       theme: lightMode,
     );

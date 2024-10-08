@@ -11,7 +11,7 @@ class CaseModel {
 
   factory CaseModel.fromFirestore(Map<String, dynamic> data) {
     return CaseModel(
-      patientId: data['patientID'],
+      patientId: data['patientId'],
       caseDescription: data['caseDescription'],
       caseStatus: data['caseStatus'],
     );

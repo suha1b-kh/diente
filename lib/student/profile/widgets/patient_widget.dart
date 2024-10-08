@@ -1,3 +1,6 @@
+import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/student/data/services/database_services.dart';
+import 'package:diente/student/profile/screens/view_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -7,10 +10,14 @@ class PatientWidget extends StatelessWidget {
   PatientWidget({
     super.key,
     required this.patientName,
-    required this.caseInformation,
+    required this.caseName,
+    required this.toothNum,
+    required this.uid,
   });
   String patientName;
-  String caseInformation;
+  String caseName;
+  String toothNum;
+  String uid;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -50,15 +57,29 @@ class PatientWidget extends StatelessWidget {
                     height: 0.h,
                   ),
                 ),
-                Text(
-                  caseInformation,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontSize: 14.sp,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w400,
-                    height: 0.h,
-                  ),
+                Column(
+                  children: [
+                    Text(
+                      caseName,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: 14.sp,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w400,
+                        height: 0.h,
+                      ),
+                    ),
+                    Text(
+                      toothNum,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: 14.sp,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w400,
+                        height: 0.h,
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),
@@ -71,10 +92,36 @@ class PatientWidget extends StatelessWidget {
                 shape: CircleBorder(),
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.arrow_forward_ios),
-              onPressed: () {
-                Navigator.of(context).pushNamed('/view_case_screen');
+            FutureBuilder<UserModel?>(
+              future: DatabaseServices().getPatient(uid),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (!snapshot.hasData) {
+                  return const Center(child: Text('Patient not found'));
+                } else {
+                  return IconButton(
+                    icon: const Icon(Icons.arrow_forward_ios),
+                    onPressed: () {
+                      UserModel user = snapshot.data!;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ViewCase(
+                            patientName: patientName,
+                            caseName: caseName,
+                            toothNum: toothNum,
+                            phoneNum: user.phoneNum,
+                            age: user.age,
+                            medicalHistory: user.medicalHistory,
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }
               },
             ),
           ],

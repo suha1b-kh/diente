@@ -5,7 +5,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class ViewCase extends StatelessWidget {
-  const ViewCase({super.key});
+  const ViewCase({
+    super.key,
+    required this.patientName,
+    required this.caseName,
+    required this.toothNum,
+    required this.phoneNum,
+    required this.age,
+    required this.medicalHistory,
+  });
+  final String patientName;
+  final String caseName;
+  final String toothNum;
+  final String phoneNum;
+  final String age;
+  final Map medicalHistory;
 
   @override
   Widget build(BuildContext context) {
@@ -30,53 +44,87 @@ class ViewCase extends StatelessWidget {
               fit: BoxFit.cover,
             )),
             Gap(14.h),
+            customText(context, patientName,
+                Theme.of(context).colorScheme.primary, 20.sp, FontWeight.w600),
             customText(
                 context,
-                'patient name', //TODO fetch patient name from firestore
-                Theme.of(context).colorScheme.primary,
-                20.sp,
-                FontWeight.w600),
+                'case type: $caseName',
+                Theme.of(context).colorScheme.secondary,
+                24.sp,
+                FontWeight.w500),
             customText(
                 context,
-                'Routine examination',
+                'tooth number: $toothNum',
                 Theme.of(context).colorScheme.secondary,
                 24.sp,
                 FontWeight.w500),
             Gap(11.h),
             customText(
                 context,
-                'Phone number', //TODO fetch phone number from firestore
+                'patient number: $phoneNum',
                 Theme.of(context).colorScheme.secondary,
                 20.sp,
                 FontWeight.w500),
             Gap(11.h),
-            customText(context, 'Age', Theme.of(context).colorScheme.secondary,
-                20.sp, FontWeight.w500), //TODO fetch age from firestore
+            customText(
+                context,
+                'patient age: $age',
+                Theme.of(context).colorScheme.secondary,
+                20.sp,
+                FontWeight.w500),
             Gap(38.h),
-            //TODO fetch medical history from firestore
-            customText(context, 'Age', Theme.of(context).colorScheme.secondary,
-                20.sp, FontWeight.w500),
+            customText(
+                context,
+                'bleedingDisorders:  ${medicalHistory['bleedingDisorders']}',
+                Theme.of(context).colorScheme.secondary,
+                20.sp,
+                FontWeight.w500),
             Gap(11.h),
-            customText(context, 'Age', Theme.of(context).colorScheme.secondary,
-                20.sp, FontWeight.w500),
+            customText(
+                context,
+                'diabetes:  ${medicalHistory['diabetes']}',
+                Theme.of(context).colorScheme.secondary,
+                20.sp,
+                FontWeight.w500),
             Gap(11.h),
-            customText(context, 'Age', Theme.of(context).colorScheme.secondary,
-                20.sp, FontWeight.w500),
+            customText(
+                context,
+                'doNotSuffer:  ${medicalHistory['doNotSuffer']}',
+                Theme.of(context).colorScheme.secondary,
+                20.sp,
+                FontWeight.w500),
             Gap(11.h),
-            customText(context, 'Age', Theme.of(context).colorScheme.secondary,
-                20.sp, FontWeight.w500),
+            customText(
+                context,
+                'heartDisease:  ${medicalHistory['heartDisease']}',
+                Theme.of(context).colorScheme.secondary,
+                20.sp,
+                FontWeight.w500),
             Gap(11.h),
-            customText(context, 'Age', Theme.of(context).colorScheme.secondary,
-                20.sp, FontWeight.w500),
+            customText(
+                context,
+                'highBloodPressure:  ${medicalHistory['highBloodPressure']}',
+                Theme.of(context).colorScheme.secondary,
+                20.sp,
+                FontWeight.w500),
             Gap(11.h),
-            customText(context, 'Age', Theme.of(context).colorScheme.secondary,
-                20.sp, FontWeight.w500),
+            customText(
+                context,
+                'kidneyDisease:  ${medicalHistory['kidneyDisease']}',
+                Theme.of(context).colorScheme.secondary,
+                20.sp,
+                FontWeight.w500),
             Gap(11.h),
-            customText(context, 'Age', Theme.of(context).colorScheme.secondary,
-                20.sp, FontWeight.w500),
+            customText(
+                context,
+                'respiratoryDiseases:  ${medicalHistory['respiratoryDiseases']}',
+                Theme.of(context).colorScheme.secondary,
+                20.sp,
+                FontWeight.w500),
             Gap(11.h),
-            customButton(context, Theme.of(context).colorScheme.primary, () {},
-                'Select case', 16)
+            customButton(context, Theme.of(context).colorScheme.primary, () {
+              //choose case
+            }, 'Select case', 16)
           ],
         ),
       ),
