@@ -36,14 +36,17 @@ class StudentProfileWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      studentName,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontSize: 16.sp,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w500,
-                        height: 0.h,
+                    SizedBox(
+                      width: 125.w,
+                      child: Text(
+                        studentName,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontSize: 16.sp,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          height: 0.h,
+                        ),
                       ),
                     ),
                     Text(
@@ -58,7 +61,7 @@ class StudentProfileWidget extends StatelessWidget {
                     )
                   ],
                 ),
-                Gap(140.w),
+                Gap(100.w),
                 const Icon(Icons.arrow_forward_ios),
               ],
             ),
