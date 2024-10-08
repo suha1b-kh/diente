@@ -57,13 +57,14 @@ class ListWidgets extends StatelessWidget {
                         } else {
                           UserModel user = userSnapshot.data!;
                           return PatientWidget(
-                              patientName:
-                                  '${user.firstName} ${user.secondName}',
-                              caseName:
-                                  acceptedReq[index].caseDescription?['Name'],
-                              toothNum: acceptedReq[index]
-                                  .caseDescription?['toothNumber'],
-                              uid: acceptedReq[index].patientId!);
+                            patientName: '${user.firstName} ${user.secondName}',
+                            caseName:
+                                acceptedReq[index].caseDescription?['Name'],
+                            toothNum: acceptedReq[index]
+                                .caseDescription?['toothNumber'],
+                            uid: acceptedReq[index].patientId!,
+                            caseId: acceptedReq[index].patientId!,
+                          );
                         }
                       },
                     );

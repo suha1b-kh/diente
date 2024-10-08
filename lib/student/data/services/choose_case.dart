@@ -8,12 +8,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 FirebaseFirestore db = FirebaseFirestore.instance;
-//  chooseCase() {
-//   db.collection('requests').where('status', isEqualTo: 'waiting').get().then((value) {
-//     value.docs.forEach((element) {
-//       print(element.data());
-//     });
-//   });
-//   return;
-// }
-
+chooseCase(String uid) {
+  db.collection('students').doc(auth.currentUser!.uid).update({
+    'cases': FieldValue.arrayUnion([uid])
+  });
+  db.collection('acceptedRequests').doc(uid).update({'caseStatus': 'accepted'});
+}

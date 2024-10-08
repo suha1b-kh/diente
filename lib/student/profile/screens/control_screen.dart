@@ -25,33 +25,36 @@ class _ControlScreenState extends State<ControlScreen> {
         child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Theme.of(context).colorScheme.primary,
+          selectedIconTheme:
+              IconThemeData(color: Theme.of(context).colorScheme.primary),
           unselectedIconTheme:
-              IconThemeData(color: Theme.of(context).colorScheme.surface),
-          unselectedItemColor: Theme.of(context).colorScheme.surface,
+              IconThemeData(color: Theme.of(context).colorScheme.secondary),
+          unselectedItemColor: Theme.of(context).colorScheme.secondary,
           selectedFontSize: 20,
-          unselectedFontSize: 15,
+          unselectedFontSize: 12,
           showUnselectedLabels: false,
           currentIndex: _selectedIndex, //New
           onTap: _onItemTapped,
-          backgroundColor: const Color(0xFF7CA0CA),
+          backgroundColor: Theme.of(context).colorScheme.inverseSurface,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.home_outlined,
-                size: 35,
+                size: 25,
               ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.local_hospital_outlined,
-                  size: 35,
+                  size: 25,
                 ),
                 label: 'My treatment'),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.people,
-                  size: 35,
+                  size: 25,
                 ),
                 label: 'Students'),
           ]),

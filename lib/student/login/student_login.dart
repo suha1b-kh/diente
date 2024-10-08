@@ -30,7 +30,7 @@ class _StudentLoginScreenState extends State<StudentLoginScreen> {
     if (FirebaseAuth.instance.currentUser != null) {
       log("Email: ${FirebaseAuth.instance.currentUser!.email}");
     } else {
-      log('No user logged in');
+      log('No student logged in');
     }
   }
 

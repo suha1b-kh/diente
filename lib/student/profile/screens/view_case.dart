@@ -1,5 +1,6 @@
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/text.dart';
+import 'package:diente/student/data/services/choose_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -13,6 +14,7 @@ class ViewCase extends StatelessWidget {
     required this.phoneNum,
     required this.age,
     required this.medicalHistory,
+    required this.caseId,
   });
   final String patientName;
   final String caseName;
@@ -20,6 +22,7 @@ class ViewCase extends StatelessWidget {
   final String phoneNum;
   final String age;
   final Map medicalHistory;
+  final String caseId;
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +126,7 @@ class ViewCase extends StatelessWidget {
                 FontWeight.w500),
             Gap(11.h),
             customButton(context, Theme.of(context).colorScheme.primary, () {
-              //choose case
+              chooseCase(caseId);
             }, 'Select case', 16)
           ],
         ),

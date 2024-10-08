@@ -1,5 +1,6 @@
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/text.dart';
+import 'package:diente/student/login/student_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -29,7 +30,10 @@ class HomeScreen extends StatelessWidget {
             //login button
             customButtonWithBorder(
                 context, Theme.of(context).colorScheme.secondary, () {
-              Navigator.popAndPushNamed(context, '/login_screen');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const StudentLoginScreen()));
             },
                 customText(
                   context,

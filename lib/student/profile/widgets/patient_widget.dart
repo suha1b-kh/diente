@@ -13,11 +13,13 @@ class PatientWidget extends StatelessWidget {
     required this.caseName,
     required this.toothNum,
     required this.uid,
+    required this.caseId,
   });
   String patientName;
   String caseName;
   String toothNum;
   String uid;
+  String caseId;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -116,6 +118,7 @@ class PatientWidget extends StatelessWidget {
                             phoneNum: user.phoneNum,
                             age: user.age,
                             medicalHistory: user.medicalHistory,
+                            caseId: caseId,
                           ),
                         ),
                       );
