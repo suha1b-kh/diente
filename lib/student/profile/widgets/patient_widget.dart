@@ -45,45 +45,48 @@ class PatientWidget extends StatelessWidget {
               ),
             ),
             Gap(36.w),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  patientName,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontSize: 16.sp,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                    height: 0.h,
+            SizedBox(
+              width: 120.w,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    patientName.split(' ')[0],
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 16.sp,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                      height: 0.h,
+                    ),
                   ),
-                ),
-                Column(
-                  children: [
-                    Text(
-                      caseName,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontSize: 14.sp,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w400,
-                        height: 0.h,
+                  Column(
+                    children: [
+                      Text(
+                        caseName,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontSize: 14.sp,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w400,
+                          height: 0.h,
+                        ),
                       ),
-                    ),
-                    Text(
-                      toothNum,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontSize: 14.sp,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w400,
-                        height: 0.h,
+                      Text(
+                        'tooth: $toothNum',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontSize: 14.sp,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w400,
+                          height: 0.h,
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  )
+                ],
+              ),
             ),
             Gap(70.w),
             Container(
