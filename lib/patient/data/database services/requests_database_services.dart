@@ -14,11 +14,7 @@ class RequestDatabaseServices {
   Future addRequest(Request req) async {
     return await requestsCollection
         .doc(uid)
-        .set({
-          'description': req.caseDescription,
-          'isAccepted': req.isAccepted,
-          'id': req.id
-        })
+        .set(req.toJson(req))
         .then((value) => print("request Added"))
         .catchError((error) => print("Failed to add request: $error"));
   }

@@ -15,6 +15,7 @@ class ViewCase extends StatelessWidget {
     required this.age,
     required this.medicalHistory,
     required this.caseId,
+    required this.profilePic,
   });
   final String patientName;
   final String caseName;
@@ -23,6 +24,7 @@ class ViewCase extends StatelessWidget {
   final String age;
   final Map medicalHistory;
   final String caseId;
+  final String profilePic;
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +40,11 @@ class ViewCase extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ClipOval(
-                //TODO fetch image from firestore
-                child: Image.asset(
-              'assets/images/stu_img.png',
-              width: 131.w,
-              height: 131.h,
-              fit: BoxFit.cover,
-            )),
-            Gap(14.h),
+            CircleAvatar(
+              backgroundImage: NetworkImage(profilePic),
+              radius: 70.r,
+            ),
+            Gap(20.w),
             customText(context, patientName,
                 Theme.of(context).colorScheme.primary, 20.sp, FontWeight.w600),
             customText(

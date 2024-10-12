@@ -95,14 +95,10 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
                     PatientHomeScreen.caseDetails?.toothNumber =
                         widget.controller.text;
                     final uid = FirebaseAuth.instance.currentUser!.uid;
-                    Request req = Request(
-                        isAccepted: null,
-                        caseDescription: {
-                          'Name': PatientHomeScreen.caseDetails?.diseaseName,
-                          'toothNumber':
-                              PatientHomeScreen.caseDetails?.toothNumber
-                        },
-                        id: uid);
+                    Request req = Request(caseDescription: {
+                      'Name': PatientHomeScreen.caseDetails?.diseaseName,
+                      'toothNumber': PatientHomeScreen.caseDetails?.toothNumber
+                    }, id: uid);
                     await RequestDatabaseServices(uid: uid).addRequest(req);
                     if (widget.controller.text != '') {
                       Navigator.push(

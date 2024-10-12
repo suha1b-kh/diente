@@ -12,5 +12,13 @@ chooseCase(String uid) {
   db.collection('students').doc(auth.currentUser!.uid).update({
     'cases': FieldValue.arrayUnion([uid])
   });
-  db.collection('acceptedRequests').doc(uid).update({'caseStatus': 'accepted'});
+
+  db
+      .collection('acceptedRequests')
+      .doc(uid)
+      .update({'status': 'active', 'studentId': auth.currentUser!.uid});
+}
+
+fetchCase(String patientId) {
+  return db.collection('cases').doc(patientId).get();
 }

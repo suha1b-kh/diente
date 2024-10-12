@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/student/data/services/choose_case.dart';
 import 'package:diente/student/data/services/database_services.dart';
 import 'package:diente/student/profile/screens/view_case.dart';
 import 'package:flutter/material.dart';
@@ -109,6 +112,7 @@ class PatientWidget extends StatelessWidget {
                   return IconButton(
                     icon: const Icon(Icons.arrow_forward_ios),
                     onPressed: () {
+                      log(profilePic);
                       UserModel user = snapshot.data!;
                       Navigator.push(
                         context,
@@ -121,6 +125,7 @@ class PatientWidget extends StatelessWidget {
                             age: user.age,
                             medicalHistory: user.medicalHistory,
                             caseId: caseId,
+                            profilePic: profilePic,
                           ),
                         ),
                       );
