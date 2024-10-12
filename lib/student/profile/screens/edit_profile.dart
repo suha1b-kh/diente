@@ -6,7 +6,9 @@ import 'package:gap/gap.dart';
 import '../../../core/widgets/text_fields.dart';
 
 class EditProfile extends StatelessWidget {
-  EditProfile({super.key, dispo});
+  EditProfile({
+    super.key,
+  });
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
@@ -15,11 +17,10 @@ class EditProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -64,7 +65,6 @@ class EditProfile extends StatelessWidget {
             controller: passwordController,
             text: 'password',
             icon: Icons.visibility,
-            
           ),
           Gap(15.h),
           CustomTextField(

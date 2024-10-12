@@ -14,12 +14,14 @@ class PatientWidget extends StatelessWidget {
     required this.toothNum,
     required this.uid,
     required this.caseId,
+    required this.profilePic,
   });
   String patientName;
   String caseName;
   String toothNum;
   String uid;
   String caseId;
+  String profilePic;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,10 +41,7 @@ class PatientWidget extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 20.r,
-              child: Image.asset(
-                'assets/images/pa_img.png',
-                fit: BoxFit.cover,
-              ),
+              backgroundImage: NetworkImage(profilePic),
             ),
             Gap(36.w),
             SizedBox(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/student/data/models/case.dart';
 import 'package:diente/student/data/models/student.dart';
@@ -54,9 +56,12 @@ class ListWidgets extends StatelessWidget {
                 //students list
               } else if (widgetType == WidgetType.studentProfile) {
                 final student = snapshot.data![index] as StudentModel;
+
                 return StudentProfileWidget(
                   studentName: student.name,
                   studentYear: student.year,
+                  phone: student.phone,
+                  profilePic: student.profilePic,
                 );
                 //patients list
               } else if (widgetType == WidgetType.patient) {
@@ -83,6 +88,7 @@ class ListWidgets extends StatelessWidget {
                             acceptedReq[index].caseDescription?['toothNumber'],
                         uid: acceptedReq[index].patientId!,
                         caseId: acceptedReq[index].patientId!,
+                        profilePic: user.profilePic,
                       );
                     }
                   },

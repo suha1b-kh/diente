@@ -17,7 +17,7 @@ class Students extends StatelessWidget {
           Column(
             children: [
               Gap(29.h),
-              const SearchStudentBar(),
+              // const SearchStudentBar(),
               Gap(34.h),
               const ListWidgets(
                 widgetType: WidgetType.studentProfile,

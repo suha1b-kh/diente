@@ -38,6 +38,8 @@ class StudentServices {
               id: 'No id',
               year: 'No year',
               email: 'No email',
+              profilePic: 'No profile pic',
+              phone: 'No phone',
             );
       } else {
         throw Exception("student User document not found.");

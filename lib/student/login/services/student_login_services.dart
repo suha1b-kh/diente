@@ -69,6 +69,8 @@ class StudentAuthFirebaseServices {
               id: 'null',
               year: 'null',
               email: 'null',
+              profilePic: 'null',
+              phone: 'null',
             );
       } else {
         // Handle case where the document does not exist

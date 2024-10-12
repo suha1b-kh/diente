@@ -3,10 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class StudentProfileWidget extends StatelessWidget {
-  StudentProfileWidget(
-      {super.key, required this.studentName, required this.studentYear});
+  StudentProfileWidget({
+    super.key,
+    required this.studentName,
+    required this.studentYear,
+    required this.phone,
+    required this.profilePic,
+  });
   String studentName;
   String studentYear;
+  String profilePic;
+  String phone;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -27,9 +34,13 @@ class StudentProfileWidget extends StatelessWidget {
                 Gap(14.w),
                 CircleAvatar(
                   radius: 30.r,
-                  child: Image.asset(
-                    'assets/images/profile_photo.png',
-                  ),
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  backgroundImage:
+                      profilePic.isNotEmpty ? NetworkImage(profilePic) : null,
+                  child: profilePic.isEmpty
+                      ? Text(
+                          '${studentName[0].toUpperCase()}${studentName[1].toUpperCase()}')
+                      : null,
                 ),
                 Gap(20.w),
                 Column(
