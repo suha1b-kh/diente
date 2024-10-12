@@ -11,7 +11,7 @@ class HomeStudentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const StudentAppbar()),
+      // appBar: AppBar(title: const StudentAppbar()),
       body: ListView(
         children: [
           Column(

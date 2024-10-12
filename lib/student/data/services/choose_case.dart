@@ -16,7 +16,7 @@ chooseCase(String uid) {
   db
       .collection('acceptedRequests')
       .doc(uid)
-      .update({'status': 'active', 'studentId': auth.currentUser!.uid});
+      .update({'caseStatus': 'active', 'studentId': auth.currentUser!.uid});
 }
 
 fetchCase(String patientId) {

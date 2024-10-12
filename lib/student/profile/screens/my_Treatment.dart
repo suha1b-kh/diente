@@ -9,7 +9,7 @@ class MyTreatment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const StudentAppbar()),
+      // appBar: AppBar(title: const StudentAppbar()),
       body: SingleChildScrollView(
         child: Column(
           children: [
