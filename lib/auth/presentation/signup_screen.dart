@@ -153,8 +153,6 @@ class _SignupScreenState extends State<SignupScreen> {
                       context,
                       Theme.of(context).colorScheme.secondary,
                       () {
-                        passwordController.text = '123456';
-                        confirmPasswordController.text = '123456';
                         if (passwordController.text ==
                             confirmPasswordController.text) {
                           if (formKey.currentState!.validate()) {
