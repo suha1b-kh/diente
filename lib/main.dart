@@ -10,6 +10,7 @@ import 'package:diente/auth/presentation/fill_information_screen.dart';
 import 'package:diente/auth/presentation/signup_screen.dart';
 import 'package:diente/firebase_options.dart';
 import 'package:diente/patient/presentation/edit%20profile%20info/edit_patient_profile_screen.dart';
+import 'package:diente/student/data/services/cases_filter.dart';
 import 'package:diente/student/profile/screens/control_screen.dart';
 import 'package:diente/student/profile/screens/edit_profile.dart';
 import 'package:diente/student/profile/screens/home_screen_student.dart';

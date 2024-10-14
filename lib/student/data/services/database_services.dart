@@ -22,7 +22,7 @@ class DatabaseServices {
         casesList
             .add(CaseModel.fromFirestore(doc.data() as Map<String, dynamic>));
       }
-      log(casesList.toString());
+
     } catch (e) {
       if (e is FirebaseException) {
         log("FirebaseException: ${e.message}");

@@ -1,103 +1,81 @@
-class Filter{
-  var diseaseName="all";
-  var gender="all";
-  var maxAge=200;
-  var minAge=0;
-  dynamic toothNumber="all";
-  List filteredPatients=[];
-  List searchResult=[];
-  var translation={
-    "General diagnosis":"فحص روتيني",
+import 'dart:developer';
 
-    "Composite restoration":"حشوة تجميلية",
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diente/student/data/models/case.dart';
+import 'database_services.dart';
 
-    "Fixed prosthesis":"تيجان وجسور",
-
-    "Caries":"تسوس",
-
-    "Root canal treatment":"علاج عصب",
-
-    "Extraction":"خلع اسنان",
-
-    "Removable complete denture":"طقم كامل",
-
-    "Removable partial denture":"طقم جزئي",
-
-    "Pedodontic":"علاج اطفال",
-
-    "scaling":"علاج وتنطيف اللثة",
-
+class Filter {
+  var diseaseName = "all";
+  var gender = "all";
+  var maxAge = 200;
+  var minAge = 0;
+  dynamic toothNumber = "all";
+  List filteredCases = [];
+  List searchResult = [];
+  final acceptedRequestsCollection =
+      FirebaseFirestore.instance.collection("acceptedRequests");
+  var translation = {
+    "General diagnosis": "فحص روتيني",
+    "Composite restoration": "حشوة تجميلية",
+    "Fixed prosthesis": "تيجان وجسور",
+    "Caries": "تسوس",
+    "Root canal treatment": "علاج عصب",
+    "Extraction": "خلع اسنان",
+    "Removable complete denture": "طقم كامل",
+    "Removable partial denture": "طقم جزئي",
+    "Pedodontic": "علاج اطفال",
+    "scaling": "علاج وتنطيف اللثة",
   };
 
 
+  getPatientWithSpecificDisease(diseaseName) async {
+    List patientWithSpecificDisease = [];
 
-  var patientList=[
-    //Only for testing purposes
-    {"pName":"amal",
-      "diseaseName":"حشوة تجميلية",
-      "gender":"female",
-      "age":10,
-      "toothNumber":13,
-    },
-    {"pName":"lana",
-      "diseaseName":"فحص روتيني",
-      "gender":"female",
-      "age":20,
-      "toothNumber":2,
-    },
-    {"pName":"ayham",
-      "diseaseName":"حشوة تجميلية",
-      "gender":"male",
-      "age":30,
-      "toothNumber":5,
-    },
-    {"pName":"isam",
-      "diseaseName":"فحص روتيني",
-      "gender":"male",
-      "age":40,
-      "toothNumber":8,
+    if (diseaseName == "all") {
+      List patientWithSpecificDisease =
+          await DatabaseServices().getAllAcceptedRequests();
+      return patientWithSpecificDisease;
     }
-  ];
 
-  getPatientwithSpecificDisease(diseaseName){
-
-    List PatientwithSpecificdisease=[];
-    if(diseaseName=="all")
-      return patientList;
-
-    patientList.forEach((element){
-      if(element["diseaseName"] == translation[diseaseName]) {
-        PatientwithSpecificdisease.add(element);
+    try {
+      final allDocs = await acceptedRequestsCollection
+          .where("caseDescription.Name", isEqualTo: translation[diseaseName])
+          .get();
+      for (var doc in allDocs.docs) {
+        patientWithSpecificDisease
+            .add(CaseModel.fromFirestore(doc.data() as Map<String, dynamic>));
       }
-    });
-    return PatientwithSpecificdisease;
+      return patientWithSpecificDisease;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 
-  filerData({diseaseName, gender,toothNumber,maxAge,minAge}){
-    print("filter data");
-    this.diseaseName=diseaseName ?? "all";
-    this.gender=gender??"all";
-    this.maxAge=maxAge ?? 200;
-    this.minAge=minAge ?? 0;
-    this.toothNumber=toothNumber??"all";
+  filterData({diseaseName, gender, toothNumber, maxAge, minAge}) async {
 
-    filteredPatients=getPatientwithSpecificDisease(this.diseaseName);
-    print(filteredPatients);
+    this.diseaseName = diseaseName ?? "all";
+    this.gender = gender ?? "all";
+    this.maxAge = maxAge ?? 200;
+    this.minAge = minAge ?? 0;
+    this.toothNumber = toothNumber ?? "all";
 
-    for(int i=0;i<filteredPatients.length;i++){
-      if(this.gender!="all"){
-        if(filteredPatients[i]["gender"]!=this.gender)
+    filteredCases = await getPatientWithSpecificDisease(this.diseaseName);
+
+    for (int i = 0; i < filteredCases.length; i++) {
+      final patient =
+          await DatabaseServices().getPatient(filteredCases[i].patientId);
+      if (this.gender != "all") {
+        if (patient?.gender != this.gender) continue;
+      }
+      if (this.toothNumber != "all") {
+        if (int.parse(filteredCases[i].caseDescription["toothNumber"]) != this.toothNumber)
           continue;
       }
-      if(this.toothNumber!="all"){
-        if(filteredPatients[i]["toothNumber"]!=this.toothNumber)
-          continue;
-      }
-      if(filteredPatients[i]["age"]<=this.maxAge && filteredPatients[i]["age"]>=this.minAge)
-        searchResult.add(filteredPatients[i]);
+      if (int.parse(patient!.age) <= this.maxAge &&
+          int.parse(patient.age) >= this.minAge)
+        searchResult.add(filteredCases[i]);
     }
-    print(searchResult);
+
     return searchResult;
   }
-
 }
