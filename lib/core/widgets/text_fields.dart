@@ -9,7 +9,11 @@ class CustomTextField extends StatelessWidget {
     required this.height,
     required this.controller,
     required this.text,
-    this.icon,  String? Function(String? value) ?validator,  TextInputType? keyboardType,  bool? hide,  Null Function()? iconPressed,
+    this.icon,
+    String? Function(String? value)? validator,
+    TextInputType? keyboardType,
+    bool? hide,
+    Null Function()? iconPressed,
   });
 
   final double width, height;

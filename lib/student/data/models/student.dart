@@ -5,6 +5,7 @@ class StudentModel {
   final String email;
   final String profilePic;
   final String phone;
+  List? cases;
   StudentModel({
     required this.name,
     required this.id,
@@ -12,6 +13,7 @@ class StudentModel {
     required this.email,
     required this.profilePic,
     required this.phone,
+    this.cases,
   });
 
   factory StudentModel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class StudentModel {
       email: json['email'],
       profilePic: json['profilePic'],
       phone: json['phone'],
+      cases: json['cases'],
     );
   }
 }

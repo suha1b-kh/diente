@@ -48,7 +48,7 @@ class PatientWidget extends StatelessWidget {
             ),
             Gap(36.w),
             SizedBox(
-              width: 120.w,
+              width: 200.w,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,6 +64,7 @@ class PatientWidget extends StatelessWidget {
                     ),
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         caseName,
@@ -90,12 +91,12 @@ class PatientWidget extends StatelessWidget {
                 ],
               ),
             ),
-            Gap(70.w),
+            // Gap(70.w),
             Container(
               width: 10.w,
               height: 10.h,
               decoration: const ShapeDecoration(
-                color: Color(0xFF11C72E),
+                color: Color(0xFF11C72E), //TODO: get case status
                 shape: CircleBorder(),
               ),
             ),

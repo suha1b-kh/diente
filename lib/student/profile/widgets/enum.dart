@@ -22,7 +22,7 @@ class ListWidgets extends StatelessWidget {
     Future<List<dynamic>> fetchData() {
       switch (widgetType) {
         case WidgetType.treatment:
-          return DatabaseServices().getTreatmentList('someUid');
+          return DatabaseServices().getTreatmentList('someUid'); //TODO: get uid
         case WidgetType.studentProfile:
           return fetchAllStudents();
         case WidgetType.patient:
@@ -49,7 +49,6 @@ class ListWidgets extends StatelessWidget {
             itemBuilder: (context, index) {
               //treatment list
               if (widgetType == WidgetType.treatment) {
-                final treatment = snapshot.data![index] as CaseModel;
                 return TreatmentWidget(
                   patientName: 'Null',
                 );

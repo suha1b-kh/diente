@@ -35,19 +35,21 @@ class StudentAppbar extends StatelessWidget {
                   height: 0.h,
                 ),
               ),
-              Text(
-                'student.name', //TODO: get student name
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontSize: 12.sp,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w400,
-                  height: 0.h,
+              SizedBox(
+                width: 250.w,
+                child: Text(
+                  'student.name', //TODO: get student name
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontSize: 12.sp,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w400,
+                    height: 0.h,
+                  ),
                 ),
               ),
             ],
           ),
-          Gap(140.w),
           const Icon(
             Icons.notifications_none_outlined,
             size: 35,

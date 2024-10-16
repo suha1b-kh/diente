@@ -178,7 +178,9 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
               textDirection: TextDirection.rtl,
               child: Text(
                 "لقد قمت بحجز موعد مسبقاً,  لا يمكن حجز اكثر من موعد في آنٍ واحد",
-                style: TextStyle(fontSize: 17.sp),
+                style: TextStyle(
+                    fontSize: 17.sp,
+                    color: Theme.of(context).colorScheme.secondary),
               )),
           actions: const <Widget>[],
         );

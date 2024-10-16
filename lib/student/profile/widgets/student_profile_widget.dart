@@ -48,7 +48,7 @@ class StudentProfileWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 125.w,
+                      width: 210.w,
                       child: Text(
                         studentName,
                         style: TextStyle(
@@ -72,7 +72,6 @@ class StudentProfileWidget extends StatelessWidget {
                     )
                   ],
                 ),
-                Gap(100.w),
                 const Icon(Icons.arrow_forward_ios),
               ],
             ),
