@@ -6,7 +6,7 @@ import 'package:diente/student/data/models/student.dart';
 import 'package:diente/student/data/services/database_services.dart';
 import 'package:diente/student/data/services/students_services.dart';
 import 'package:diente/student/profile/widgets/patient_widget.dart';
-import 'package:diente/student/profile/widgets/active_widget.dart';
+import 'package:diente/student/profile/widgets/active.dart';
 import 'package:diente/student/profile/widgets/student_profile_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -50,7 +50,7 @@ class ListWidgets extends StatelessWidget {
             itemBuilder: (context, index) {
               //treatment list
               if (widgetType == WidgetType.treatment) {
-                return ActiveWidget(
+                return TreatmentWidget(
                   patientName: 'Null',
                 );
                 //students list
