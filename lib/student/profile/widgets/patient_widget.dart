@@ -38,104 +38,100 @@ class PatientWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 20.r,
-              backgroundImage: NetworkImage(profilePic),
-            ),
-            Gap(36.w),
-            SizedBox(
-              width: 200.w,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    patientName.split(' ')[0],
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontSize: 16.sp,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
-                      height: 0.h,
+        child: Padding(
+          padding: EdgeInsets.only(left: 15.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 30.r,
+                backgroundImage: NetworkImage(profilePic),
+              ),
+              Gap(36.w),
+              SizedBox(
+                width: 180.w,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      patientName.split(' ')[0],
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontSize: 16.sp,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                        height: 0.h,
+                      ),
                     ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        caseName,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontSize: 14.sp,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                          height: 0.h,
-                        ),
-                      ),
-                      Text(
-                        'tooth: $toothNum',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontSize: 14.sp,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                          height: 0.h,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            // Gap(70.w),
-            Container(
-              width: 10.w,
-              height: 10.h,
-              decoration: const ShapeDecoration(
-                color: Color(0xFF11C72E), //TODO: get case status
-                shape: CircleBorder(),
-              ),
-            ),
-            FutureBuilder<UserModel?>(
-              future: DatabaseServices().getPatient(uid),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                } else if (!snapshot.hasData) {
-                  return const Center(child: Text('Patient not found'));
-                } else {
-                  return IconButton(
-                    icon: const Icon(Icons.arrow_forward_ios),
-                    onPressed: () {
-                      log(profilePic);
-                      UserModel user = snapshot.data!;
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ViewCase(
-                            patientName: patientName,
-                            caseName: caseName,
-                            toothNum: toothNum,
-                            phoneNum: user.phoneNum,
-                            age: user.age,
-                            medicalHistory: user.medicalHistory,
-                            caseId: caseId,
-                            profilePic: profilePic,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          caseName,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary,
+                            fontSize: 14.sp,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w400,
+                            height: 0.h,
                           ),
                         ),
-                      );
-                    },
-                  );
-                }
-              },
-            ),
-          ],
+                        Text(
+                          'tooth: $toothNum',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary,
+                            fontSize: 14.sp,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w400,
+                            height: 0.h,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              // Gap(70.w),
+
+              FutureBuilder<UserModel?>(
+                future: DatabaseServices().getPatient(uid),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData) {
+                    return const Center(child: Text('Patient not found'));
+                  } else {
+                    return IconButton(
+                      icon: const Icon(Icons.arrow_forward_ios),
+                      onPressed: () {
+                        log(profilePic);
+                        UserModel user = snapshot.data!;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ViewCase(
+                              patientName: patientName,
+                              caseName: caseName,
+                              toothNum: toothNum,
+                              phoneNum: user.phoneNum,
+                              age: user.age,
+                              medicalHistory: user.medicalHistory,
+                              caseId: caseId,
+                              profilePic: profilePic,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

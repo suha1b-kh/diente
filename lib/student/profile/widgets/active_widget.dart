@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-class TreatmentWidget extends StatelessWidget {
-  TreatmentWidget({super.key, required this.patientName});
+class ActiveWidget extends StatelessWidget {
+  ActiveWidget({super.key, required this.patientName});
   String patientName;
   @override
   Widget build(BuildContext context) {
