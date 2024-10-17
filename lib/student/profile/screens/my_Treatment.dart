@@ -3,8 +3,8 @@ import 'package:diente/student/profile/widgets/student_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MyTreatment extends StatelessWidget {
-  const MyTreatment({super.key});
+class ActiveCases extends StatelessWidget {
+  const ActiveCases({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class MyTreatment extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 46.h, bottom: 36.h),
               child: Text(
-                'Treatment List',
+                'active List',
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary, //
                   fontSize: 24.sp,
@@ -26,7 +26,7 @@ class MyTreatment extends StatelessWidget {
                 ),
               ),
             ),
-            const ListWidgets(widgetType: WidgetType.treatment)
+            const ListWidgets(widgetType: WidgetType.active)
           ],
         ),
       ),

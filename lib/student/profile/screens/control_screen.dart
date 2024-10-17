@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 int _selectedIndex = 0;
 final List<Widget> _pages = <Widget>[
   const HomeStudentScreen(),
-  const MyTreatment(),
+  const ActiveCases(),
   const Students(),
 ];
 
@@ -50,7 +50,7 @@ class _ControlScreenState extends State<ControlScreen> {
                   Icons.local_hospital_outlined,
                   size: 25,
                 ),
-                label: 'My treatment'),
+                label: 'Active Cases'),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.people,

@@ -10,7 +10,7 @@ import 'package:diente/student/profile/widgets/active.dart';
 import 'package:diente/student/profile/widgets/student_profile_widget.dart';
 import 'package:flutter/material.dart';
 
-enum WidgetType { treatment, studentProfile, patient }
+enum WidgetType { active, studentProfile, patient }
 
 //list of widgets
 class ListWidgets extends StatelessWidget {
@@ -22,8 +22,8 @@ class ListWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     Future<List<dynamic>> fetchData() {
       switch (widgetType) {
-        case WidgetType.treatment:
-          return DatabaseServices().getTreatmentList('someUid'); //TODO: get uid
+        case WidgetType.active:
+          return DatabaseServices().getActiveCases(); //TODO: get uid
         case WidgetType.studentProfile:
           return fetchAllStudents();
         case WidgetType.patient:
@@ -49,9 +49,10 @@ class ListWidgets extends StatelessWidget {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               //treatment list
-              if (widgetType == WidgetType.treatment) {
-                return TreatmentWidget(
+              if (widgetType == WidgetType.active) {
+                return ActiveWidget(
                   patientName: 'Null',
+                  CaseName: 'Null',
                 );
                 //students list
               } else if (widgetType == WidgetType.studentProfile) {
