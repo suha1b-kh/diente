@@ -13,12 +13,13 @@ class DatabaseServices {
 
   final treatmentCollection =
       FirebaseFirestore.instance.collection('treatments');
-
   Future<List<CaseModel>> getAllAcceptedRequests() async {
     List<CaseModel> casesList = [];
 
     try {
-      QuerySnapshot querySnapshot = await acceptedRequestsCollection.get();
+      QuerySnapshot querySnapshot = await acceptedRequestsCollection
+          .where("caseStatus", isEqualTo: "accepted")
+          .get();
       for (var doc in querySnapshot.docs) {
         casesList
             .add(CaseModel.fromFirestore(doc.data() as Map<String, dynamic>));

@@ -1,3 +1,4 @@
+import 'package:diente/core/widgets/text.dart';
 import 'package:diente/student/profile/widgets/enum.dart';
 import 'package:diente/student/profile/widgets/search_bar.dart';
 import 'package:diente/student/profile/widgets/student_appbar.dart';
@@ -18,6 +19,12 @@ class Students extends StatelessWidget {
             children: [
               Gap(29.h),
               // const SearchStudentBar(),
+              customText(
+                  context,
+                  'Diente students',
+                  Theme.of(context).colorScheme.primary,
+                  28.sp,
+                  FontWeight.bold),
               Gap(34.h),
               const ListWidgets(
                 widgetType: WidgetType.studentProfile,

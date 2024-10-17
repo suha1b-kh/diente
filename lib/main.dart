@@ -16,7 +16,7 @@ import 'package:diente/student/profile/screens/control_screen.dart';
 import 'package:diente/student/profile/screens/edit_profile.dart';
 import 'package:diente/student/profile/screens/home_screen_student.dart';
 import 'package:diente/student/profile/screens/main_profile.dart';
-import 'package:diente/student/profile/screens/my_Treatment.dart';
+import 'package:diente/student/profile/screens/active_cases.dart';
 import 'package:diente/student/profile/screens/students.dart';
 import 'package:diente/student/profile/screens/view_case.dart';
 import 'package:firebase_auth/firebase_auth.dart';
