@@ -1,12 +1,14 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/text.dart';
 import 'package:diente/patient/presentation/widgets/custom_text_field.dart';
 import 'package:diente/student/data/models/report_model.dart';
 import 'package:diente/student/data/services/reports_services.dart';
 import 'package:diente/student/profile/widgets/student_appbar.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,9 +17,13 @@ import 'package:image_picker/image_picker.dart';
 
 class AddReportScreen extends StatefulWidget {
   const AddReportScreen(
-      {super.key, required this.caseName, required this.caseId});
+      {super.key,
+      required this.caseName,
+      required this.caseId,
+      required this.patient});
   final String caseName;
   final String caseId;
+  final UserModel patient;
 
   @override
   State<AddReportScreen> createState() => _AddReportScreenState();
@@ -27,22 +33,17 @@ class _AddReportScreenState extends State<AddReportScreen> {
   File? _imageFile;
 
   final _picker = ImagePicker();
+  String? downloadUrlString;
 
-  Future<void> _pickImage() async {
-    try {
-      final XFile? pickedFile = await _picker.pickImage(
-        source: ImageSource.gallery, // Pick from gallery
-      );
-
-      // If a file is picked, update the state to display it
-      if (pickedFile != null) {
-        _imageFile = File(pickedFile.path);
-        setState(() {});
-        log('sss');
-      }
-    } catch (e) {
-      log("Image selection error: $e");
-    }
+  Future _pickImage(ImageSource source) async {
+    final image = await ImagePicker().pickImage(source: source);
+    if (image == null) return;
+    File? imageFile = File(image.path);
+    // imageFile = await _cropImage(imageFile: imageFile);
+    imageFile = imageFile;
+    setState(() {
+      _imageFile = imageFile;
+    });
   }
 
   @override
@@ -70,14 +71,30 @@ class _AddReportScreenState extends State<AddReportScreen> {
         ),
         Gap(20.h),
         customDialogButton(context, Theme.of(context).colorScheme.secondary,
-            () {
-          _pickImage();
+            () async {
+          await _pickImage(ImageSource.gallery);
+
+          if (_imageFile != null) {
+            //reference to the firebase storage
+            final storageRef = FirebaseStorage.instance.ref();
+            //upload the image to the firebase storage
+            UploadTask task = storageRef
+                .child('reports_pic/${_imageFile!.path.split('/').last}')
+                .putFile(_imageFile!);
+            //get the download url of the image
+            task.whenComplete(() async {
+              final downloadUrl = storageRef
+                  .child('reports_pic/${_imageFile!.path.split('/').last}');
+              downloadUrlString = await downloadUrl.getDownloadURL();
+              log(downloadUrlString.toString());
+            });
+          }
           log('message');
           addReport(
             ReportModel(
               caseName: widget.caseName,
-              reportPic: _imageFile!.path,
-              reportId: widget.caseId,
+              reportPic: downloadUrlString!,
+              reportId: 'widget.patient.patientId,',
             ),
           );
         }, 'select photo', 16.sp),
