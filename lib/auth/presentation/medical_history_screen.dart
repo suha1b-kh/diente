@@ -1,4 +1,3 @@
-
 import 'package:diente/auth/data/models/medical_history_model.dart';
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/auth/data/source/auth_firebase_service.dart';

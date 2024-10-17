@@ -16,7 +16,6 @@ class ReportModel {
       reportId: json['reportId'],
     );
   }
-
   Map<String, dynamic> toJson() {
     return {
       'caseName': caseName,

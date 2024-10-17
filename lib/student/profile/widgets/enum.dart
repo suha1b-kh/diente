@@ -50,9 +50,26 @@ class ListWidgets extends StatelessWidget {
             itemBuilder: (context, index) {
               //treatment list
               if (widgetType == WidgetType.active) {
-                return ActiveWidget(
-                  patientName: 'Null',
-                  CaseName: 'Null',
+                return FutureBuilder<UserModel?>(
+                  future: DatabaseServices()
+                      .getPatient(snapshot.data![index].patientId!),
+                  builder: (context, userSnapshot) {
+                    if (userSnapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (userSnapshot.hasError) {
+                      return Center(
+                          child: Text('Error: ${userSnapshot.error}'));
+                    } else if (!userSnapshot.hasData) {
+                      return const Center(child: Text('Patient not found'));
+                    } else {
+                      UserModel user = userSnapshot.data!;
+                      return ActiveWidget(
+                        patient: user,
+                        CaseDescription: snapshot.data![index].caseDescription,
+                      );
+                    }
+                  },
                 );
                 //students list
               } else if (widgetType == WidgetType.studentProfile) {
@@ -82,6 +99,7 @@ class ListWidgets extends StatelessWidget {
                       List<CaseModel> acceptedReq =
                           snapshot.data as List<CaseModel>;
                       UserModel user = userSnapshot.data!;
+
                       return PatientWidget(
                         patientName: '${user.firstName} ${user.secondName}',
                         caseName: acceptedReq[index].caseDescription?['Name'],

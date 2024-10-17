@@ -8,6 +8,7 @@ import 'package:diente/auth/presentation/login_screen.dart';
 import 'package:diente/auth/presentation/create_new_password_screen.dart';
 import 'package:diente/auth/presentation/fill_information_screen.dart';
 import 'package:diente/auth/presentation/signup_screen.dart';
+import 'package:diente/core/theme/darkmode.dart';
 import 'package:diente/firebase_options.dart';
 import 'package:diente/patient/presentation/edit%20profile%20info/edit_patient_profile_screen.dart';
 import 'package:diente/student/data/services/cases_filter.dart';
@@ -160,6 +161,9 @@ class _MainAppState extends State<MainApp> {
         // "/view_case_screen": (context) => const ViewCase()
       },
       theme: lightMode,
+      // MediaQuery.of(context).platformBrightness == Brightness.dark
+      //     ? darkMode
+      //     : lightMode,
     );
   }
 }

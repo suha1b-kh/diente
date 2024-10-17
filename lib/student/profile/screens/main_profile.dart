@@ -102,68 +102,10 @@ class _mainProfileState extends State<MainStudentProfile> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showDialog(context: context, builder: (context) => customDialog());
+          //TODO: sad
         },
         child: const Icon(Icons.add),
       ),
-    );
-  }
-
-  Widget customDialog() {
-    return Dialog(
-        child: Container(
-      width: 347,
-      height: 500,
-      decoration: ShapeDecoration(
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40),
-        ),
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(30.w),
-        child: Center(
-          child: selectPhotoDialog(),
-        ),
-      ),
-    ));
-  }
-
-  Column selectPhotoDialog() {
-    return Column(
-      children: [
-        _imageFile == null
-            ? Image.asset('assets/images/p.png')
-            : Image.file(
-                height: 150.w,
-                _imageFile!.absolute,
-                fit: BoxFit.cover,
-              ),
-        Gap(35.h),
-        customText(context, 'Add photo of your report',
-            Theme.of(context).colorScheme.secondary, 14.sp, FontWeight.w400),
-        Gap(35.h),
-        CustomTextField(
-          hint: 'add description',
-          textAlign: TextAlign.center,
-          inputType: TextInputType.text,
-          obscureText: false,
-        ),
-        Gap(20.h),
-        customDialogButton(context, Theme.of(context).colorScheme.secondary,
-            () {
-          // setState(() {
-          //   _pickImage();
-          //   log('ss');
-          // });
-          // log('message');
-          ReportModel report = ReportModel(
-            caseName: 'fdts',
-            reportPic: 'fysd',
-            reportId: 'fstd0',
-          );
-        }, 'select photo', 16.sp),
-      ],
     );
   }
 }

@@ -23,7 +23,6 @@ class DatabaseServices {
         casesList
             .add(CaseModel.fromFirestore(doc.data() as Map<String, dynamic>));
       }
-
     } catch (e) {
       if (e is FirebaseException) {
         log("FirebaseException: ${e.message}");
@@ -62,13 +61,14 @@ class DatabaseServices {
       throw Exception("Failed to load treatments: $e");
     }
   }
-   Future<List<CaseModel>>getActiveCases() async {
+
+  Future<List<CaseModel>> getActiveCases() async {
     String uid = FirebaseAuth.instance.currentUser!.uid;
     try {
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection("acceptedRequests")
           .where("studentId", isEqualTo: uid)
-          .where("caseStatus", isEqualTo: "accepted")
+          .where("caseStatus", isEqualTo: "active")
           .get();
       return snapshot.docs.map((doc) {
         return CaseModel.fromFirestore(doc.data() as Map<String, dynamic>);

@@ -17,6 +17,7 @@ chooseCase(String uid) {
       .collection('acceptedRequests')
       .doc(uid)
       .update({'caseStatus': 'active', 'studentId': auth.currentUser!.uid});
+  // db.collection('requests').doc(uid).delete();
 }
 
 fetchCase(String patientId) {
