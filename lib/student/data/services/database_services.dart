@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/student/data/models/case.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseServices {
   final acceptedRequestsCollection =
@@ -53,6 +54,21 @@ class DatabaseServices {
           .collection("students")
           .doc(uid)
           .collection('treatmentList')
+          .get();
+      return snapshot.docs.map((doc) {
+        return CaseModel.fromFirestore(doc.data() as Map<String, dynamic>);
+      }).toList();
+    } catch (e) {
+      throw Exception("Failed to load treatments: $e");
+    }
+  }
+   Future<List<CaseModel>>getActiveCases() async {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection("acceptedRequests")
+          .where("studentId", isEqualTo: uid)
+          .where("caseStatus", isEqualTo: "accepted")
           .get();
       return snapshot.docs.map((doc) {
         return CaseModel.fromFirestore(doc.data() as Map<String, dynamic>);
