@@ -23,3 +23,10 @@ chooseCase(String uid) {
 fetchCase(String patientId) {
   return db.collection('cases').doc(patientId).get();
 }
+
+finishCase(String patientId) {
+  db
+      .collection('acceptedRequests')
+      .doc(patientId)
+      .update({'caseStatus': 'finished'});
+}
