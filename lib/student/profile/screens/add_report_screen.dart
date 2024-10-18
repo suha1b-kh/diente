@@ -16,11 +16,12 @@ import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddReportScreen extends StatefulWidget {
-  const AddReportScreen(
-      {super.key,
-      required this.caseName,
-      required this.caseId,
-      required this.patient});
+  const AddReportScreen({
+    super.key,
+    required this.caseName,
+    required this.caseId,
+    required this.patient,
+  });
   final String caseName;
   final String caseId;
   final UserModel patient;
@@ -94,7 +95,14 @@ class _AddReportScreenState extends State<AddReportScreen> {
             ReportModel(
               caseName: widget.caseName,
               reportPic: downloadUrlString!,
-              reportId: 'widget.patient.patientId,',
+              reportId: widget.caseId,
+            ),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('Report added successfully!'),
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              duration: const Duration(seconds: 2),
             ),
           );
         }, 'select photo', 16.sp),

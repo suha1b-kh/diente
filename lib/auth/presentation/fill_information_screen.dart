@@ -198,6 +198,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                       gender: genderController.text,
                       medicalHistory: <String, dynamic>{},
                       phoneNum: phoneNumberController.text,
+                      id: userAuth!.uid,
                     );
 
                     try {

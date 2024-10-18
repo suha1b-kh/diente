@@ -128,7 +128,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                       builder: (context) => CaseInformationScreen(
                             caseDetails: PatientHomeScreen.caseDetails!,
                             user: widget.userModel!,
-                            caseStatus: "Waiting", //need to be edited
+                            caseStatus: "Waiting", //TODO: need to be edited
                           )),
                 );
               } else {

@@ -46,15 +46,10 @@ class ActiveWidget extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ViewActiveCase(
-                            patientName:
-                                '${patient.firstName} ${patient.secondName}',
+                            patient: patient,
                             caseName: CaseDescription['Name'],
                             toothNum: CaseDescription['toothNumber'],
-                            phoneNum: patient.phoneNum,
-                            age: patient.age,
-                            medicalHistory: patient.medicalHistory,
-                            caseId: '',
-                            profilePic: patient.profilePic,
+                            caseId: patient.id,
                           ),
                         ),
                       );

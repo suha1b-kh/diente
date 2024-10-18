@@ -48,7 +48,7 @@ class ListWidgets extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
-              //treatment list
+              //active case list
               if (widgetType == WidgetType.active) {
                 return FutureBuilder<UserModel?>(
                   future: DatabaseServices()

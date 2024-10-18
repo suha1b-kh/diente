@@ -39,6 +39,7 @@ class AuthFirebaseService {
           medicalHistory: <String, dynamic>{},
           phoneNum: '',
           profilePic: '',
+          id: '',
         );
       }
     } on FirebaseAuthException catch (error) {
@@ -169,6 +170,7 @@ class AuthFirebaseService {
               medicalHistory: {},
               phoneNum: '',
               profilePic: '',
+              id: '',
             );
       } else {
         // Handle case where the document does not exist
