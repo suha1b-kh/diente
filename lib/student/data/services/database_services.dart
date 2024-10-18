@@ -34,14 +34,14 @@ class DatabaseServices {
     return casesList;
   }
 
-  Future<UserModel?> getPatient(String uid) async {
+  Future<UserModel> getPatient(String uid) async {
     try {
       final snapshot = await patentCollection.doc(uid).get();
       if (snapshot.exists) {
         final data = UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
         return data;
       } else {
-        return null;
+        return throw Exception('User not found');
       }
     } catch (e) {
       throw Exception(e.toString());
@@ -70,6 +70,22 @@ class DatabaseServices {
           .collection("acceptedRequests")
           .where("studentId", isEqualTo: uid)
           .where("caseStatus", isEqualTo: "active")
+          .get();
+      return snapshot.docs.map((doc) {
+        return CaseModel.fromFirestore(doc.data() as Map<String, dynamic>);
+      }).toList();
+    } catch (e) {
+      throw Exception("Failed to load treatments: $e");
+    }
+  }
+
+  Future<List<CaseModel>> getfinishedCases() async {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection("acceptedRequests")
+          .where("studentId", isEqualTo: uid)
+          .where("caseStatus", isEqualTo: "finished")
           .get();
       return snapshot.docs.map((doc) {
         return CaseModel.fromFirestore(doc.data() as Map<String, dynamic>);
