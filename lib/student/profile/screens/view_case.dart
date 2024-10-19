@@ -325,14 +325,13 @@ class _ViewActiveCaseState extends State<ViewActiveCase> {
               ),
             ),
             customButton(context, Theme.of(context).colorScheme.primary, () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AddReportScreen(
-                            caseName: widget.caseName,
-                            caseId: widget.caseId,
-                            patient: widget.patient,
-                          )));
+              log('Patient found ${widget.caseId}jkl');
+
+              AddReportScreen(
+                caseName: widget.caseName,
+                caseId: widget.caseId,
+                patient: widget.patient,
+              );
             }, 'Finish Case', 16)
           ],
         ),

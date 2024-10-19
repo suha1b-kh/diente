@@ -8,13 +8,6 @@ FirebaseAuth auth = FirebaseAuth.instance;
 FirebaseFirestore db = FirebaseFirestore.instance;
 
 Future<void> addReport(ReportModel report) async {
-  DocumentSnapshot studentDoc =
-      await db.collection('students').doc(auth.currentUser!.uid).get();
-
-  if (studentDoc['caseStatus'] == 'finished') {
-    return;
-  }
-
   try {
     await db.collection('students').doc(auth.currentUser!.uid).update({
       'reports': FieldValue.arrayUnion([report.toJson()])
