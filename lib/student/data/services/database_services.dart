@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/student/data/models/case.dart';
+import 'package:diente/student/data/models/report_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class DatabaseServices {
   final acceptedRequestsCollection =
@@ -94,4 +96,33 @@ class DatabaseServices {
       throw Exception("Failed to load treatments: $e");
     }
   }
+
+  Future<List<String>> getReportPics(String reportId) async {
+  List<String> reportPics = [];
+String studentId= FirebaseAuth.instance.currentUser!.uid;
+  try {
+    DocumentSnapshot studentDoc = await FirebaseFirestore.instance
+        .collection('students')
+        .doc(studentId)
+        .get();
+
+    if (studentDoc.exists) {
+      var data = studentDoc.data() as Map<String, dynamic>;
+      List<dynamic> reportsArray = data['reports'] as List<dynamic>? ?? [];
+      
+      for (var report in reportsArray) {
+        if (report is Map<String, dynamic> && report['reportId'] == reportId) {
+          String? reportPic = report['reportPic'] as String?;
+          if (reportPic != null) {
+            reportPics.add(reportPic);
+          }
+        }
+      }
+    }
+  } catch (e) {
+    log("Error fetching reportPics: $e");
+  }
+
+  return reportPics;
+}
 }
