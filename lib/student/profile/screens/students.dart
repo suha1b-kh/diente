@@ -26,7 +26,7 @@ class Students extends StatelessWidget {
                   28.sp,
                   FontWeight.bold),
               Gap(34.h),
-              const ListWidgets(
+             ListWidgets(
                 widgetType: WidgetType.studentProfile,
               ),
             ],

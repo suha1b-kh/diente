@@ -36,7 +36,7 @@ class StudentAppbar extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 250.w,
+                width: 230.w,
                 child: Text(
                   'student.name', //TODO: get student name
                   style: TextStyle(
@@ -50,10 +50,10 @@ class StudentAppbar extends StatelessWidget {
               ),
             ],
           ),
-          const Icon(
-            Icons.notifications_none_outlined,
-            size: 35,
-          ),
+          // const Icon(
+          //   Icons.notifications_none_outlined,
+          //   size: 35,
+          // ),
         ],
       ),
     );

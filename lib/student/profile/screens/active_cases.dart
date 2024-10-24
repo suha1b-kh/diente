@@ -25,7 +25,7 @@ class ActiveCases extends StatelessWidget {
                 height: 0.h,
               ),
             ),
-            const ListWidgets(widgetType: WidgetType.active)
+            ListWidgets(widgetType: WidgetType.active)
           ],
         ),
       ),

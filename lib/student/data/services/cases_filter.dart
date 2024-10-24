@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -5,13 +6,14 @@ import 'package:diente/student/data/models/case.dart';
 import 'database_services.dart';
 
 class Filter {
-  var diseaseName = "all";
-  var gender = "all";
-  var maxAge = 200;
-  var minAge = 0;
+  dynamic diseaseName = "all";
+  dynamic gender = "all";
+  dynamic maxAge = 200;
+  dynamic minAge = 0;
   dynamic toothNumber = "all";
-  List filteredCases = [];
-  List searchResult = [];
+  List casesWithSpecificDisease = [];
+  Future<List<CaseModel>> ?searchResult;
+  List<CaseModel> conditionFulfiller=[];
   final acceptedRequestsCollection =
       FirebaseFirestore.instance.collection("acceptedRequests");
   var translation = {
@@ -51,31 +53,35 @@ class Filter {
     }
   }
 
-  filterData({diseaseName, gender, toothNumber, maxAge, minAge}) async {
+  Future<List<CaseModel>>? filterData({diseaseName, gender, toothNumber, maxAge, minAge}) async {
 
     this.diseaseName = diseaseName ?? "all";
     this.gender = gender ?? "all";
     this.maxAge = maxAge ?? 200;
     this.minAge = minAge ?? 0;
     this.toothNumber = toothNumber ?? "all";
+    casesWithSpecificDisease = await getPatientWithSpecificDisease(this.diseaseName);
 
-    filteredCases = await getPatientWithSpecificDisease(this.diseaseName);
-
-    for (int i = 0; i < filteredCases.length; i++) {
+    for (int i = 0; i < casesWithSpecificDisease.length; i++) {
       final patient =
-          await DatabaseServices().getPatient(filteredCases[i].patientId);
+          await DatabaseServices().getPatient(casesWithSpecificDisease[i].patientId);
       if (this.gender != "all") {
-        if (patient?.gender != this.gender) continue;
+        if (patient?.gender != this.gender) {
+          continue;
+        }
       }
       if (this.toothNumber != "all") {
-        if (int.parse(filteredCases[i].caseDescription["toothNumber"]) != this.toothNumber)
+        if (int.parse(casesWithSpecificDisease[i].caseDescription["toothNumber"]) != this.toothNumber)
           continue;
       }
       if (int.parse(patient!.age) <= this.maxAge &&
-          int.parse(patient.age) >= this.minAge)
-        searchResult.add(filteredCases[i]);
+          int.parse(patient.age) >= this.minAge){
+        conditionFulfiller.add(casesWithSpecificDisease[i]);
+        searchResult= Future.value(conditionFulfiller);}
+      // casesWithSpecificDisease[i]);
     }
 
-    return searchResult;
+    return searchResult as Future<List<CaseModel>>;
+
   }
 }

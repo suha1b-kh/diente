@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 int _selectedIndex = 0;
 final List<Widget> _pages = <Widget>[
-  const HomeStudentScreen(),
+   HomeStudentScreen(),
   const ActiveCases(),
   const Students(),
 ];
