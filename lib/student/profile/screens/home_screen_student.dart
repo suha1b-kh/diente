@@ -21,10 +21,10 @@ class HomeStudentScreen extends StatelessWidget {
       Scaffold(
       key: scaffoldKey,
       appBar: AppBar(title: const StudentAppbar(),
-          // actions: [IconButton(
-          //   icon: Icon(Icons.filter_alt),
-          //   onPressed: () => Scaffold.of(context).openEndDrawer
-          // ),]
+          actions: [IconButton(
+            icon: Icon(Icons.filter_alt),
+            onPressed: () => scaffoldKey.currentState?.openEndDrawer()
+          ),]
       ),
 
       endDrawer: Drawer(
