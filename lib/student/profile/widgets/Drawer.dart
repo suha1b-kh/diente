@@ -25,7 +25,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   dynamic minAge = 0;
   dynamic maxAge = 200;
   dynamic toothNum = "all";
- 
+
   List treatmentTypeList = [
     "all",
     "Removable complete denture",
