@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:developer';
+
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/auth/presentation/medical_history_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,8 +16,10 @@ import 'no_cases_screen.dart';
 
 class CaseInformationScreen extends StatefulWidget {
   final UserModel user;
-  String caseStatus = "";
-  CaseDetails caseDetails;
+  late String ?caseStatus ;
+  late CaseDetails ?caseDetails;
+  late String caseLocation="";
+  String uid="";
   Color getColor(String status) {
     //TODO: return color based on case status
     if (status == "Active") {
@@ -33,17 +37,34 @@ class CaseInformationScreen extends StatefulWidget {
   CaseInformationScreen(
       {super.key,
       required this.user,
-      required this.caseStatus,
-      required this.caseDetails});
+      });
 
   @override
   State<CaseInformationScreen> createState() => _CaseInformationScreenState();
 }
 
 class _CaseInformationScreenState extends State<CaseInformationScreen> {
+  late String uid;
+  @override
+  void initState() {
+    super.initState();
+    uid = FirebaseAuth.instance.currentUser!.uid;
+  }
+
+  Future<String>? getData(String uid) async  {
+    String name = await RequestDatabaseServices().getData(uid);
+    return  name;
+  }
+
+  Future<String> getCaseStatus(String uid) async {
+    String status= await RequestDatabaseServices().getCaseStatus(uid);
+    return status;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
+    return
+      WillPopScope(
         onWillPop: () async {
           // Navigate back to the home page when the back button is pressed
           Navigator.of(context).pushAndRemoveUntil(
@@ -86,15 +107,26 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
                 child: SizedBox(
                   width: 346.w,
                   height: 70.h,
-                  //TODO: display disease name
-                  child: Text(widget.caseDetails.diseaseName,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontSize: 32.sp,
-                        fontFamily: 'NotoSansArabic',
-                        fontWeight: FontWeight.w700,
-                      )),
+                  child:  FutureBuilder<String>(
+                  future: getData(uid),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    else{
+                      log(snapshot.data!);
+                      return Text(snapshot.data!,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontSize: 32.sp,
+                          fontFamily: 'NotoSansArabic',
+                          fontWeight: FontWeight.w700,
+                        ));
+
+                    }
+                  }
+                    )
                 ),
               ),
               SizedBox(
@@ -105,17 +137,27 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
                 child: SizedBox(
                   width: 168.w,
                   height: 30.h,
-                  child: Text(
-                    //TODO: case status
-                    widget.caseStatus,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: widget.getColor(widget.caseStatus),
-                      fontSize: 21.sp,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: FutureBuilder<String>(
+                  future: getCaseStatus(uid),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    else {
+                      log(snapshot.data!);
+                      return Text(
+                        snapshot.data!,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: widget.getColor(snapshot.data!),
+                          fontSize: 21.sp,
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      );
+                    }
+                  })
+
                 ),
               ),
               SizedBox(
@@ -141,24 +183,49 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
                 height: 5.h,
               ),
               //remove case button
-              CustomButton(
-                width: 342.w,
-                height: 55.h,
-                borderRadius: 50.r,
-                color: const Color(0xFFEF0107),
-                fontColor: Colors.white,
-                borderColor: const Color(0xFFEF0107),
-                text: "الغاء الموعد",
-                onTap: () async {
-                  final uid = FirebaseAuth.instance.currentUser!.uid;
-                  await RequestDatabaseServices(uid: uid).deleteRequest();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => NoCasesScreen(user: widget.user)),
-                  );
-                },
-              ),
+              FutureBuilder<String>(
+              future: getCaseStatus(uid),
+              builder: (context, snapshot) {
+                if(snapshot.data == "Waiting") {
+                  return CustomButton(
+                    width: 342.w,
+                    height: 55.h,
+                    borderRadius: 50.r,
+                    color: const Color(0xFFEF0107),
+                    fontColor: Colors.white,
+                    borderColor: const Color(0xFFEF0107),
+                    text: "الغاء الموعد",
+                    onTap: () async {
+                      final uid = FirebaseAuth.instance.currentUser!.uid;
+                        String location = await RequestDatabaseServices().getCaseLocation(uid);
+                        if(location == "requests") {
+                          await RequestDatabaseServices().deleteRequest(uid);
+                        } else if(location == "acceptedRequests"){
+                          await RequestDatabaseServices().deleteAcceptedRequest(uid);
+                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NoCasesScreen(user: widget.user)),
+                        );
+                      }
+                    );
+                }
+                else{
+                  return CustomButton(
+                  width: 342.w,
+                  height: 55.h,
+                  borderRadius: 50.r,
+                  color: const Color(0xFFEF0107).withOpacity(0.3),
+                  fontColor: Colors.white,
+                  borderColor: const Color(0xFFEF0107).withOpacity(0),
+                  text: "الغاء الموعد",
+                    onTap: (){},
+                    );
+                }
+
+
+                    })
             ],
           ),
         ));

@@ -1,6 +1,6 @@
 
 class CaseDetails{
-  late String diseaseName;
+  String ?diseaseName;
   late String toothNumber;
   void setName(String name){
     diseaseName=name;
@@ -9,7 +9,7 @@ class CaseDetails{
     this.toothNumber=toothNumber;
   }
 
-  String getName(String name){
+  String? getName(String name){
     return diseaseName;
   }
   String getToothNumber(){

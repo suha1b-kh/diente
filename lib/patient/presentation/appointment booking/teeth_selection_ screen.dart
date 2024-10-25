@@ -92,22 +92,20 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
                   text: "تم",
                   fontColor: Colors.white,
                   onTap: () async {
-                    PatientHomeScreen.caseDetails?.toothNumber =
+                    widget.caseDetails?.toothNumber =
                         widget.controller.text;
                     final uid = FirebaseAuth.instance.currentUser!.uid;
                     Request req = Request(caseDescription: {
-                      'Name': PatientHomeScreen.caseDetails?.diseaseName,
-                      'toothNumber': PatientHomeScreen.caseDetails?.toothNumber
+                      'Name':  widget.caseDetails?.diseaseName,
+                      'toothNumber':  widget.caseDetails?.toothNumber
                     }, id: uid);
-                    await RequestDatabaseServices(uid: uid).addRequest(req);
+                    await RequestDatabaseServices().addRequest(req,uid);
                     if (widget.controller.text != '') {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => CaseInformationScreen(
                                   user: widget.user,
-                                  caseDetails: PatientHomeScreen.caseDetails!,
-                                  caseStatus: "Waiting",
                                 )),
                       );
                     } else {

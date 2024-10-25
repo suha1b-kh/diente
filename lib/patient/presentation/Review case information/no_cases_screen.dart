@@ -11,9 +11,10 @@ import '../widgets/custom_header.dart';
 
 class NoCasesScreen extends StatefulWidget {
   final UserModel user;
-
+  CaseDetails ?caseDetails;
   //constructor
-  const NoCasesScreen({super.key, required this.user});
+  NoCasesScreen({super.key, required this.user});
+
 
   @override
   State<NoCasesScreen> createState() => _NoCasesScreenState();
@@ -94,14 +95,14 @@ class _NoCasesScreenState extends State<NoCasesScreen> {
                 text: "حجز موعد",
                 onTap: () {
                   // Navigate to disease selection screen
-                  PatientHomeScreen.caseDetails = CaseDetails();
+                  widget.caseDetails = CaseDetails();
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (BuildContext context) =>
                             DiseaseSelectionScreen(
                           user: widget.user,
-                          caseDetails: PatientHomeScreen.caseDetails!,
+                          caseDetails: widget.caseDetails!,
                         ),
                       ));
                 },

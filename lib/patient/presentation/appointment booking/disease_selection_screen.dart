@@ -68,14 +68,14 @@ class _DiseaseSelectionScreenState extends State<DiseaseSelectionScreen> {
               title: diseases[index].name,
               description: diseases[index].description,
               onTap: () {
-                PatientHomeScreen.caseDetails?.diseaseName =
+                   widget.caseDetails?.diseaseName =
                     diseases[index].name;
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => TeethSelectionScreen(
                           user: widget.user,
-                          caseDetails: PatientHomeScreen.caseDetails!)),
+                          caseDetails: widget.caseDetails!)),
                 );
               },
             );

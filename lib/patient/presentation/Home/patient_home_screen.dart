@@ -15,14 +15,14 @@ import '../widgets/custom_header.dart';
 
 class PatientHomeScreen extends StatefulWidget {
   final UserModel? userModel;
-  static CaseDetails? caseDetails = CaseDetails();
-  const PatientHomeScreen({super.key, this.userModel});
+  PatientHomeScreen({super.key, this.userModel});
 
   @override
   State<PatientHomeScreen> createState() => _PatientHomeScreenState();
 }
 
 class _PatientHomeScreenState extends State<PatientHomeScreen> {
+  CaseDetails? caseDetails = CaseDetails();
   String? patientImage;
   final user = FirebaseAuth.instance.currentUser!.email!.split('@')[0];
   late final uid;
@@ -33,22 +33,17 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
     super.initState();
     uid = FirebaseAuth.instance.currentUser!.uid;
     checkExistence();
-    getData();
   }
 
   Future<void> checkExistence() async {
-    isExist = await RequestDatabaseServices(uid: uid!).checkExist(uid);
+    isExist = await RequestDatabaseServices().checkCaseExistence(uid);
   }
 
-  Future<void> getData() async {
-    PatientHomeScreen.caseDetails?.diseaseName =
-        await RequestDatabaseServices(uid: uid).getData();
-  }
 
   @override
   Widget build(BuildContext context) {
     patientImage = widget.userModel!.profilePic.toString();
-    log('Patient Image: $patientImage');
+    // log('Patient Image: $patientImage');
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
@@ -102,7 +97,8 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                       builder: (context) => DiseaseSelectionScreen(
                           //edited
                           user: widget.userModel!,
-                          caseDetails: PatientHomeScreen.caseDetails!)),
+                           caseDetails: caseDetails!
+                  )),
                 );
               } else {
                 log("already has a case");
@@ -126,9 +122,9 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => CaseInformationScreen(
-                            caseDetails: PatientHomeScreen.caseDetails!,
+                            // caseDetails: caseDetails!,
                             user: widget.userModel!,
-                            caseStatus: "Waiting", //TODO: need to be edited
+                             // caseStatus: "Active", //TODO: need to be edited
                           )),
                 );
               } else {
