@@ -139,25 +139,23 @@ class RequestDatabaseServices {
     String caseLocation =await getCaseLocation(uid);
     if(caseLocation == "requests") {
       casStatus= "Waiting";
-    } else if(caseLocation == "acceptedRequests")
-      {
-        casStatus=await acceptedRequestsCollection
-            .doc(uid)
-            .get()
-            .then((doc) {
-          if (doc.exists) {
-            final data = doc.data() as Map<String, dynamic>?;
-            if (data != null) {
-              if (data['caseStatus'] == 'waiting') {
-                return 'Waiting';
-              } else if (data['caseStatus'] == 'accepted') {
-                return 'Active';
-              }
+    } else if(caseLocation == "acceptedRequests") {
+      casStatus=await acceptedRequestsCollection
+        .doc(uid)
+        .get()
+        .then((doc) {
+        if (doc.exists) {
+          final data = doc.data() as Map<String, dynamic>?;
+          if (data != null) {
+            if (data['caseStatus'] == 'waiting') {
+              return 'Waiting';
+            } else if (data['caseStatus'] == 'active') {
+              return 'Active';
             }
           }
-          return 'Finished';
-            }
-            );
+        }
+        return 'Finished';
+          });
       }
     return casStatus;
 
