@@ -147,7 +147,7 @@ class RequestDatabaseServices {
         if (doc.exists) {
           final data = doc.data() as Map<String, dynamic>?;
           if (data != null) {
-            if (data['caseStatus'] == 'waiting') {
+            if (data['caseStatus'] == 'waiting' || data['caseStatus'] == 'accepted' ) {
               return 'Waiting';
             } else if (data['caseStatus'] == 'active') {
               return 'Active';
