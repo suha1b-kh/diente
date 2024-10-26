@@ -1,5 +1,6 @@
 import 'package:diente/student/data/models/student.dart';
 import 'package:diente/student/login/services/student_login_services.dart';
+import 'package:diente/student/profile/screens/main_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -7,19 +8,25 @@ import 'package:gap/gap.dart';
 class StudentAppbar extends StatelessWidget {
   const StudentAppbar({
     super.key,
+    required this.student,
   });
-
+  final StudentModel student;
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Row(
         children: [
           GestureDetector(
-            onTap: () =>
-                Navigator.of(context).pushNamed('/main_student_profile'),
-            child: const CircleAvatar(
-                // backgroundImage: NetworkImage(student.profilePic),
-                ),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MainStudentProfile(
+                        student: student,
+                      )),
+            ),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(student.profilePic),
+            ),
           ),
           Gap(15.w),
           Column(
@@ -38,7 +45,7 @@ class StudentAppbar extends StatelessWidget {
               SizedBox(
                 width: 230.w,
                 child: Text(
-                  'student.name', //TODO: get student name
+                  student.name,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                     fontSize: 12.sp,

@@ -148,13 +148,13 @@ class _MainAppState extends State<MainApp> {
         //control screen
         "/control_screen": (context) => const ControlScreen(),
         //main profile screen
-        "/main_student_profile": (context) => const MainStudentProfile(),
+        // "/main_student_profile": (context) =>  MainStudentProfile(),
         //Home Student Screen
         "/home_student_screen": (context) => HomeStudentScreen(),
         //my treatment screen
-        "/my_treatment_screen": (context) => const ActiveCases(),
+        "/my_treatment_screen": (context) => ActiveCases(),
         //students screen
-        "/students_screen": (context) => const Students(),
+        "/students_screen": (context) => Students(),
         //EditProfile screen
         // "/edit_profile": (context) => EditProfile(),
         //view case screen

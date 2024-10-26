@@ -12,8 +12,8 @@ class StudentNavbar extends StatefulWidget {
 
 int _selectedIndex = 0;
 final List<Widget> _pages = <Widget>[
-   HomeStudentScreen(),
-  const ActiveCases(),
+  HomeStudentScreen(),
+  ActiveCases(),
   EditProfile(), //غيرها
 ];
 

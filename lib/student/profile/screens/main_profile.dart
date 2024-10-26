@@ -5,6 +5,7 @@ import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/text.dart';
 import 'package:diente/patient/presentation/widgets/custom_text_field.dart';
 import 'package:diente/student/data/models/report_model.dart';
+import 'package:diente/student/data/models/student.dart';
 import 'package:diente/student/data/services/choose_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +16,8 @@ import '../widgets/list_reports.dart';
 
 // ignore: camel_case_types
 class MainStudentProfile extends StatefulWidget {
-  const MainStudentProfile({super.key});
+  const MainStudentProfile({super.key, required this.student});
+  final StudentModel student;
 
   @override
   State<MainStudentProfile> createState() => _mainProfileState();
@@ -62,13 +64,8 @@ class _mainProfileState extends State<MainStudentProfile> {
               child: MaterialButton(
                 onPressed: () =>
                     Navigator.of(context).pushNamed('/edit_profile'),
-                child: ClipOval(
-                    child: Image.asset(
-                  'assets/images/stu_img.png',
-                  width: 145.w,
-                  height: 145.h,
-                  fit: BoxFit.cover,
-                )),
+                child: CircleAvatar(
+                    backgroundImage: NetworkImage(widget.student.profilePic)),
               ),
             ),
             Text(
@@ -94,7 +91,7 @@ class _mainProfileState extends State<MainStudentProfile> {
               ),
             ),
             Gap(28.h),
-             listReportsView(),
+            const listReportsView(),
           ],
         ),
       ),

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 
 int _selectedIndex = 0;
 final List<Widget> _pages = <Widget>[
-   HomeStudentScreen(),
-  const ActiveCases(),
-  const Students(),
+  HomeStudentScreen(),
+  ActiveCases(),
+  Students(),
 ];
 
 class ControlScreen extends StatefulWidget {
