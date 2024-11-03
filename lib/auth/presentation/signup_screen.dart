@@ -48,22 +48,7 @@ class _SignupScreenState extends State<SignupScreen> {
               Navigator.pushNamed(context, '/home_screen');
             },
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.popAndPushNamed(context, '/login_screen');
-                },
-                child: customText(
-                    context,
-                    'Login',
-                    Theme.of(context).colorScheme.secondary,
-                    14.sp,
-                    FontWeight.normal),
-              ),
-            ),
-          ]),
+          actions: const []),
 
       /********** body **********/
 
@@ -171,12 +156,39 @@ class _SignupScreenState extends State<SignupScreen> {
                           ));
                         }
                       },
-                      'Continue',
+                      'Sign Up',
                       16.sp,
                     ),
                     Gap(24.h),
-                    //******************** Login with google**********************/
-                    google(context),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            customText(
+                              context,
+                              'Already have an account? ',
+                              Theme.of(context).colorScheme.primary,
+                              14.sp,
+                              FontWeight.normal,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.popAndPushNamed(
+                                    context, '/login_screen');
+                              },
+                              child: customText(
+                                  context,
+                                  'Login',
+                                  Theme.of(context).colorScheme.secondary,
+                                  14.sp,
+                                  FontWeight.normal),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

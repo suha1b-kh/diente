@@ -56,22 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Navigator.popAndPushNamed(context, '/home_screen');
             },
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.popAndPushNamed(context, '/signup_screen');
-                },
-                child: customText(
-                    context,
-                    'Create Account',
-                    Theme.of(context).colorScheme.secondary,
-                    14.sp,
-                    FontWeight.normal),
-              ),
-            ),
-          ]),
+          actions: const []),
       body: BlocProvider(
         create: (context) => LoginBloc(),
         child: BlocConsumer<LoginBloc, LoginState>(
@@ -202,7 +187,7 @@ class _bodyWidgetState extends State<bodyWidget> {
                   ),
                 );
               },
-              'Continue',
+              'Login',
               16.sp,
             ),
             Gap(36.h),
@@ -220,7 +205,34 @@ class _bodyWidgetState extends State<bodyWidget> {
               ),
             ),
             Gap(24.h),
-            google(context),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    customText(
+                      context,
+                      'Don\'t have an account? ',
+                      Theme.of(context).colorScheme.primary,
+                      14.sp,
+                      FontWeight.normal,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.popAndPushNamed(context, '/signup_screen');
+                      },
+                      child: customText(
+                          context,
+                          'Create Account',
+                          Theme.of(context).colorScheme.secondary,
+                          14.sp,
+                          FontWeight.normal),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
