@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable
+import 'package:diente/patient/presentation/Review%20case%20information/notifications_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -57,6 +58,24 @@ class CustomHeader extends StatelessWidget {
                     );
                   }));
                 }),
+          ),
+          //notifications icon
+          Positioned(
+            right: 16.w,
+            top: 20.h,
+            child: IconButton(
+              iconSize: 26.h,
+              icon: const Icon(
+                Icons.notifications,
+                color: Color(0xFF7CA0CA),
+              ),
+              onPressed: () {
+                //TODO: navigate to notifications screen
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return  NotificationsScreen();
+                }));
+              },
+            ),
           ),
         ],
       ),
