@@ -183,6 +183,7 @@ class _bodyWidgetState extends State<bodyWidget> {
               icon: passwordVisible ? Icons.visibility : Icons.visibility_off,
               hide: passwordVisible,
               iconPressed: () {
+                log(passwordVisible.toString());
                 setState(() {
                   passwordVisible = !passwordVisible;
                 });

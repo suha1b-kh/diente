@@ -3,18 +3,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({
+  CustomTextField({
     super.key,
     required this.width,
     required this.height,
     required this.controller,
     required this.text,
     this.icon,
-    String? Function(String? value)? validator,
-    TextInputType? keyboardType,
-    bool? hide,
-    Null Function()? iconPressed,
+    this.validator,
+    this.keyboardType,
+    this.hide,
+    this.iconPressed,
   });
+
+  String? Function(String? value)? validator;
+  bool? hide;
+  Function()? iconPressed;
+  TextInputType? keyboardType;
 
   final double width, height;
   final TextEditingController controller;
@@ -32,6 +37,7 @@ class CustomTextField extends StatelessWidget {
       ),
       child: Center(
         child: TextFormField(
+          obscureText: hide ?? false,
           cursorColor: Theme.of(context).colorScheme.inversePrimary,
           controller: controller,
           style: TextStyle(
@@ -53,10 +59,13 @@ class CustomTextField extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
             suffixIcon: icon != null
-                ? Icon(
-                    icon,
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                    size: 24.sp,
+                ? IconButton(
+                    icon: Icon(
+                      icon,
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                      size: 24.sp,
+                    ),
+                    onPressed: iconPressed,
                   )
                 : null,
           ),
