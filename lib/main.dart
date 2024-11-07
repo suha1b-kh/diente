@@ -10,6 +10,9 @@ import 'package:diente/auth/presentation/fill_information_screen.dart';
 import 'package:diente/auth/presentation/signup_screen.dart';
 import 'package:diente/core/theme/darkmode.dart';
 import 'package:diente/firebase_options.dart';
+import 'package:diente/patient/data/database%20services/case_status.dart';
+import 'package:diente/patient/data/database%20services/requests_database_services.dart';
+import 'package:diente/patient/presentation/Review%20case%20information/case_info_screen.dart';
 import 'package:diente/patient/presentation/edit%20profile%20info/edit_patient_profile_screen.dart';
 import 'package:diente/student/data/services/cases_filter.dart';
 import 'package:diente/student/profile/screens/control_screen.dart';
@@ -81,7 +84,12 @@ class _MainAppState extends State<MainApp> {
         }
 
         // If everything is okay, go to HomeScreen
-        return const HomeScreen();
+        if (RequestDatabaseServices().getCaseStatus(user.uid) == "waiting") {
+          log('check case status');
+          return const HomeScreen();
+        }
+        log('case status is not waiting');
+        return CaseInformationScreen(user: userData);
       },
     );
   }
@@ -96,7 +104,7 @@ class _MainAppState extends State<MainApp> {
         // return const HomeScreen();
         return widget!;
       },
-      home: const HomeScreen(),
+      home: initialScreen(),
       // home: initialScreen(),
       routes: {
         //home screen

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:diente/auth/data/source/auth_firebase_service.dart';
 import 'package:diente/auth/presentation/bloc/login_bloc/bloc/login_bloc.dart';
 import 'package:diente/auth/presentation/bloc/login_bloc/bloc/login_event.dart';
 import 'package:diente/auth/presentation/bloc/login_bloc/bloc/login_state.dart';
@@ -7,6 +8,9 @@ import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/google.dart';
 import 'package:diente/core/widgets/text.dart';
 import 'package:diente/core/widgets/text_fields.dart';
+import 'package:diente/patient/data/database%20services/case_status.dart';
+import 'package:diente/patient/data/database%20services/requests_database_services.dart';
+import 'package:diente/patient/presentation/Review%20case%20information/case_info_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,19 +64,37 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocProvider(
         create: (context) => LoginBloc(),
         child: BlocConsumer<LoginBloc, LoginState>(
-          listener: (context, state) {
+          listener: (context, state) async {
             if (state is LoginSuccess) {
               if (FirebaseAuth.instance.currentUser!.emailVerified == true) {
                 try {
                   log('Login successful, navigating to the next screen');
 
-                  // Navigator.popAndPushNamed(context, 'patient_home_screen');
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) {
-                    return PatientHomeScreen(
-                      userModel: state.user,
-                    );
-                  }), (Route<dynamic> route) => false);
+                  if ((await RequestDatabaseServices().getCaseStatus(
+                              FirebaseAuth.instance.currentUser!.uid))
+                          .toLowerCase() ==
+                      "waiting") {
+                    log('check case status');
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) {
+                      return PatientHomeScreen(
+                        userModel: state.user,
+                      );
+                    }), (Route<dynamic> route) => false);
+                  } else {
+                    log('case status is not waiting');
+                    RequestDatabaseServices()
+                        .getCaseStatus(FirebaseAuth.instance.currentUser!.uid)
+                        .then((status) {
+                      log('case:  $status');
+                    });
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) {
+                      return CaseInformationScreen(
+                        user: state.user,
+                      );
+                    }), (Route<dynamic> route) => false);
+                  }
                 } catch (e, stackTrace) {
                   log('Navigation error: $e', error: e, stackTrace: stackTrace);
                 }

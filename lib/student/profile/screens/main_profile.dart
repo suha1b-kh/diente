@@ -7,6 +7,7 @@ import 'package:diente/patient/presentation/widgets/custom_text_field.dart';
 import 'package:diente/student/data/models/report_model.dart';
 import 'package:diente/student/data/models/student.dart';
 import 'package:diente/student/data/services/choose_case.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -61,15 +62,13 @@ class _mainProfileState extends State<MainStudentProfile> {
         child: Column(
           children: [
             Center(
-              child: MaterialButton(
-                onPressed: () =>
-                    Navigator.of(context).pushNamed('/edit_profile'),
-                child: CircleAvatar(
-                    backgroundImage: NetworkImage(widget.student.profilePic)),
-              ),
+              child: CircleAvatar(
+                  radius: 50.r,
+                  backgroundImage: NetworkImage(widget.student.profilePic)),
             ),
+            Gap(20.h),
             Text(
-              'Diente student',
+              widget.student.name,
               style: TextStyle(
                 color: const Color(0xFF1B2A57),
                 fontSize: 20.sp,
@@ -92,6 +91,19 @@ class _mainProfileState extends State<MainStudentProfile> {
             ),
             Gap(28.h),
             const listReportsView(),
+            Gap(28.h),
+            customButton(
+              context,
+              Colors.red,
+              () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed('/');
+
+                FirebaseAuth.instance.signOut();
+              },
+              'log out',
+              20.sp,
+            ),
           ],
         ),
       ),

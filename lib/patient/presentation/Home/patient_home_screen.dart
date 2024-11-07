@@ -15,7 +15,7 @@ import '../widgets/custom_header.dart';
 
 class PatientHomeScreen extends StatefulWidget {
   final UserModel? userModel;
-  PatientHomeScreen({super.key, this.userModel});
+  const PatientHomeScreen({super.key, required this.userModel});
 
   @override
   State<PatientHomeScreen> createState() => _PatientHomeScreenState();
@@ -38,7 +38,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   Future<void> checkExistence() async {
     isExist = await RequestDatabaseServices().checkCaseExistence(uid);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -97,8 +96,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                       builder: (context) => DiseaseSelectionScreen(
                           //edited
                           user: widget.userModel!,
-                           caseDetails: caseDetails!
-                  )),
+                          caseDetails: caseDetails!)),
                 );
               } else {
                 log("already has a case");
@@ -124,7 +122,7 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                       builder: (context) => CaseInformationScreen(
                             // caseDetails: caseDetails!,
                             user: widget.userModel!,
-                             // caseStatus: "Active", //TODO: need to be edited
+                            // caseStatus: "Active", //TODO: need to be edited
                           )),
                 );
               } else {
