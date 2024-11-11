@@ -60,23 +60,23 @@ class CustomHeader extends StatelessWidget {
                 }),
           ),
           //notifications icon
-          Positioned(
-            right: 16.w,
-            top: 20.h,
-            child: IconButton(
-              iconSize: 26.h,
-              icon: const Icon(
-                Icons.notifications,
-                color: Color(0xFF7CA0CA),
-              ),
-              onPressed: () {
-                //TODO: navigate to notifications screen
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return  NotificationsScreen();
-                }));
-              },
-            ),
-          ),
+          // Positioned(
+          //   right: 16.w,
+          //   top: 20.h,
+          //   child: IconButton(
+          //     iconSize: 26.h,
+          //     icon: const Icon(
+          //       Icons.notifications,
+          //       color: Color(0xFF7CA0CA),
+          //     ),
+          //     onPressed: () {
+          //       //TODO: navigate to notifications screen
+          //       Navigator.push(context, MaterialPageRoute(builder: (context) {
+          //         return  NotificationsScreen();
+          //       }));
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );

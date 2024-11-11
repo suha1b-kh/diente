@@ -91,8 +91,8 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                     ? const Center(
                         child: CircleAvatar(
                           radius: 61,
-                          backgroundImage: NetworkImage(
-                              'https://firebasestorage.googleapis.com/v0/b/diente-e540a.appspot.com/o/profile_pic%2F909657-profile_pic.png?alt=media&token=927fbec3-22af-4cdc-84ec-3b0cd8038ca0'),
+                          backgroundImage:
+                              NetworkImage('https://via.placeholder.com/150'),
                           //AssetImage('assets/images/profile_photo.png'),
                         ),
                       )

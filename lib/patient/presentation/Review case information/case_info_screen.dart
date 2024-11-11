@@ -72,6 +72,7 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
           ),
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
+              log(widget.user.firstName);
               return PatientHomeScreen(
                 userModel: widget.user,
               );
@@ -118,7 +119,7 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
           Center(
             child: SizedBox(
                 width: 168.w,
-                height: 30.h,
+                height: 40.h,
                 child: FutureBuilder<String>(
                     future: getCaseStatus(uid),
                     builder: (context, snapshot) {
@@ -140,7 +141,7 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
                     })),
           ),
           SizedBox(
-            height: 140.h,
+            height: 120.h,
           ),
           //Review patient history button
           CustomButton(

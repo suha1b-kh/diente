@@ -26,13 +26,33 @@ class _DiseaseSelectionScreenState extends State<DiseaseSelectionScreen> {
   //a tentative list of diseases until the database is created
   List<Disease> diseases = [
     Disease(
-        name: "فحص روتيني",
-        description: "يتم اجراء فحص عام للاسنان والتأكد من سلامتها"),
+      name: "فحص روتيني",
+      description: "يتم اجراء فحص عام للاسنان والتأكد من سلامتها",
+    ),
     Disease(
-        name: "خلع اسنان", description: "يتم خلع الاسنان اذا كانت بحاجة خلع"),
+      name: "خلع اسنان",
+      description: "يتم خلع الاسنان اذا كانت بحاجة خلع",
+    ),
     Disease(
-        name: "فحص روتيني",
-        description: "يتم اجراء فحص عام للاسنان والتأكد من سلامتها"),
+      name: "تسوس الاسنان",
+      description: "علاج تسوس الاسنان الامامية",
+    ),
+    Disease(
+      name: "تسوس الاسنان الخلفية",
+      description: "علاج تسوس الاسنان الخلفية",
+    ),
+    Disease(
+      name: "عصب الاسنان",
+      description: "يتم علاج عصب الاسنان",
+    ),
+    Disease(
+      name: "حشوات تجميلية",
+      description: "علاج كسور الاسنان",
+    ),
+    Disease(
+      name: "طقم كامل متحرك",
+      description: "تركيب طقم الاسنان",
+    ),
   ];
 
   @override
@@ -42,7 +62,7 @@ class _DiseaseSelectionScreenState extends State<DiseaseSelectionScreen> {
         body: ListView(children: [
           //Header
           CustomHeader(
-              patientImage: NetworkImage(widget.user.profilePic!),
+              patientImage: NetworkImage(widget.user.profilePic),
               patientName:
                   '${widget.user.firstName} ${widget.user.secondName}'),
           //Hint
@@ -68,14 +88,12 @@ class _DiseaseSelectionScreenState extends State<DiseaseSelectionScreen> {
               title: diseases[index].name,
               description: diseases[index].description,
               onTap: () {
-                   widget.caseDetails?.diseaseName =
-                    diseases[index].name;
+                widget.caseDetails.diseaseName = diseases[index].name;
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => TeethSelectionScreen(
-                          user: widget.user,
-                          caseDetails: widget.caseDetails!)),
+                          user: widget.user, caseDetails: widget.caseDetails)),
                 );
               },
             );

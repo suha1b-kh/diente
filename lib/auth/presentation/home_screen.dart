@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
             },
                 customText(
                   context,
-                  'Login',
+                  'Patient Login',
                   Theme.of(context).colorScheme.secondary,
                   16.sp,
                   FontWeight.w500,
