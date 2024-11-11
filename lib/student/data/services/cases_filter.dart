@@ -12,23 +12,21 @@ class Filter {
   dynamic minAge = 0;
   dynamic toothNumber = "all";
   List casesWithSpecificDisease = [];
-  Future<List<CaseModel>> ?searchResult;
-  List<CaseModel> conditionFulfiller=[];
+  Future<List<CaseModel>>? searchResult;
+  List<CaseModel> conditionFulfiller = [];
   final acceptedRequestsCollection =
       FirebaseFirestore.instance.collection("acceptedRequests");
   var translation = {
     "General diagnosis": "فحص روتيني",
     "Composite restoration": "حشوة تجميلية",
     "Fixed prosthesis": "تيجان وجسور",
-    "Caries": "تسوس",
-    "Root canal treatment": "علاج عصب",
+    "Front tooth decay": "تسوس الاسنان الامامية",
+    "Back tooth decay": "تسوس الاسنان الخلفية",
+    "Root canal treatment": "علاج عصب الاسنان",
     "Extraction": "خلع اسنان",
-    "Removable complete denture": "طقم كامل",
-    "Removable partial denture": "طقم جزئي",
-    "Pedodontic": "علاج اطفال",
-    "scaling": "علاج وتنطيف اللثة",
+    "Dental fillings": "حشوات تجميلية",
+    "Removable partial denture": "طقم كامل متحرك",
   };
-
 
   getPatientWithSpecificDisease(diseaseName) async {
     List patientWithSpecificDisease = [];
@@ -44,8 +42,7 @@ class Filter {
           .where("caseDescription.Name", isEqualTo: translation[diseaseName])
           .get();
       for (var doc in allDocs.docs) {
-        patientWithSpecificDisease
-            .add(CaseModel.fromFirestore(doc.data() as Map<String, dynamic>));
+        patientWithSpecificDisease.add(CaseModel.fromFirestore(doc.data()));
       }
       return patientWithSpecificDisease;
     } catch (e) {
@@ -53,35 +50,39 @@ class Filter {
     }
   }
 
-  Future<List<CaseModel>>? filterData({diseaseName, gender, toothNumber, maxAge, minAge}) async {
-
+  Future<List<CaseModel>>? filterData(
+      {diseaseName, gender, toothNumber, maxAge, minAge}) async {
     this.diseaseName = diseaseName ?? "all";
     this.gender = gender ?? "all";
     this.maxAge = maxAge ?? 200;
     this.minAge = minAge ?? 0;
     this.toothNumber = toothNumber ?? "all";
-    casesWithSpecificDisease = await getPatientWithSpecificDisease(this.diseaseName);
+    casesWithSpecificDisease =
+        await getPatientWithSpecificDisease(this.diseaseName);
 
     for (int i = 0; i < casesWithSpecificDisease.length; i++) {
-      final patient =
-          await DatabaseServices().getPatient(casesWithSpecificDisease[i].patientId);
+      final patient = await DatabaseServices()
+          .getPatient(casesWithSpecificDisease[i].patientId);
       if (this.gender != "all") {
-        if (patient?.gender != this.gender) {
+        if (patient.gender != this.gender) {
           continue;
         }
       }
       if (this.toothNumber != "all") {
-        if (int.parse(casesWithSpecificDisease[i].caseDescription["toothNumber"]) != this.toothNumber)
+        if (int.parse(
+                casesWithSpecificDisease[i].caseDescription["toothNumber"]) !=
+            this.toothNumber) {
           continue;
+        }
       }
-      if (int.parse(patient!.age) <= this.maxAge &&
-          int.parse(patient.age) >= this.minAge){
+      if (int.parse(patient.age) <= this.maxAge &&
+          int.parse(patient.age) >= this.minAge) {
         conditionFulfiller.add(casesWithSpecificDisease[i]);
-        searchResult= Future.value(conditionFulfiller);}
+        searchResult = Future.value(conditionFulfiller);
+      }
       // casesWithSpecificDisease[i]);
     }
 
     return searchResult as Future<List<CaseModel>>;
-
   }
 }

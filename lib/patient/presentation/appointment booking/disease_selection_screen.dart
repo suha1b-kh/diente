@@ -34,7 +34,7 @@ class _DiseaseSelectionScreenState extends State<DiseaseSelectionScreen> {
       description: "يتم خلع الاسنان اذا كانت بحاجة خلع",
     ),
     Disease(
-      name: "تسوس الاسنان",
+      name: "تسوس الاسنان الامامية",
       description: "علاج تسوس الاسنان الامامية",
     ),
     Disease(
@@ -51,7 +51,7 @@ class _DiseaseSelectionScreenState extends State<DiseaseSelectionScreen> {
     ),
     Disease(
       name: "طقم كامل متحرك",
-      description: "تركيب طقم الاسنان",
+      description: "(تضاف رسوم اضافية) تركيب طقم الاسنان",
     ),
   ];
 
