@@ -70,28 +70,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 try {
                   log('Login successful, navigating to the next screen');
 
-                  if ((await RequestDatabaseServices().getCaseStatus(
-                              FirebaseAuth.instance.currentUser!.uid))
-                          .toLowerCase() ==
-                      "waiting") {
+                  if (await RequestDatabaseServices().checkCaseExistence(
+                      FirebaseAuth.instance.currentUser!.uid)) {
                     log('check case status');
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) {
-                      return PatientHomeScreen(
-                        userModel: state.user,
-                      );
-                    }), (Route<dynamic> route) => false);
-                  } else {
-                    log('case status is not waiting');
-                    RequestDatabaseServices()
-                        .getCaseStatus(FirebaseAuth.instance.currentUser!.uid)
-                        .then((status) {
-                      log('case:  $status');
-                    });
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(builder: (context) {
                       return CaseInformationScreen(
                         user: state.user,
+                      );
+                    }), (Route<dynamic> route) => false);
+                  } else {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) {
+                      return PatientHomeScreen(
+                        userModel: state.user,
                       );
                     }), (Route<dynamic> route) => false);
                   }
