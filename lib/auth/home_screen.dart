@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
             },
                 customText(
                   context,
-                  'Login',
+                  'تسجيل الدخول',
                   Theme.of(context).colorScheme.secondary,
                   16.sp,
                   FontWeight.w500,
@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
             //signup button
             customButton(context, Theme.of(context).colorScheme.secondary, () {
               Navigator.popAndPushNamed(context, '/signup_screen');
-            }, 'Create Account', 16.sp),
+            }, 'انشاء حساب', 16.sp),
           ],
         ),
       ),

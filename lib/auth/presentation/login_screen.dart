@@ -143,7 +143,7 @@ class _bodyWidgetState extends State<bodyWidget> {
 
   String validateField(String? value) {
     if (value == null || value.isEmpty) {
-      return 'This field cannot be empty';
+      return 'هذا الحقل لا يمكن أن يكون فارغًا';
     }
     return '';
   }
@@ -156,19 +156,22 @@ class _bodyWidgetState extends State<bodyWidget> {
         key: formKey,
         child: ListView(
           children: [
-            customText(
-              context,
-              'Sign in to your \nAccount',
-              Theme.of(context).colorScheme.primary,
-              32.sp,
-              FontWeight.bold,
+            Align(
+              alignment: Alignment.centerRight,
+              child: customText(
+                context,
+                'تسجيل الدخول',
+                Theme.of(context).colorScheme.primary,
+                30.sp,
+                FontWeight.bold,
+              ),
             ),
-            Gap(50.h),
+            Gap(77.h),
             CustomTextField(
               width: 343.w,
               height: 56.h,
               controller: widget.emailController,
-              text: 'Enter your email',
+              text: 'أدخل بريدك الإلكتروني',
               validator: validateField,
               keyboardType: TextInputType.emailAddress,
             ),
@@ -178,7 +181,7 @@ class _bodyWidgetState extends State<bodyWidget> {
               width: 343.w,
               height: 56.h,
               controller: widget.passwordController,
-              text: 'Enter your password',
+              text: 'أدخل كلمة المرور',
               icon: passwordVisible ? Icons.visibility : Icons.visibility_off,
               hide: passwordVisible,
               iconPressed: () {
@@ -201,7 +204,7 @@ class _bodyWidgetState extends State<bodyWidget> {
                   ),
                 );
               },
-              'Login',
+              'تسجيل الدخول',
               16.sp,
             ),
             Gap(36.h),
@@ -211,7 +214,7 @@ class _bodyWidgetState extends State<bodyWidget> {
               child: Center(
                 child: customText(
                   context,
-                  'Forgot Password?',
+                  ' نسيت كلمة السر؟ ',
                   Theme.of(context).colorScheme.secondary,
                   14.sp,
                   FontWeight.w500,
@@ -225,23 +228,23 @@ class _bodyWidgetState extends State<bodyWidget> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    customText(
-                      context,
-                      'Don\'t have an account? ',
-                      Theme.of(context).colorScheme.primary,
-                      14.sp,
-                      FontWeight.normal,
-                    ),
                     GestureDetector(
                       onTap: () {
                         Navigator.popAndPushNamed(context, '/signup_screen');
                       },
                       child: customText(
                           context,
-                          'Create Account',
+                          'إنشاء حساب',
                           Theme.of(context).colorScheme.secondary,
                           14.sp,
                           FontWeight.normal),
+                    ),
+                    customText(
+                      context,
+                      ' ليس لديك حساب؟ ',
+                      Theme.of(context).colorScheme.primary,
+                      14.sp,
+                      FontWeight.normal,
                     ),
                   ],
                 ),

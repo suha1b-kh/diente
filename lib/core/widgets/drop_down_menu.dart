@@ -11,7 +11,8 @@ class CustomDropDownMenu extends StatelessWidget {
     this.icon,
     required this.items,
     required this.selectedItem,
-    required this.onChanged,  String? Function(String? value)? validator,
+    required this.onChanged,
+    String? Function(String? value)? validator,
   });
 
   final double width, height;
@@ -56,7 +57,14 @@ class CustomDropDownMenu extends StatelessWidget {
           items: items.map((String item) {
             return DropdownMenuItem<String>(
               value: item,
-              child: Text(item),
+              child: Text(
+                item,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
             );
           }).toList(),
           onChanged: onChanged,

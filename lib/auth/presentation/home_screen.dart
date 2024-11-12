@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
             },
                 customText(
                   context,
-                  'Patient Login',
+                  'تسجيل دخول المرضى',
                   Theme.of(context).colorScheme.secondary,
                   16.sp,
                   FontWeight.w500,

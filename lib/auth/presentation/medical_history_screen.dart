@@ -56,14 +56,10 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
         padding: EdgeInsets.symmetric(horizontal: 38.w),
         child: ListView(
           children: [
-            customText(
-                context,
-                'Do you suffer from one\nof the following diseases?',
-                Theme.of(context).colorScheme.primary,
-                20.sp,
-                FontWeight.bold),
+            customText(context, 'هل تعاني من احد الامراض التالية؟',
+                Theme.of(context).colorScheme.primary, 20.sp, FontWeight.bold),
             Gap(60.h),
-            _buildCheckboxRow(context, 'diabetes', diabetes, (value) {
+            _buildCheckboxRow(context, 'السكري', diabetes, (value) {
               setState(() {
                 if (doNotSuffer == false) {
                   diabetes = value!;
@@ -72,7 +68,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
                     const SnackBar(
                       duration: Duration(milliseconds: 700),
                       content: Text(
-                          'Cannot select both diabetes and do not suffer.'),
+                          'لا يمكن اختيار السكري وعدم المعاناة في نفس الوقت.'),
                       backgroundColor: Colors.red,
                     ),
                   );
@@ -80,7 +76,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
               });
             }),
             Gap(29.h),
-            _buildCheckboxRow(context, 'high blood pressure', highBloodPressure,
+            _buildCheckboxRow(context, 'ارتفاع ضغط الدم', highBloodPressure,
                 (value) {
               setState(() {
                 if (doNotSuffer == false) {
@@ -90,7 +86,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
                     const SnackBar(
                       duration: Duration(milliseconds: 700),
                       content: Text(
-                          'Cannot select both high blood pressure and do not suffer.'),
+                          'لا يمكن اختيار ارتفاع ضغط الدم وعدم المعاناة في نفس الوقت.'),
                       backgroundColor: Colors.red,
                     ),
                   );
@@ -98,7 +94,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
               });
             }),
             Gap(29.h),
-            _buildCheckboxRow(context, 'heart disease', heartDisease, (value) {
+            _buildCheckboxRow(context, 'امراض القلب', heartDisease, (value) {
               setState(() {
                 if (doNotSuffer == false) {
                   heartDisease = value!;
@@ -107,7 +103,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
                     const SnackBar(
                       duration: Duration(milliseconds: 700),
                       content: Text(
-                          'Cannot select both heart disease and do not suffer.'),
+                          'لا يمكن اختيار امراض القلب وعدم المعاناة في نفس الوقت.'),
                       backgroundColor: Colors.red,
                     ),
                   );
@@ -116,7 +112,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
             }),
             Gap(29.h),
             _buildCheckboxRow(
-                context, 'respiratory diseases', respiratoryDiseases, (value) {
+                context, 'أمراض الجهاز التنفسي', respiratoryDiseases, (value) {
               setState(() {
                 if (doNotSuffer == false) {
                   respiratoryDiseases = value!;
@@ -125,7 +121,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
                     const SnackBar(
                       duration: Duration(milliseconds: 700),
                       content: Text(
-                          'Cannot select both respiratory diseases and do not suffer.'),
+                          'لا يمكن اختيار أمراض الجهاز التنفسي وعدم المعاناة في نفس الوقت.'),
                       backgroundColor: Colors.red,
                     ),
                   );
@@ -133,8 +129,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
               });
             }),
             Gap(29.h),
-            _buildCheckboxRow(context, 'kidney disease', kidneyDisease,
-                (value) {
+            _buildCheckboxRow(context, 'امراض الكلى', kidneyDisease, (value) {
               setState(() {
                 if (doNotSuffer == false) {
                   kidneyDisease = value!;
@@ -143,7 +138,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
                     const SnackBar(
                       duration: Duration(milliseconds: 700),
                       content: Text(
-                          'Cannot select both kidney disease and do not suffer.'),
+                          'لا يمكن اختيار امراض الكلى وعدم المعاناة في نفس الوقت.'),
                       backgroundColor: Colors.red,
                     ),
                   );
@@ -151,7 +146,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
               });
             }),
             Gap(29.h),
-            _buildCheckboxRow(context, 'bleeding disorders', bleedingDisorders,
+            _buildCheckboxRow(context, 'اضطرابات نزف الدم', bleedingDisorders,
                 (value) {
               setState(() {
                 if (doNotSuffer == false) {
@@ -161,7 +156,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
                     const SnackBar(
                       duration: Duration(milliseconds: 700),
                       content: Text(
-                          'Cannot select both bleeding disorders and do not suffer.'),
+                          'لا يمكن اختيار اضطرابات نزف الدم وعدم المعاناة في نفس الوقت.'),
                       backgroundColor: Colors.red,
                     ),
                   );
@@ -169,10 +164,8 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
               });
             }),
             Gap(29.h),
-            _buildCheckboxRow(
-                context,
-                'I do not suffer from any\nchronic disease',
-                doNotSuffer, (value) {
+            _buildCheckboxRow(context, 'لا اعاني من مرض مزمن', doNotSuffer,
+                (value) {
               setState(() {
                 doNotSuffer = value!;
                 if (value == true) {
@@ -197,7 +190,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     duration: Duration(milliseconds: 700),
-                    content: Text('Please select at least one option.'),
+                    content: Text('يرجى اختيار خيار واحد على الأقل.'),
                     backgroundColor: Colors.red,
                   ),
                 );
@@ -223,7 +216,7 @@ class _MedicalHistoryScreenState extends State<MedicalHistoryScreen> {
                 ),
                 (route) => false,
               );
-            }, 'Submit', 16.sp)
+            }, 'ادخال', 16.sp)
           ],
         ),
       ),

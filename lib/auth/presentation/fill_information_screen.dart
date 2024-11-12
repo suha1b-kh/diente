@@ -35,8 +35,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
   TextEditingController firstnameController = TextEditingController();
   TextEditingController secondnameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
-  TextEditingController genderController =
-      TextEditingController(text: 'gender');
+  TextEditingController genderController = TextEditingController(text: 'الجنس');
   TextEditingController phoneNumberController = TextEditingController();
 
   // List for the user's medical history
@@ -46,7 +45,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
   GlobalKey<FormState> formKey = GlobalKey(); //to validate form
 
   String? validateField(String? value) {
-    if (value == null || value.isEmpty || value == 'gender') {
+    if (value == null || value.isEmpty || value == 'الجنس') {
       return 'This field cannot be empty';
     }
     return null;
@@ -88,12 +87,28 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                   await _pickImage(ImageSource.gallery);
                 },
                 child: _imageFile == null
-                    ? const Center(
-                        child: CircleAvatar(
-                          radius: 61,
-                          backgroundImage:
-                              NetworkImage('https://via.placeholder.com/150'),
-                          //AssetImage('assets/images/profile_photo.png'),
+                    ? Center(
+                        child: Stack(
+                          children: [
+                            const CircleAvatar(
+                              radius: 61,
+                              backgroundImage:
+                                  AssetImage('assets/images/profile_photo.png'),
+                            ),
+                            Positioned(
+                              bottom: 10,
+                              right: 10,
+                              child: GestureDetector(
+                                onTap: () async {
+                                  await _pickImage(ImageSource.gallery);
+                                },
+                                child: const Image(
+                                  image:
+                                      AssetImage('assets/images/edit_icon.png'),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       )
                     : Center(
@@ -115,7 +130,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         CustomTextField(
                           validator: validateField,
                           controller: firstnameController,
-                          text: 'First name',
+                          text: 'الاسم الأول',
                           width: (330 / 2).w,
                           height: 56.h,
                         ),
@@ -123,7 +138,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                         CustomTextField(
                           validator: validateField,
                           controller: secondnameController,
-                          text: 'Second name',
+                          text: 'الاسم الثاني',
                           width: (330 / 2).w,
                           height: 56.h,
                         ),
@@ -134,7 +149,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                       validator: validateField,
                       keyboardType: TextInputType.number,
                       controller: ageController,
-                      text: 'Age',
+                      text: 'العمر',
                       width: 343.w,
                       height: 56.h,
                     ),
@@ -144,7 +159,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                       width: 343.w,
                       height: 56.h,
                       text: genderController.text,
-                      items: const ['Male', 'Female'],
+                      items: const ['ذكر', 'أنثى'],
                       selectedItem: null,
                       onChanged: (String? newValue) {
                         setState(() {
@@ -157,7 +172,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                       validator: validateField,
                       keyboardType: TextInputType.phone,
                       controller: phoneNumberController,
-                      text: 'Phone number',
+                      text: 'رقم الهاتف',
                       width: 343.w,
                       height: 56.h,
                     ),
@@ -214,7 +229,7 @@ class _FillProfileScreenState extends State<FillProfileScreen> {
                     }));
                   }
                 },
-                'Continue',
+                'استمر',
                 16.sp,
               ),
             ],

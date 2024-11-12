@@ -53,7 +53,7 @@ class CustomTextField extends StatelessWidget {
               borderSide: BorderSide.none,
             ),
             labelText: text,
-            labelStyle: GoogleFonts.inter(
+            labelStyle: GoogleFonts.cairo(
               color: Theme.of(context).colorScheme.inversePrimary,
               fontSize: 14.sp,
               fontWeight: FontWeight.w400,

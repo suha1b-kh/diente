@@ -31,7 +31,7 @@ class _SignupScreenState extends State<SignupScreen> {
   //validate function
   String? validateField(String? value) {
     if (value == null || value.isEmpty) {
-      return 'This field cannot be empty';
+      return 'هذا الحقل لا يمكن أن يكون فارغًا';
     }
     return null;
   }
@@ -84,18 +84,22 @@ class _SignupScreenState extends State<SignupScreen> {
                 key: formKey,
                 child: ListView(
                   children: [
-                    customText(
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: customText(
                         context,
-                        'Create your \nAccount',
+                        'انشاء حساب',
                         Theme.of(context).colorScheme.primary,
                         32.sp,
-                        FontWeight.bold),
+                        FontWeight.bold,
+                      ),
+                    ),
                     Gap(77.h),
                     CustomTextField(
                       width: 343.w,
                       height: 56.h,
                       controller: emailController,
-                      text: 'Enter your email',
+                      text: 'ادخل البريد الالكتروني',
                       validator: validateField,
                     ),
                     Gap(16.h),
@@ -103,7 +107,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       width: 343.w,
                       height: 56.h,
                       controller: passwordController,
-                      text: 'Enter your password',
+                      text: 'ادخل كلمة المرور',
                       icon: passwordVisible
                           ? Icons.visibility
                           : Icons.visibility_off,
@@ -120,7 +124,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       width: 343.w,
                       height: 56.h,
                       controller: confirmPasswordController,
-                      text: 'Confirm password',
+                      text: 'تأكيد كلمة المرور',
                       icon: passwordVisible
                           ? Icons.visibility
                           : Icons.visibility_off,
@@ -151,12 +155,12 @@ class _SignupScreenState extends State<SignupScreen> {
                         } else {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(
-                            content: Text('Passwords do not match'),
+                            content: Text('كلمات المرور غير متطابقة'),
                             backgroundColor: Colors.red,
                           ));
                         }
                       },
-                      'Sign Up',
+                      'انشاء حساب',
                       16.sp,
                     ),
                     Gap(24.h),
@@ -166,13 +170,6 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            customText(
-                              context,
-                              'Already have an account? ',
-                              Theme.of(context).colorScheme.primary,
-                              14.sp,
-                              FontWeight.normal,
-                            ),
                             GestureDetector(
                               onTap: () {
                                 Navigator.popAndPushNamed(
@@ -180,10 +177,17 @@ class _SignupScreenState extends State<SignupScreen> {
                               },
                               child: customText(
                                   context,
-                                  'Login',
+                                  'تسجيل الدخول',
                                   Theme.of(context).colorScheme.secondary,
                                   14.sp,
                                   FontWeight.normal),
+                            ),
+                            customText(
+                              context,
+                              ' هل لديك حساب بالفعل؟ ',
+                              Theme.of(context).colorScheme.primary,
+                              14.sp,
+                              FontWeight.normal,
                             ),
                           ],
                         ),

@@ -28,10 +28,12 @@ class CustomHeader extends StatelessWidget {
                 child: Row(
                   children: [
                     //patient image
-                    CircleAvatar(
-                      radius: 20.r,
-                      backgroundImage: patientImage ??
-                          const AssetImage('assets/images/patient.png'),
+                    Center(
+                      child: CircleAvatar(
+                        radius: 20.r,
+                        backgroundImage: patientImage ??
+                            const AssetImage('assets/images/patient.png'),
+                      ),
                     ),
                     SizedBox(
                       width: 8.w,
