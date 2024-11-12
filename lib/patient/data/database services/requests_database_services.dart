@@ -152,6 +152,9 @@ class RequestDatabaseServices {
             } else if (data['caseStatus'] == 'active') {
               return 'Active';
             }
+            else if (data['caseStatus'] == 'rejected') {
+              return 'Rejected';
+            }
           }
         }
         return 'Finished';
