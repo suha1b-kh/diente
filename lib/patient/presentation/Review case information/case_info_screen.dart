@@ -63,7 +63,19 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+        onWillPop: () async {
+      // Navigate back to the home page when the back button is pressed
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => PatientHomeScreen(
+                userModel: widget.user,
+              )),
+              (Route route) => false);
+      return false; // Returning false prevents the default back button behavior
+    },
+    child:
+      Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
@@ -227,6 +239,7 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
               })
         ],
       ),
+    )
     );
   }
 }
