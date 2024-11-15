@@ -8,20 +8,58 @@ FirebaseAuth auth = FirebaseAuth.instance;
 FirebaseFirestore db = FirebaseFirestore.instance;
 
 Future<void> addReport(ReportModel report) async {
+  // Ensure the user is authenticated
+  if (auth.currentUser == null) {
+    log('User is not authenticated');
+    return;
+  }
+
+  // Fetch the student's document
   DocumentSnapshot studentDoc =
       await db.collection('students').doc(auth.currentUser!.uid).get();
 
-  if (studentDoc['caseStatus'] == 'finished') {
+  // Check if the document exists
+  if (!studentDoc.exists) {
+    log('Student document does not exist for UID: ${auth.currentUser!.uid}');
+    return;
+  }
+
+  // Check the case status
+  if ((studentDoc.data() as Map<String, dynamic>?)?['caseStatus'] ==
+      'finished') {
+    log('Case status is finished. Report will not be added.');
     return;
   }
 
   try {
+    // Retrieve the data as a map
+    Map<String, dynamic>? studentData =
+        studentDoc.data() as Map<String, dynamic>?;
+
+    // Check if the reports field exists; if not, initialize it
+    if (studentData != null && !studentData.containsKey('reports')) {
+      log('Reports field does not exist. Initializing it as an empty array.');
+      await db
+          .collection('students')
+          .doc(auth.currentUser!.uid)
+          .update({'reports': []});
+    }
+
+    // Create the report map to add
+    final reportData = {
+      'reportId': report.reportId,
+      'reportPic': report.reportPic,
+      'caseName': report.caseName,
+    };
+
+    // Add the report to the reports array
     await db.collection('students').doc(auth.currentUser!.uid).update({
-      'reports': FieldValue.arrayUnion([report.toJson()])
+      'reports': FieldValue.arrayUnion([reportData])
     });
-    log('report added');
+
+    log('Report added successfully: $reportData');
   } on FirebaseException catch (e) {
-    log('error $e');
+    log('Error adding report: $e');
   }
 }
 

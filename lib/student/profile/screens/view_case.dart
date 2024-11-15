@@ -134,6 +134,7 @@ class ViewCase extends StatelessWidget {
             Gap(11.h),
             customButton(context, Theme.of(context).colorScheme.primary, () {
               chooseCase(caseId);
+              Navigator.pop(context);
             }, 'Select case', 16)
           ],
         ),
