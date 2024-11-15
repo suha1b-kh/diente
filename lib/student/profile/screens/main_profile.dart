@@ -77,7 +77,7 @@ class _mainProfileState extends State<MainStudentProfile> {
                 height: 0.h,
               ),
             ),
-            Gap(57.h),
+            Gap(20.h),
             Text(
               'Diente student  Reports',
               textAlign: TextAlign.center,
@@ -108,13 +108,13 @@ class _mainProfileState extends State<MainStudentProfile> {
         ),
       ),
       //TODO add reports
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          //TODO: sad
-        },
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     //TODO: sad
+      //   },
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 }

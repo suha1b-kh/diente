@@ -99,6 +99,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     //log(user!.emailVerified.toString());
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       builder: (context, widget) {
         ScreenUtil.init(context, designSize: const Size(375, 812));
         // return const HomeScreen();
