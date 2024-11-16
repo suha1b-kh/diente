@@ -65,181 +65,186 @@ class _CaseInformationScreenState extends State<CaseInformationScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async {
-      // Navigate back to the home page when the back button is pressed
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => PatientHomeScreen(
-                userModel: widget.user,
-              )),
+          // Navigate back to the home page when the back button is pressed
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (context) => PatientHomeScreen(
+                        userModel: widget.user,
+                      )),
               (Route route) => false);
-      return false; // Returning false prevents the default back button behavior
-    },
-    child:
-      Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-          ),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              log(widget.user.firstName);
-              return PatientHomeScreen(
-                userModel: widget.user,
-              );
-            }));
-          },
-        ),
-      ),
-      body: ListView(
-        children: [
-          //patient image and name
-          PatientImageAndName(
-              patientName: "${widget.user.firstName} ${widget.user.secondName}",
-              patientImage: NetworkImage(widget.user.profilePic)),
-          SizedBox(
-            height: 31.h,
-          ),
-          //disease name
-          Center(
-            child: SizedBox(
-                width: 346.w,
-                height: 70.h,
-                child: FutureBuilder<String>(
-                    future: getData(uid),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else {
-                        log(snapshot.data!);
-                        return Text(snapshot.data!,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontSize: 32.sp,
-                              fontFamily: 'NotoSansArabic',
-                              fontWeight: FontWeight.w700,
-                            ));
-                      }
-                    })),
-          ),
-          SizedBox(
-            height: 17.h,
-          ),
-          //Case Status
-          Center(
-            child: SizedBox(
-                width: 168.w,
-                height: 40.h,
-                child: FutureBuilder<String>(
-                    future: getCaseStatus(uid),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else {
-                        log(snapshot.data!);
-                        return Text(
-                          snapshot.data!,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: widget.getColor(snapshot.data!),
-                            fontSize: 21.sp,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        );
-                      }
-                    })),
-          ),
-          SizedBox(
-            height: 120.h,
-          ),
-          //Review patient history button
-          CustomButton(
-            width: 342.w,
-            height: 55.h,
-            borderRadius: 50.r,
-            color: Theme.of(context).colorScheme.secondary,
-            fontColor: Colors.white,
-            borderColor: Theme.of(context).colorScheme.secondary,
-            text: "مراجعة السجل المرضي",
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return MedicalHistoryScreen(user: widget.user);
-              }));
-            },
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          //remove case button
-          FutureBuilder<String>(
-              future: getCaseStatus(uid),
-              builder: (context, snapshot) {
-                if (snapshot.data == "Waiting") {
-                  return CustomButton(
-                    width: 342.w,
-                    height: 55.h,
-                    borderRadius: 50.r,
-                    color: const Color(0xFFEF0107),
-                    fontColor: Colors.white,
-                    borderColor: const Color(0xFFEF0107),
-                    text: "الغاء الموعد",
-                    onTap: () async {
-                      final uid = FirebaseAuth.instance.currentUser!.uid;
-                      String location =
-                          await RequestDatabaseServices().getCaseLocation(uid);
-                      if (location == "requests") {
-                        await RequestDatabaseServices().deleteRequest(uid);
-                      } else if (location == "acceptedRequests") {
-                        await RequestDatabaseServices()
-                            .deleteAcceptedRequest(uid);
-                      }
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                NoCasesScreen(user: widget.user)),
-                      );
-
-                      log('الغاء');
-                    },
+          return false; // Returning false prevents the default back button behavior
+        },
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+              ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  log(widget.user.firstName);
+                  return PatientHomeScreen(
+                    userModel: widget.user,
                   );
-                } else {
-                  return CustomButton(
-                    width: 342.w,
-                    height: 55.h,
-                    borderRadius: 50.r,
-                    color: const Color(0xFFEF0107),
-                    fontColor: Colors.white,
-                    borderColor: const Color(0xFFEF0107),
-                    text: "الغاء الموعد",
-                    onTap: () async {
-                      final uid = FirebaseAuth.instance.currentUser!.uid;
-                      String location =
-                          await RequestDatabaseServices().getCaseLocation(uid);
-                      if (location == "requests") {
-                        await RequestDatabaseServices().deleteRequest(uid);
-                      } else if (location == "acceptedRequests") {
-                        await RequestDatabaseServices()
-                            .deleteAcceptedRequest(uid);
-                      }
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                NoCasesScreen(user: widget.user)),
-                      );
+                }));
+              },
+            ),
+          ),
+          body: ListView(
+            children: [
+              //patient image and name
+              PatientImageAndName(
+                  patientName:
+                      "${widget.user.firstName} ${widget.user.secondName}",
+                  patientImage: NetworkImage(widget.user.profilePic)),
+              SizedBox(
+                height: 31.h,
+              ),
+              //disease name
+              Center(
+                child: SizedBox(
+                    width: 346.w,
+                    height: 70.h,
+                    child: FutureBuilder<String>(
+                        future: getData(uid),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else {
+                            log(snapshot.data!);
+                            return Text(snapshot.data!,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  fontSize: 32.sp,
+                                  fontFamily: 'NotoSansArabic',
+                                  fontWeight: FontWeight.w700,
+                                ));
+                          }
+                        })),
+              ),
+              SizedBox(
+                height: 17.h,
+              ),
+              //Case Status
+              Center(
+                child: SizedBox(
+                    width: 168.w,
+                    height: 40.h,
+                    child: FutureBuilder<String>(
+                        future: getCaseStatus(uid),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else {
+                            log(snapshot.data!);
+                            return Text(
+                              snapshot.data!,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: widget.getColor(snapshot.data!),
+                                fontSize: 21.sp,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            );
+                          }
+                        })),
+              ),
+              SizedBox(
+                height: 120.h,
+              ),
+              //Review patient history button
+              CustomButton(
+                width: 342.w,
+                height: 55.h,
+                borderRadius: 50.r,
+                color: Theme.of(context).colorScheme.secondary,
+                fontColor: Colors.white,
+                borderColor: Theme.of(context).colorScheme.secondary,
+                text: "مراجعة السجل المرضي",
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return MedicalHistoryScreen(user: widget.user);
+                  }));
+                },
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              //remove case button
+              FutureBuilder<String>(
+                  future: getCaseStatus(uid),
+                  builder: (context, snapshot) {
+                    if (snapshot.data == "Waiting") {
+                      return CustomButton(
+                        width: 342.w,
+                        height: 55.h,
+                        borderRadius: 50.r,
+                        color: const Color(0xFFEF0107),
+                        fontColor: Colors.white,
+                        borderColor: const Color(0xFFEF0107),
+                        text: "الغاء الموعد",
+                        onTap: () async {
+                          final uid = FirebaseAuth.instance.currentUser!.uid;
+                          String location = await RequestDatabaseServices()
+                              .getCaseLocation(uid);
+                          if (location == "requests") {
+                            await RequestDatabaseServices().deleteRequest(uid);
+                          } else if (location == "acceptedRequests") {
+                            await RequestDatabaseServices()
+                                .deleteAcceptedRequest(uid);
+                          }
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    NoCasesScreen(user: widget.user)),
+                          );
 
-                      log('الغاء');
-                    },
-                  );
-                }
-              })
-        ],
-      ),
-    )
-    );
+                          log('الغاء');
+                        },
+                      );
+                    } else {
+                      return CustomButton(
+                        width: 342.w,
+                        height: 55.h,
+                        borderRadius: 50.r,
+                        color: const Color(0xFFEF0107).withOpacity(0.3),
+                        fontColor: Colors.white,
+                        borderColor: const Color(0xFFEF0107).withOpacity(0),
+                        text: "الغاء الموعد",
+                        onTap: () async {
+                          final uid = FirebaseAuth.instance.currentUser!.uid;
+                          String location = await RequestDatabaseServices()
+                              .getCaseLocation(uid);
+                          if (location == "requests") {
+                            await RequestDatabaseServices().deleteRequest(uid);
+                          } else if (location == "acceptedRequests") {
+                            await RequestDatabaseServices()
+                                .deleteAcceptedRequest(uid);
+                          }
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    NoCasesScreen(user: widget.user)),
+                          );
+
+                          log('الغاء');
+                        },
+                      );
+                    }
+                  })
+            ],
+          ),
+        ));
   }
 }

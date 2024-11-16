@@ -51,8 +51,8 @@ class _MainAppState extends State<MainApp> {
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
-          // log(snapshot.error.toString());
-          return const SignupScreen();
+          log('error ${snapshot.error.toString()}');
+          return const HomeScreen();
         }
 
         // Check if data has been fetched
