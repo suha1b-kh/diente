@@ -147,7 +147,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           if (formKey.currentState!.validate()) {
                             // Regular expression to check password strength
                             RegExp regex = RegExp(
-                                r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+                                r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@#$%^&+=]{8,}$');
                             if (regex.hasMatch(passwordController.text)) {
                               BlocProvider.of<SignupBloc>(context).add(
                                 SubmitSignup(

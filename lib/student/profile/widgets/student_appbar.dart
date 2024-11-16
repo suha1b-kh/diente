@@ -25,7 +25,16 @@ class StudentAppbar extends StatelessWidget {
                       )),
             ),
             child: CircleAvatar(
-              backgroundImage: NetworkImage(student.profilePic),
+              radius: 20,
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              child: Text(
+                student.name.substring(0, 2).toUpperCase(),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
           Gap(15.w),

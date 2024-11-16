@@ -59,9 +59,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 15.w),
+                  padding: EdgeInsets.only(
+                    left: 15.w,
+                  ),
                   child: DropdownMenu(
-                    width: 282.w,
+                    width: 250.w,
                     menuHeight: 300.h,
                     initialSelection: treatmentType,
                     textStyle: const TextStyle(color: Colors.black),
@@ -160,9 +162,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
             Wrap(
               children: [
-                SizedBox(
-                  width: 15.w,
-                ),
+                // SizedBox(
+                //   width: 15.w,
+                // ),
                 SizedBox(
                   width: 140.w,
                   height: 50.h,
@@ -184,9 +186,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 10.h,
-                ),
+                // SizedBox(
+                //   width: 15.w,
+                // ),
                 SizedBox(
                   width: 140.w,
                   height: 50.h,
@@ -227,6 +229,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 padding: EdgeInsets.only(left: 15.w, right: 10.w),
                 child: SizedBox(
                   width: 266.w,
+                  height: 70.h,
                   child: TextFormField(
                     controller: toothNumController,
                     keyboardType: TextInputType.number,
@@ -246,11 +249,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   ),
                 )),
             Padding(
-              padding: const EdgeInsets.only(top: 50),
+              padding: const EdgeInsets.only(top: 50, bottom: 20),
               child: Center(
                 child: SizedBox(
                   width: 150.w,
-                  height: 40.h,
+                  height: 50.h,
                   child: TextButton(
                     onPressed: () async {
                       minAge = minAgeController.text.isNotEmpty

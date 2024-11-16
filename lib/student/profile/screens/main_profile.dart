@@ -36,7 +36,6 @@ class _mainProfileState extends State<MainStudentProfile> {
 
       // If a file is picked, update the state to display it
       if (pickedFile != null) {
-        //TODO: refactor using bloc
         setState(() {
           _imageFile = File(pickedFile.path);
           log('sss');
@@ -63,8 +62,17 @@ class _mainProfileState extends State<MainStudentProfile> {
           children: [
             Center(
               child: CircleAvatar(
-                  radius: 50.r,
-                  backgroundImage: NetworkImage(widget.student.profilePic)),
+                radius: 50.r,
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                child: Text(
+                  widget.student.name.substring(0, 2).toUpperCase(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
             Gap(20.h),
             Text(
@@ -107,14 +115,6 @@ class _mainProfileState extends State<MainStudentProfile> {
           ],
         ),
       ),
-      //TODO add reports
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     //TODO: sad
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
     );
   }
 }

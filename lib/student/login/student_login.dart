@@ -179,8 +179,6 @@ class _StudentLoginBodyWidgetState extends State<StudentLoginBodyWidget> {
                 ),
               ),
             ),
-            Gap(24.h),
-            google(context),
           ],
         ),
       ),
