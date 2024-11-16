@@ -145,12 +145,24 @@ class _SignupScreenState extends State<SignupScreen> {
                         if (passwordController.text ==
                             confirmPasswordController.text) {
                           if (formKey.currentState!.validate()) {
-                            BlocProvider.of<SignupBloc>(context).add(
-                              SubmitSignup(
-                                email: emailController.text,
-                                password: passwordController.text,
-                              ),
-                            );
+                            // Regular expression to check password strength
+                            RegExp regex = RegExp(
+                                r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+                            if (regex.hasMatch(passwordController.text)) {
+                              BlocProvider.of<SignupBloc>(context).add(
+                                SubmitSignup(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text(
+                                    'كلمة المرور يجب أن تحتوي على 8 أحرف على الأقل، حرف واحد ورقم واحد على الأقل'),
+                                backgroundColor: Colors.red,
+                              ));
+                            }
                           }
                         } else {
                           ScaffoldMessenger.of(context)
