@@ -19,13 +19,16 @@ class Filter {
   var translation = {
     "General diagnosis": "فحص روتيني",
     "Composite restoration": "حشوة تجميلية",
-    "Fixed prosthesis": "تيجان وجسور",
     "Front tooth decay": "تسوس الاسنان الامامية",
     "Back tooth decay": "تسوس الاسنان الخلفية",
-    "Root canal treatment": "علاج عصب الاسنان",
+    "Root canal treatment": "عصب الاسنان",
     "Extraction": "خلع اسنان",
-    "Dental fillings": "حشوات تجميلية",
     "Removable partial denture": "طقم كامل متحرك",
+  };
+
+  var genderTranslate ={
+    "ذكر":"Male",
+    "أنثى":"Female"
   };
 
   getPatientWithSpecificDisease(diseaseName) async {
@@ -64,7 +67,7 @@ class Filter {
       final patient = await DatabaseServices()
           .getPatient(casesWithSpecificDisease[i].patientId);
       if (this.gender != "all") {
-        if (patient.gender != this.gender) {
+        if (genderTranslate[patient.gender] != this.gender) {
           continue;
         }
       }

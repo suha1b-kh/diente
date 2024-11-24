@@ -46,7 +46,7 @@ class _DiseaseSelectionScreenState extends State<DiseaseSelectionScreen> {
       description: "يتم علاج عصب الاسنان",
     ),
     Disease(
-      name: "حشوات تجميلية",
+      name: "حشوة تجميلية",
       description: "علاج كسور الاسنان",
     ),
     Disease(
