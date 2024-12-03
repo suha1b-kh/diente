@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diente/auth/data/models/user.dart';
 import 'package:diente/core/widgets/buttons.dart';
 import 'package:diente/core/widgets/text.dart';
@@ -9,6 +10,7 @@ import 'package:diente/student/data/models/report_model.dart';
 import 'package:diente/student/data/services/choose_case.dart';
 import 'package:diente/student/data/services/reports_services.dart';
 import 'package:diente/student/profile/screens/add_report_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -334,7 +336,14 @@ class _ViewActiveCaseState extends State<ViewActiveCase> {
                             caseId: widget.caseId,
                             patient: widget.patient,
                           )));
-            }, 'Finish Case', 16)
+            }, 'Finish Case', 16),
+            customButton(context, Colors.red, () {
+              FirebaseFirestore.instance
+                  .collection('acceptedRequests')
+                  .doc(widget.caseId)
+                  .update({'caseStatus': 'accepted'});
+              Navigator.pop(context);
+            }, 'reject case', 16),
           ],
         ),
       ),
