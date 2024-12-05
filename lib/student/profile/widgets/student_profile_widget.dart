@@ -1,19 +1,26 @@
+import 'package:diente/student/data/models/student.dart';
+import 'package:diente/student/profile/screens/students_reports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class StudentProfileWidget extends StatelessWidget {
+  dynamic stdModel;
   StudentProfileWidget({
     super.key,
-    required this.studentName,
-    required this.studentYear,
-    required this.phone,
-    required this.profilePic,
-  });
-  String studentName;
-  String studentYear;
-  String profilePic;
-  String phone;
+    this.stdModel
+});
+  // StudentProfileWidget({
+  //   super.key,
+  //   required this.studentName,
+  //   required this.studentYear,
+  //   required this.phone,
+  //   required this.profilePic,
+  // });
+  // String studentName;
+  // String studentYear;
+  // String profilePic;
+  // String phone;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -36,10 +43,10 @@ class StudentProfileWidget extends StatelessWidget {
                   radius: 30.r,
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                   backgroundImage:
-                      profilePic.isNotEmpty ? NetworkImage(profilePic) : null,
-                  child: profilePic.isEmpty
+                      stdModel.profilePic.isNotEmpty ? NetworkImage(stdModel.profilePic) : null,
+                  child:  stdModel.profilePic.isEmpty
                       ? Text(
-                          '${studentName[0].toUpperCase()}${studentName[1].toUpperCase()}')
+                          '${stdModel.name[0].toUpperCase()}${stdModel.name[1].toUpperCase()}')
                       : null,
                 ),
                 Gap(20.w),
@@ -48,9 +55,9 @@ class StudentProfileWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 210.w,
+                      width: 190.w,
                       child: Text(
-                        studentName,
+                        stdModel.name,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                           fontSize: 16.sp,
@@ -61,7 +68,7 @@ class StudentProfileWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      studentYear,
+                      stdModel.year,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary,
                         fontSize: 14.sp,
@@ -72,7 +79,15 @@ class StudentProfileWidget extends StatelessWidget {
                     )
                   ],
                 ),
-                const Icon(Icons.arrow_forward_ios),
+                IconButton(icon: const Icon(Icons.arrow_forward_ios),onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ViewReports(
+                          stdModel: stdModel
+                        )),
+                  );
+                },),
               ],
             ),
           ),

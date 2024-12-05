@@ -343,7 +343,7 @@ class _ViewActiveCaseState extends State<ViewActiveCase> {
                   .doc(widget.caseId)
                   .update({'caseStatus': 'accepted'});
               Navigator.pop(context);
-            }, 'reject case', 16),
+            }, 'stop treating this case', 16),
           ],
         ),
       ),

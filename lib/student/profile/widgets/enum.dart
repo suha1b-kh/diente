@@ -81,10 +81,11 @@ class ListWidgets extends StatelessWidget {
                 final student = snapshot.data![index] as StudentModel;
 
                 return StudentProfileWidget(
-                  studentName: student.name,
-                  studentYear: student.year,
-                  phone: student.phone,
-                  profilePic: student.profilePic,
+                  stdModel: student,
+                  // studentName: student.name,
+                  // studentYear: student.year,
+                  // phone: student.phone,
+                  // profilePic: student.profilePic,
                 );
                 //patients list
               } else if (widgetType == WidgetType.patient)
