@@ -49,96 +49,207 @@ class ViewCase extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            CircleAvatar(
-              backgroundImage: NetworkImage(profilePic),
-              radius: 70.r,
-            ),
-            Gap(20.w),
-            customText(context, patientName,
-                Theme.of(context).colorScheme.primary, 20.sp, FontWeight.w600),
-            customText(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Column(
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(profilePic),
+                radius: 70.r,
+              ),
+              Gap(20.h),
+              customText(
                 context,
-                'case type: $caseName',
-                Theme.of(context).colorScheme.secondary,
-                24.sp,
-                FontWeight.w500),
-            customText(
-                context,
-                'tooth number: $toothNum',
-                Theme.of(context).colorScheme.secondary,
-                24.sp,
-                FontWeight.w500),
-            Gap(11.h),
-            customText(
-                context,
-                'patient number: $phoneNum',
-                Theme.of(context).colorScheme.secondary,
-                20.sp,
-                FontWeight.w500),
-            Gap(11.h),
-            customText(
-                context,
-                'patient age: $age',
-                Theme.of(context).colorScheme.secondary,
-                20.sp,
-                FontWeight.w500),
-            Gap(38.h),
-            customText(
-                context,
-                'bleedingDisorders:  ${medicalHistory['bleedingDisorders']}',
-                Theme.of(context).colorScheme.secondary,
-                20.sp,
-                FontWeight.w500),
-            Gap(11.h),
-            customText(
-                context,
-                'diabetes:  ${medicalHistory['diabetes']}',
-                Theme.of(context).colorScheme.secondary,
-                20.sp,
-                FontWeight.w500),
-            Gap(11.h),
-            customText(
-                context,
-                'doNotSuffer:  ${medicalHistory['doNotSuffer']}',
-                Theme.of(context).colorScheme.secondary,
-                20.sp,
-                FontWeight.w500),
-            Gap(11.h),
-            customText(
-                context,
-                'heartDisease:  ${medicalHistory['heartDisease']}',
-                Theme.of(context).colorScheme.secondary,
-                20.sp,
-                FontWeight.w500),
-            Gap(11.h),
-            customText(
-                context,
-                'highBloodPressure:  ${medicalHistory['highBloodPressure']}',
-                Theme.of(context).colorScheme.secondary,
-                20.sp,
-                FontWeight.w500),
-            Gap(11.h),
-            customText(
-                context,
-                'kidneyDisease:  ${medicalHistory['kidneyDisease']}',
-                Theme.of(context).colorScheme.secondary,
-                20.sp,
-                FontWeight.w500),
-            Gap(11.h),
-            customText(
-                context,
-                'respiratoryDiseases:  ${medicalHistory['respiratoryDiseases']}',
-                Theme.of(context).colorScheme.secondary,
-                20.sp,
-                FontWeight.w500),
-            Gap(11.h),
-            customButton(context, Theme.of(context).colorScheme.primary, () {
-              chooseCase(caseId);
-              Navigator.pop(context);
-            }, 'Select case', 16)
-          ],
+                patientName,
+                Theme.of(context).colorScheme.primary,
+                32.sp,
+                FontWeight.w500,
+              ),
+              Gap(20.w),
+              ExpansionTile(
+                shape: const RoundedRectangleBorder(
+                  side: BorderSide.none,
+                ),
+                iconColor: Theme.of(context).colorScheme.primary,
+                childrenPadding: EdgeInsets.zero,
+                tilePadding: EdgeInsets.zero,
+                collapsedIconColor: Theme.of(context).colorScheme.primary,
+                title: customText(
+                    context,
+                    'Patient Information',
+                    Theme.of(context).colorScheme.primary,
+                    20.sp,
+                    FontWeight.w600),
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      customText(
+                        context,
+                        'Case Name:',
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500,
+                      ),
+                      customText(
+                        context,
+                        caseName,
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500,
+                      ),
+                    ],
+                  ),
+                  Gap(11.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      customText(
+                        context,
+                        'Tooth Number:',
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500,
+                      ),
+                      customText(
+                        context,
+                        toothNum,
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500,
+                      ),
+                    ],
+                  ),
+                  Gap(11.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      customText(
+                        context,
+                        'Phone Number:',
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500,
+                      ),
+                      customText(
+                        context,
+                        phoneNum,
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500,
+                      ),
+                    ],
+                  ),
+                  Gap(11.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      customText(
+                        context,
+                        'Age:',
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500,
+                      ),
+                      customText(
+                        context,
+                        age,
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Gap(50.h),
+              ExpansionTile(
+                shape: const RoundedRectangleBorder(
+                  side: BorderSide.none,
+                ),
+                iconColor: Theme.of(context).colorScheme.primary,
+                childrenPadding: EdgeInsets.zero,
+                tilePadding: EdgeInsets.zero,
+                collapsedIconColor: Theme.of(context).colorScheme.primary,
+                title: customText(
+                    context,
+                    'Medical History',
+                    Theme.of(context).colorScheme.primary,
+                    20.sp,
+                    FontWeight.w600),
+                children: [
+                  if (medicalHistory['bleedingDisorders'] == true)
+                    ListTile(
+                      title: customText(
+                          context,
+                          'Bleeding Disorders',
+                          Theme.of(context).colorScheme.primary,
+                          20.sp,
+                          FontWeight.w500),
+                    ),
+                  if (medicalHistory['diabetes'] == true)
+                    ListTile(
+                      title: customText(
+                          context,
+                          'Diabetes',
+                          Theme.of(context).colorScheme.primary,
+                          20.sp,
+                          FontWeight.w500),
+                    ),
+                  if (medicalHistory['heartDisease'] == true)
+                    ListTile(
+                      title: customText(
+                          context,
+                          'Heart Disease',
+                          Theme.of(context).colorScheme.primary,
+                          20.sp,
+                          FontWeight.w500),
+                    ),
+                  if (medicalHistory['highBloodPressure'] == true)
+                    ListTile(
+                      title: customText(
+                          context,
+                          'High Blood Pressure',
+                          Theme.of(context).colorScheme.primary,
+                          20.sp,
+                          FontWeight.w500),
+                    ),
+                  if (medicalHistory['kidneyDisease'] == true)
+                    ListTile(
+                      title: customText(
+                          context,
+                          'Kidney Disease',
+                          Theme.of(context).colorScheme.primary,
+                          20.sp,
+                          FontWeight.w500),
+                    ),
+                  if (medicalHistory['respiratoryDiseases'] == true)
+                    ListTile(
+                      title: customText(
+                          context,
+                          'Respiratory Diseases',
+                          Theme.of(context).colorScheme.primary,
+                          20.sp,
+                          FontWeight.w500),
+                    ),
+                  if (medicalHistory['doNotSuffer'] == true)
+                    ListTile(
+                      title: customText(
+                          context,
+                          'Do Not Suffer',
+                          Theme.of(context).colorScheme.primary,
+                          20.sp,
+                          FontWeight.w500),
+                    ),
+                ],
+              ),
+              Gap(150.h),
+              customButton(context, Theme.of(context).colorScheme.primary, () {
+                chooseCase(caseId);
+                Navigator.pop(context);
+              }, 'Select case', 16)
+            ],
+          ),
         ),
       ),
     );
@@ -206,145 +317,233 @@ class _ViewActiveCaseState extends State<ViewActiveCase> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            CircleAvatar(
-              backgroundImage: NetworkImage(widget.patient.profilePic),
-              radius: 70.r,
-            ),
-            Gap(20.w),
-            customText(
-                context,
-                '${widget.patient.firstName} ${widget.patient.secondName}',
-                Theme.of(context).colorScheme.primary,
-                20.sp,
-                FontWeight.w600),
-            Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  customText(
-                      context,
-                      'case type: ${widget.caseName}',
-                      Theme.of(context).colorScheme.secondary,
-                      20.sp,
-                      FontWeight.w500),
-                  customText(
-                      context,
-                      'tooth number: ${widget.toothNum}',
-                      Theme.of(context).colorScheme.secondary,
-                      20.sp,
-                      FontWeight.w500),
-                  Gap(11.h),
-                  customText(
-                      context,
-                      'patient number: ${widget.patient.phoneNum}',
-                      Theme.of(context).colorScheme.secondary,
-                      20.sp,
-                      FontWeight.w500),
-                  Gap(11.h),
-                  customText(
-                      context,
-                      'patient age: ${widget.patient.age}',
-                      Theme.of(context).colorScheme.secondary,
-                      20.sp,
-                      FontWeight.w500),
-                ],
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Column(
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(widget.patient.profilePic),
+                radius: 70.r,
               ),
-            ),
-            Gap(38.h),
-            Container(
-              padding: EdgeInsets.all(20.w),
-              width: 355.w,
-              decoration: ShapeDecoration(
-                color: Theme.of(context).colorScheme.secondary,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+              Gap(20.w),
+              customText(
+                  context,
+                  '${widget.patient.firstName} ${widget.patient.secondName}',
+                  Theme.of(context).colorScheme.primary,
+                  32.sp,
+                  FontWeight.w600),
+              Gap(20.h),
+              Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ExpansionTile(
+                      shape: const RoundedRectangleBorder(
+                        side: BorderSide.none,
+                      ),
+                      iconColor: Theme.of(context).colorScheme.primary,
+                      childrenPadding: EdgeInsets.zero,
+                      tilePadding: EdgeInsets.zero,
+                      collapsedIconColor: Theme.of(context).colorScheme.primary,
+                      title: customText(
+                          context,
+                          'Patient Information',
+                          Theme.of(context).colorScheme.primary,
+                          20.sp,
+                          FontWeight.w600),
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            customText(
+                              context,
+                              'Case Name:',
+                              Theme.of(context).colorScheme.primary,
+                              20.sp,
+                              FontWeight.w500,
+                            ),
+                            customText(
+                              context,
+                              widget.caseName,
+                              Theme.of(context).colorScheme.primary,
+                              20.sp,
+                              FontWeight.w500,
+                            ),
+                          ],
+                        ),
+                        Gap(11.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            customText(
+                              context,
+                              'Tooth Number:',
+                              Theme.of(context).colorScheme.primary,
+                              20.sp,
+                              FontWeight.w500,
+                            ),
+                            customText(
+                              context,
+                              widget.toothNum,
+                              Theme.of(context).colorScheme.primary,
+                              20.sp,
+                              FontWeight.w500,
+                            ),
+                          ],
+                        ),
+                        Gap(11.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            customText(
+                              context,
+                              'Phone Number:',
+                              Theme.of(context).colorScheme.primary,
+                              20.sp,
+                              FontWeight.w500,
+                            ),
+                            customText(
+                              context,
+                              widget.patient.phoneNum,
+                              Theme.of(context).colorScheme.primary,
+                              20.sp,
+                              FontWeight.w500,
+                            ),
+                          ],
+                        ),
+                        Gap(11.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            customText(
+                              context,
+                              'Age:',
+                              Theme.of(context).colorScheme.primary,
+                              20.sp,
+                              FontWeight.w500,
+                            ),
+                            customText(
+                              context,
+                              widget.patient.age,
+                              Theme.of(context).colorScheme.primary,
+                              20.sp,
+                              FontWeight.w500,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Gap(38.h),
+              ExpansionTile(
+                shape: const RoundedRectangleBorder(
+                  side: BorderSide.none,
+                ),
+                iconColor: Theme.of(context).colorScheme.primary,
+                childrenPadding: EdgeInsets.zero,
+                tilePadding: EdgeInsets.zero,
+                collapsedIconColor: Theme.of(context).colorScheme.primary,
+                title: customText(
+                    context,
+                    'Medical History',
+                    Theme.of(context).colorScheme.primary,
+                    20.sp,
+                    FontWeight.w600),
                 children: [
-                  customText(
-                      context,
-                      'Medical History',
-                      Theme.of(context).colorScheme.surface,
-                      22.sp,
-                      FontWeight.bold),
-                  Divider(
-                    color: Theme.of(context).colorScheme.surface,
-                    thickness: 1,
+                  CheckboxListTile(
+                    title: customText(
+                        context,
+                        'Bleeding Disorders',
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500),
+                    value: widget.patient.medicalHistory['bleedingDisorders'],
+                    onChanged: (bool? value) {},
                   ),
-                  Gap(11.h),
-                  customText(
-                      context,
-                      'Bleeding Disorders: ${widget.patient.medicalHistory['bleedingDisorders']}',
-                      Theme.of(context).colorScheme.surface,
-                      18.sp,
-                      FontWeight.w400),
-                  Gap(11.h),
-                  customText(
-                      context,
-                      'Diabetes: ${widget.patient.medicalHistory['diabetes']}',
-                      Theme.of(context).colorScheme.surface,
-                      18.sp,
-                      FontWeight.w400),
-                  Gap(11.h),
-                  customText(
-                      context,
-                      'Do Not Suffer: ${widget.patient.medicalHistory['doNotSuffer']}',
-                      Theme.of(context).colorScheme.surface,
-                      18.sp,
-                      FontWeight.w400),
-                  Gap(11.h),
-                  customText(
-                      context,
-                      'Heart Disease: ${widget.patient.medicalHistory['heartDisease']}',
-                      Theme.of(context).colorScheme.surface,
-                      18.sp,
-                      FontWeight.w400),
-                  Gap(11.h),
-                  customText(
-                      context,
-                      'High Blood Pressure: ${widget.patient.medicalHistory['highBloodPressure']}',
-                      Theme.of(context).colorScheme.surface,
-                      18.sp,
-                      FontWeight.w400),
-                  Gap(11.h),
-                  customText(
-                      context,
-                      'Kidney Disease: ${widget.patient.medicalHistory['kidneyDisease']}',
-                      Theme.of(context).colorScheme.surface,
-                      18.sp,
-                      FontWeight.w400),
-                  Gap(11.h),
-                  customText(
-                      context,
-                      'Respiratory Diseases: ${widget.patient.medicalHistory['respiratoryDiseases']}',
-                      Theme.of(context).colorScheme.surface,
-                      18.sp,
-                      FontWeight.w400),
+                  CheckboxListTile(
+                    title: customText(
+                        context,
+                        'Diabetes',
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500),
+                    value: widget.patient.medicalHistory['diabetes'],
+                    onChanged: (bool? value) {},
+                  ),
+                  CheckboxListTile(
+                    title: customText(
+                        context,
+                        'Heart Disease',
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500),
+                    value: widget.patient.medicalHistory['heartDisease'],
+                    onChanged: (bool? value) {},
+                  ),
+                  CheckboxListTile(
+                    title: customText(
+                        context,
+                        'High Blood Pressure',
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500),
+                    value: widget.patient.medicalHistory['highBloodPressure'],
+                    onChanged: (bool? value) {},
+                  ),
+                  CheckboxListTile(
+                    title: customText(
+                        context,
+                        'Kidney Disease',
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500),
+                    value: widget.patient.medicalHistory['kidneyDisease'],
+                    onChanged: (bool? value) {},
+                  ),
+                  CheckboxListTile(
+                    title: customText(
+                        context,
+                        'Respiratory Diseases',
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500),
+                    value: widget.patient.medicalHistory['respiratoryDiseases'],
+                    onChanged: (bool? value) {},
+                  ),
+                  CheckboxListTile(
+                    title: customText(
+                        context,
+                        'Do Not Suffer',
+                        Theme.of(context).colorScheme.primary,
+                        20.sp,
+                        FontWeight.w500),
+                    value: widget.patient.medicalHistory['doNotSuffer'],
+                    onChanged: (bool? value) {},
+                  ),
                 ],
               ),
-            ),
-            customButton(context, Theme.of(context).colorScheme.primary, () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AddReportScreen(
-                            caseName: widget.caseName,
-                            caseId: widget.caseId,
-                            patient: widget.patient,
-                          )));
-            }, 'Finish Case', 16),
-            customButton(context, Colors.red, () {
-              FirebaseFirestore.instance
-                  .collection('acceptedRequests')
-                  .doc(widget.caseId)
-                  .update({'caseStatus': 'accepted'});
-              Navigator.pop(context);
-            }, 'stop treating this case', 16),
-          ],
+              Gap(150.h),
+              customButton(context, Theme.of(context).colorScheme.primary, () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddReportScreen(
+                              caseName: widget.caseName,
+                              caseId: widget.caseId,
+                              patient: widget.patient,
+                            )));
+              }, 'Finish Case', 16),
+              customButton(context, Colors.red, () {
+                FirebaseFirestore.instance
+                    .collection('acceptedRequests')
+                    .doc(widget.caseId)
+                    .update({'caseStatus': 'accepted'});
+                Navigator.pop(context);
+              }, 'stop treating this case', 16),
+            ],
+          ),
         ),
       ),
     );
