@@ -16,7 +16,6 @@ import '../widgets/custom_text_field.dart';
 class TeethSelectionScreen extends StatefulWidget {
   UserModel user;
   CaseDetails caseDetails;
-
   final controller = TextEditingController();
 
   //constructor
@@ -29,7 +28,6 @@ class TeethSelectionScreen extends StatefulWidget {
 
 class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
   GlobalKey<FormState> formKey = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +98,7 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
                       'toothNumber':  widget.caseDetails?.toothNumber
                     }, id: uid);
                     await RequestDatabaseServices().addRequest(req,uid);
-                    if (widget.controller.text != '') {
+                    if ((widget.controller.text == '' && widget.caseDetails?.diseaseName == "فحص روتيني")|| ( widget.controller.text != '' && int.parse(widget.controller.text) > 0 && int.parse(widget.controller.text) <=32) ) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -111,8 +109,10 @@ class _ToothSelectionScreenState extends State<TeethSelectionScreen> {
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         backgroundColor: Colors.red,
-                        content: Text('Please enter the tooth number'),
-                      ));
+                        content: Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: Text("الرجاء ادخال رقم سن صحيح")
+                      )));
                     }
                   },
                 )),
