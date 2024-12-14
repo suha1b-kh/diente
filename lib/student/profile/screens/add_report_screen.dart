@@ -85,45 +85,80 @@ class _AddReportScreenState extends State<AddReportScreen> {
           customDialogButton(context, Theme.of(context).colorScheme.secondary,
               () async {
             await _pickImage(ImageSource.gallery);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text(
+                    'Are you sure you want to add this photo?',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  content: _imageFile == null
+                      ? const Text('No image selected.')
+                      : Image.file(_imageFile!),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('No'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        log('message 1');
+                        if (_imageFile != null) {
+                          //reference to the firebase storage
+                          final storageRef = FirebaseStorage.instance.ref();
+                          //upload the image to the firebase storage
+                          UploadTask task = storageRef
+                              .child(
+                                  'reports_pic/${_imageFile!.path.split('/').last}')
+                              .putFile(_imageFile!);
+                          //get the download url of the image
+                          task.whenComplete(() async {
+                            final downloadUrl = storageRef.child(
+                                'reports_pic/${_imageFile!.path.split('/').last}');
+                            downloadUrlString =
+                                await downloadUrl.getDownloadURL();
+                            log(downloadUrlString.toString());
+                          });
+                        }
+                        addReport(
+                          ReportModel(
+                            caseName: widget.caseName,
+                            reportPic: downloadUrlString!,
+                            reportId: widget.caseId,
+                          ),
+                        );
 
-            if (_imageFile != null) {
-              //reference to the firebase storage
-              final storageRef = FirebaseStorage.instance.ref();
-              //upload the image to the firebase storage
-              UploadTask task = storageRef
-                  .child('reports_pic/${_imageFile!.path.split('/').last}')
-                  .putFile(_imageFile!);
-              //get the download url of the image
-              task.whenComplete(() async {
-                final downloadUrl = storageRef
-                    .child('reports_pic/${_imageFile!.path.split('/').last}');
-                downloadUrlString = await downloadUrl.getDownloadURL();
-                log(downloadUrlString.toString());
-              });
-            }
-            log('message');
-            addReport(
-              ReportModel(
-                caseName: widget.caseName,
-                reportPic: downloadUrlString!,
-                reportId: widget.caseId,
-              ),
+                        finishCase(widget.caseId);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('Report added successfully!'),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondary,
+                            duration: const Duration(seconds: 1),
+                          ),
+                        );
+                        // await Future.delayed(const Duration(seconds: 2));
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ControlScreen()),
+                            (route) => false);
+                      },
+                      child: const Text('Yes'),
+                    ),
+                  ],
+                );
+              },
             );
-
-            finishCase(widget.caseId);
-
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: const Text('Report added successfully!'),
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-                duration: const Duration(seconds: 1),
-              ),
-            );
-            await Future.delayed(const Duration(seconds: 2));
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const ControlScreen()),
-                (route) => false);
+            // log('message');s
           }, 'select photo', 16.sp),
         ],
       ),
