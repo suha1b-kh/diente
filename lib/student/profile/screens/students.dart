@@ -17,7 +17,7 @@ class Students extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: FutureBuilder<StudentModel>(
-          future: studentModelFuture,
+          future: StudentServices().fetchStudent(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();

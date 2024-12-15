@@ -21,8 +21,8 @@ class StudentAppbar extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) => MainStudentProfile(
-                        student: student,
-                      )),
+                  stdModel: student,
+                  )),
             ),
             child: CircleAvatar(
               radius: 20,

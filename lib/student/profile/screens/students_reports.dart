@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/constants.dart';
+import '../widgets/student_pic_and_name.dart';
 
 class ViewReports extends StatefulWidget {
   dynamic stdModel;
@@ -64,48 +65,9 @@ class _ViewReportsState extends State<ViewReports> {
                 SliverList(
                     delegate: SliverChildListDelegate([
                   Center(
-                    child: CircleAvatar(
-                      radius: 50.r,
-                      backgroundColor: Theme.of(context).colorScheme.primary,
-                      backgroundImage: widget.stdModel.profilePic.isNotEmpty
-                          ? NetworkImage(widget.stdModel.profilePic)
-                          : null,
-                      child: widget.stdModel.profilePic.isEmpty
-                        ? Text(
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          '${widget.stdModel.name[0].toUpperCase()}${widget.stdModel.name[1].toUpperCase()}')
-                      : null,
-                    ),
+                    child: StudentPicAndName(student: widget.stdModel,),
                   ),
-                  Gap(20.h),
-                  Center(
-                    child: Text(
-                      widget.stdModel.name,
-                      style: TextStyle(
-                        color: const Color(0xFF1B2A57),
-                        fontSize: 20.sp,
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w400,
-                        height: 0.h,
-                      ),
-                    ),
-                  ),
-                  Gap(20.h),
-                  Text(
-                    'Diente student  Reports',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: const Color(0xFF1B2A57),
-                      fontSize: 20.sp,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
-                      height: 0.h,
-                    ),
-                  ),
+
                   Gap(28.h),
                 ])),
                 SliverGrid(
