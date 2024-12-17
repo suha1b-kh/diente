@@ -1,5 +1,9 @@
 import 'dart:developer';
+import 'dart:ffi';
 import 'package:diente/auth/data/models/user.dart';
+import 'package:diente/core/report_problem/data/model/report_problem_model.dart';
+import 'package:diente/core/report_problem/data/source/report_problem.dart';
+import 'package:diente/core/widgets/text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -151,6 +155,120 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
               // ignore: use_build_context_synchronously
               Navigator.popAndPushNamed(context, '/login_screen');
             },
+          ),
+          TextButton(
+            onPressed: () {
+              log('Report a problem button pressed');
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  TextEditingController problemController =
+                      TextEditingController();
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    title: customText(
+                      context,
+                      'الابلاغ عن مشكلة',
+                      Theme.of(context).colorScheme.secondary,
+                      16.sp,
+                      FontWeight.w500,
+                    ),
+                    content: TextField(
+                      controller: problemController,
+                      maxLines: 5,
+                      decoration: InputDecoration(
+                        hintText: 'صف مشكلتك هنا...',
+                        hintStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.secondary),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.secondary),
+                        ),
+                      ),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: customText(
+                          context,
+                          'الغاء',
+                          Theme.of(context).colorScheme.secondary,
+                          16.sp,
+                          FontWeight.w500,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          if (problemController.text.isNotEmpty) {
+                            ReportProblemModel report = ReportProblemModel(
+                              description: problemController.text,
+                              userId: uid,
+                              timestamp: DateTime.now(),
+                              userEmail:
+                                  FirebaseAuth.instance.currentUser!.email!,
+                            );
+                            ReportProblemService().addReport(report);
+                            Navigator.of(context).pop();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: customText(
+                                  context,
+                                  'تم ارسال مشكلتك بنجاح',
+                                  Colors.white,
+                                  16.sp,
+                                  FontWeight.w500,
+                                ),
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.secondary,
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: customText(
+                                  context,
+                                  'الرجاء كتابة مشكلتك',
+                                  Colors.white,
+                                  16.sp,
+                                  FontWeight.w500,
+                                ),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
+                        },
+                        child: customText(
+                          context,
+                          'تأكيد',
+                          Theme.of(context).colorScheme.secondary,
+                          16.sp,
+                          FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            child: customText(
+              context,
+              'الإبلاغ عن مشكلة',
+              Theme.of(context).colorScheme.secondary,
+              16.sp,
+              FontWeight.w500,
+            ),
           ),
         ],
       ),
